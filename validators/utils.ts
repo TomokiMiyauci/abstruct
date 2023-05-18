@@ -12,6 +12,12 @@ export function displayOr(input: readonly unknown[]): string {
   return head.join(", ") + " or " + last;
 }
 
+export function shouldBe(
+  this: Display,
+): string {
+  return format(error.should_be, this);
+}
+
 export function shouldBeBut(
   this: Display,
   { input }: { input: unknown },

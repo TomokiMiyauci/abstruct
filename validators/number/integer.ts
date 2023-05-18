@@ -1,14 +1,14 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { display, format, ScalarValidator } from "../../utils.ts";
-import error from "../error.json" assert { type: "json" };
+import { shouldBeBut } from "../utils.ts";
+import { display, ScalarValidator } from "../../utils.ts";
 
 @display("integer")
 export class IntegerValidator extends ScalarValidator<number> {
   constructor() {
     super();
-    super.expect(({ input }) => format(error.should_be_but, this, input));
+    super.expect(shouldBeBut);
   }
 
   is = Number.isInteger;
