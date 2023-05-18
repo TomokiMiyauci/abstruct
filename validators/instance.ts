@@ -2,12 +2,13 @@
 // This module is browser compatible.
 
 import { type Constructor } from "../deps.ts";
-import { AssertiveScalarValidator } from "../utils.ts";
+import { AssertiveScalarValidator, format } from "../utils.ts";
 import { type Display } from "../types.ts";
+import error from "./error.json" assert { type: "json" };
 
 // deno-lint-ignore ban-types
-function message(this: Display, { input }: { input: {} }): string {
-  return `should be ${this}, but ${input.constructor.name}`;
+export function message(this: Display, { input }: { input: {} }): string {
+  return format(error.should_be_but, this, input.constructor.name);
 }
 
 export class InstanceValidator<T extends Constructor = Constructor> extends // deno-lint-ignore ban-types

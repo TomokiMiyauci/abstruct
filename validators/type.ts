@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { Assert, Display } from "../types.ts";
+import { type Display } from "../types.ts";
 import { AssertiveScalarValidator, format } from "../utils.ts";
 import error from "./error.json" assert { type: "json" };
 
@@ -22,7 +22,6 @@ export interface TypeMap {
 
 export class TypeValidator<T extends Type>
   extends AssertiveScalarValidator<unknown, TypeMap[T]> {
-  declare [Assert.symbol]: TypeMap[T];
   constructor(public of: T) {
     super();
     super.expect(message);
@@ -39,5 +38,5 @@ export class TypeValidator<T extends Type>
 }
 
 export function message(this: Display, { input }: { input: unknown }): string {
-  return format(error.should_be, this, typeof input);
+  return format(error.should_be_but, this, typeof input);
 }
