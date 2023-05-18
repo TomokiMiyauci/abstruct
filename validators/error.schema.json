@@ -1,0 +1,11 @@
+{
+  "type": "object",
+
+  "patternProperties": {
+    ".*": {
+      "description": "Error message.",
+      "format": "It can use placeholder with bracket style.",
+      "type": "string"
+    }
+  }
+}
