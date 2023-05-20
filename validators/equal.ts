@@ -3,12 +3,12 @@
 
 import { shouldBeBut } from "./utils.ts";
 import { ScalarValidator } from "../utils.ts";
-import type { Assert } from "../types.ts";
+import type { Assert, AssertiveValidator } from "../types.ts";
 
-export class ValueValidator<Out = unknown> extends ScalarValidator
-  implements Assert<unknown, Out> {
-  declare [Assert.symbol]: Out;
-  constructor(public value: Out) {
+export class EqualValidator<const In_ = unknown> extends ScalarValidator
+  implements AssertiveValidator<unknown, In_> {
+  declare [Assert.symbol]: In_;
+  constructor(public value: In_) {
     super();
     super.expect(shouldBeBut);
   }
