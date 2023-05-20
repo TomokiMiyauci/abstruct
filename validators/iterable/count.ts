@@ -5,7 +5,7 @@ import { getSize } from "./utils.ts";
 import { format, ScalarValidator } from "../../utils.ts";
 import error from "../error.json" assert { type: "json" };
 
-export class SizeValidator extends ScalarValidator<Iterable<unknown>> {
+export class CountValidator extends ScalarValidator<Iterable<unknown>> {
   constructor(public size: number) {
     super();
     super.expect(({ input }) =>
@@ -18,6 +18,6 @@ export class SizeValidator extends ScalarValidator<Iterable<unknown>> {
   }
 
   toString(): string {
-    return `size of ${this.size}`;
+    return `number of ${this.size}`;
   }
 }
