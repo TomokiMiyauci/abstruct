@@ -10,7 +10,7 @@ import {
   ValidationError,
 } from "../../types.ts";
 
-export class ElementValidator<In = unknown, In_ extends In = In>
+export class ItemValidator<In = unknown, In_ extends In = In>
   implements AssertiveValidator<Iterable<In>, Iterable<In_>> {
   declare [Assert.symbol]: Iterable<In_>;
   constructor(public readonly validator: Validation<In, In_>) {}
