@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { map } from "../iter_utils.ts";
-import { fromPath, partialR } from "../utils.ts";
+import { curryR, fromPath } from "../utils.ts";
 import {
   Assert,
   AssertiveValidator,
@@ -26,7 +26,7 @@ export class ObjectValidator<
       const value = input[key];
       const iterable = validator.validate(value as never);
 
-      yield* map(iterable, partialR(fromPath, key));
+      yield* map(iterable, curryR(fromPath, key));
     }
   }
 }
