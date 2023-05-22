@@ -10,7 +10,7 @@ import {
   ValidationError,
   Validator,
 } from "./types.ts";
-import { take } from "./utils.ts";
+import { take } from "./iter_utils.ts";
 
 /** Whether the input satisfy the schema or not. */
 export function is<In = unknown, In_ extends In = In>(

@@ -5,9 +5,16 @@ import { interpolate } from "../utils.ts";
 import error from "./error.json" assert { type: "json" };
 import type { Display } from "../types.ts";
 
-export function displayOr(input: readonly unknown[]): string {
-  const head = input.slice(0, -1);
-  const last = input.slice(-1)[0];
+export function displayOr(
+  v1: unknown,
+  v2: unknown,
+  ...values: readonly unknown[]
+): string;
+export function displayOr(
+  ...args: readonly [unknown, unknown, ...readonly unknown[]]
+): string {
+  const head = args.slice(0, -1);
+  const last = args.slice(-1)[0];
 
   return head.join(", ") + " or " + last;
 }
