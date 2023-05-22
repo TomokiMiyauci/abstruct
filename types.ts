@@ -4,7 +4,7 @@
 import { isString } from "./deps.ts";
 
 /** Validator API. */
-export interface Validator<In = unknown> extends Display {
+export interface Validator<in In = unknown> {
   /** Validates the input and yield validation errors if exists. */
   validate: (input: In) => Iterable<ValidationError>;
 }
@@ -17,12 +17,8 @@ export interface Display {
   toString(): string;
 }
 
-export interface Transformer<In = unknown, Out = In> {
+export interface Transformer<in In = unknown, out Out = In> {
   transform: (input: In) => Out;
-}
-
-export interface Struct<In = unknown, In_ extends In = In, Out = unknown>
-  extends Iterable<Validator<In> | Transformer<In, Out>> {
 }
 
 /** Assert API for validated data type. */
