@@ -5,9 +5,7 @@ import { type Display } from "../types.ts";
 import { AssertiveScalarValidator, format } from "../utils.ts";
 import error from "./error.json" assert { type: "json" };
 
-export type Type = keyof TypeMap;
-
-export interface TypeMap {
+interface LegacyTypeMap {
   bigint: bigint;
   boolean: boolean;
   // deno-lint-ignore ban-types
@@ -20,6 +18,14 @@ export interface TypeMap {
   undefined: undefined;
 }
 
+export interface TypeMap extends LegacyTypeMap {
+  // deno-lint-ignore ban-types
+  object: object;
+  null: null;
+}
+
+export type Type = keyof TypeMap;
+
 export class TypeValidator<T extends Type>
   extends AssertiveScalarValidator<unknown, TypeMap[T]> {
   constructor(public of: T) {
@@ -28,13 +34,21 @@ export class TypeValidator<T extends Type>
   }
 
   override is(input: unknown): input is TypeMap[T] {
-    // deno-lint-ignore valid-typeof
-    return typeof input === this.of;
+    return typeOf(input) === this.of;
   }
 
   toString(): string {
     return `type of ${this.of}`;
   }
+}
+
+/** Strict {@link typeof} operation. */
+export function typeOf(input: unknown): Type {
+  const of = typeof input;
+
+  if (of === "object" && input === null) return "null";
+
+  return of;
 }
 
 export function message(this: Display, { input }: { input: unknown }): string {
