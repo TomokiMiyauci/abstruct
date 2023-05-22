@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { curryR, fromPath } from "../../utils.ts";
-import { entries, map } from "../../iter_utils.ts";
+import { enumerate, map } from "../../iter_utils.ts";
 import {
   Assert,
   AssertiveValidator,
@@ -16,7 +16,7 @@ export class ItemValidator<In = unknown, In_ extends In = In>
   constructor(public readonly validator: Validation<In, In_>) {}
 
   *validate(input: Iterable<In>): Iterable<ValidationError> {
-    for (const [i, el] of entries(input)) {
+    for (const [i, el] of enumerate(input)) {
       const iterable = this.validator.validate(el);
       const createError = curryR(fromPath, `${i}`);
 
