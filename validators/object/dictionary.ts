@@ -1,16 +1,16 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { map } from "../iter_utils.ts";
-import { curryR, fromPath } from "../utils.ts";
+import { map } from "../../iter_utils.ts";
+import { curryR, fromPath } from "../../utils.ts";
 import {
   Assert,
   AssertiveValidator,
   Validation,
   ValidationError,
-} from "../types.ts";
+} from "../../types.ts";
 
-export class ObjectValidator<
+export class DictionaryValidator<
   const In extends Record<string, unknown>,
   const In_ extends In = In,
 > implements AssertiveValidator<In, In_> {
@@ -23,7 +23,7 @@ export class ObjectValidator<
 
   *validate(input: In): Iterable<ValidationError> {
     for (const [key, validator] of Object.entries(this.validators)) {
-      const value = input[key];
+      const value = input?.[key];
       const iterable = validator.validate(value as never);
 
       yield* map(iterable, curryR(fromPath, key));
