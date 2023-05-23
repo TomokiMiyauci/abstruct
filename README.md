@@ -69,7 +69,7 @@ Also, as a validation,
 import {
   and,
   assert,
-  max,
+  maxCount,
   number,
   object,
   pattern,
@@ -81,7 +81,7 @@ import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 const Id = and(string, pattern(/^\d$/));
 const Book = object({
   id: Id,
-  title: maxCount(256).expect(`should be less than or equal to 256`),
+  title: maxCount(256).expect(`length should be less than or equal to 256`),
   publishAt: validDate,
 });
 
