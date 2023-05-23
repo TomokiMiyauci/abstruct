@@ -3,7 +3,7 @@
 
 import { enumerate } from "../../iter_utils.ts";
 import { display, interpolate } from "../../utils.ts";
-import { Reporter, ValidationError, Validator } from "../../types.ts";
+import { Reporter, ValidationFailure, Validator } from "../../types.ts";
 import error from "../error.json" assert { type: "json" };
 
 interface Context {
@@ -19,9 +19,9 @@ export class UniqueValidator extends Reporter<Context>
     super();
     super.expect(({ item }) => interpolate(error.unique, [item]));
   }
-  *validate(input: Iterable<unknown>): Iterable<ValidationError> {
+  *validate(input: Iterable<unknown>): Iterable<ValidationFailure> {
     for (const [index, item] of duplicates(input)) {
-      yield new ValidationError(
+      yield new ValidationFailure(
         this.report({ input, item, index }),
         {
           instancePath: [index.toString()],

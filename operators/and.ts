@@ -3,10 +3,10 @@
 
 import { iter } from "../iter_utils.ts";
 import {
-  Assert,
-  AssertiveValidator,
-  Validation,
-  ValidationError,
+  type Assert,
+  type AssertiveValidator,
+  type Validation,
+  type ValidationFailure,
 } from "../types.ts";
 
 export class AndValidator<In, In_ extends Via, Via extends In = In & In_>
@@ -19,7 +19,7 @@ export class AndValidator<In, In_ extends Via, Via extends In = In & In_>
     this.validators = validators;
   }
 
-  *validate(input: In): Iterable<ValidationError> {
+  *validate(input: In): Iterable<ValidationFailure> {
     for (const validator of this.validators) {
       const iterable = validator.validate(input);
       const result = iter(iterable);

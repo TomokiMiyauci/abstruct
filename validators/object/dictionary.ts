@@ -7,7 +7,7 @@ import {
   Assert,
   AssertiveValidator,
   Validation,
-  ValidationError,
+  ValidationFailure,
 } from "../../types.ts";
 
 export class DictionaryValidator<
@@ -21,7 +21,7 @@ export class DictionaryValidator<
       & { [k in keyof In_]: Validation<In_[k]> },
   ) {}
 
-  *validate(input: In): Iterable<ValidationError> {
+  *validate(input: In): Iterable<ValidationFailure> {
     for (const [key, validator] of Object.entries(this.validators)) {
       const value = input?.[key];
       const iterable = validator.validate(value as never);

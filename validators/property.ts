@@ -8,7 +8,7 @@ import {
   Assert,
   AssertiveValidator,
   Validation,
-  ValidationError,
+  type ValidationFailure,
   Validator,
 } from "../types.ts";
 
@@ -21,7 +21,7 @@ export class PropertyValidator<In_ extends string = string>
     this.validator = validator as Validator<string>;
   }
 
-  *validate(input: {}): Iterable<ValidationError> {
+  *validate(input: {}): Iterable<ValidationFailure> {
     for (const key in input) {
       const createError = curryR(fromPath, key);
 

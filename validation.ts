@@ -1,13 +1,13 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isEmpty, isString } from "./deps.ts";
+import { isEmpty } from "./deps.ts";
 import {
   Err,
   Ok,
   Result,
   Validation,
-  ValidationError,
+  ValidationFailure,
   Validator,
 } from "./types.ts";
 import { take } from "./iter_utils.ts";
@@ -81,31 +81,27 @@ export function assert(
   if (result.isOk()) return;
 
   if (hasOnce) {
-    const e = result.errors[0]!;
+    const failure = result.failures[0]!;
     const {
-      error,
-      message = makeMsg(e, { rootName }),
+      error = ValidationError,
+      message = makeMsg(failure, { rootName }),
       cause,
     } = options;
-
-    if (error) throw captured(new error(message, { cause }));
-
-    e.cause = cause;
-
-    if (isString(message)) e.message = message;
+    const e = new error(message, { cause, instancePath: failure.instancePath });
 
     throw captured(e);
   }
 
   options.error ??= AggregateError;
 
-  throw captured(
-    new options.error(
-      result.errors.map((e) => exposePath(e, rootName)).map(captured),
-      message,
-      { cause },
-    ),
-  );
+  const errors = result.failures
+    .map((failure) =>
+      new ValidationError(makeMsg(failure, { rootName }), {
+        instancePath: failure.instancePath,
+      })
+    ).map(captured);
+
+  throw captured(new options.error(errors, message, { cause }));
 
   // deno-lint-ignore ban-types
   function captured<T extends Object>(error: T): T {
@@ -117,7 +113,7 @@ export function assert(
   }
 }
 
-export interface ValidateOptions extends ErrorOptions {
+export interface ValidateOptions {
   /**
    * @default Infinity
    */
@@ -132,40 +128,46 @@ export function validate<In = unknown, In_ extends In = In>(
   input: In,
   options: ValidateOptions = {},
 ): Result<In_> {
-  const errors = [...take(validation.validate(input), options.maxErrors)]
-    .map(setCause);
+  const failures = [...take(validation.validate(input), options.maxErrors)];
 
-  if (!errors.length) return new Ok(input as In_);
+  if (!failures.length) return new Ok(input as In_);
 
-  return new Err(errors);
+  return new Err(failures);
+}
 
-  function setCause<T extends Error>(error: T): T {
-    error.cause ??= options.cause;
+/** Validation error. */
+export class ValidationError extends Error {
+  /** The path to a part of the instance. */
+  instancePath: string[];
 
-    return error;
+  override name = "ValidationError";
+
+  constructor(
+    message?: string,
+    options: ValidationErrorOptions = {},
+  ) {
+    super(message, options);
+    this.instancePath = options.instancePath ?? [];
   }
 }
 
+/** Validation error options. */
+export interface ValidationErrorOptions extends ErrorOptions {
+  /** Path to instance. */
+  instancePath?: string[];
+}
+
 function makeMsg(
-  error: ValidationError,
+  failure: ValidationFailure,
   options: { rootName?: string } = {},
 ): string {
   const { rootName: name } = options;
-  const { instancePath, message } = error;
+  const { instancePath, message } = failure;
   const pathSection = instancePath.length
     ? "\n" + new InstancePath(instancePath, { name })
     : "";
 
   return message + pathSection;
-}
-
-function exposePath(
-  error: ValidationError,
-  rootPathDisplay?: string,
-): ValidationError {
-  error.message = makeMsg(error, { rootName: rootPathDisplay });
-
-  return error;
 }
 
 interface InstancePathOptions {

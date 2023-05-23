@@ -7,7 +7,7 @@ import {
   Assert,
   AssertiveValidator,
   Validation,
-  ValidationError,
+  ValidationFailure,
 } from "../../types.ts";
 
 export class OptionalValidator<
@@ -21,7 +21,7 @@ export class OptionalValidator<
       & { [k in keyof In_]: Validation<In_[k]> },
   ) {}
 
-  *validate(input: Partial<In>): Iterable<ValidationError> {
+  *validate(input: Partial<In>): Iterable<ValidationFailure> {
     const validators = filterKeys(
       this.validators,
       hasInput,

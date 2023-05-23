@@ -6,7 +6,7 @@ import { isString } from "./deps.ts";
 /** Validator API. */
 export interface Validator<in In = unknown> {
   /** Validates the input and yield validation errors if exists. */
-  validate: (input: In) => Iterable<ValidationError>;
+  validate: (input: In) => Iterable<ValidationFailure>;
 }
 
 export type Validation<In = unknown, In_ extends In = In> = In extends In_
@@ -15,6 +15,23 @@ export type Validation<In = unknown, In_ extends In = In> = In extends In_
 
 export interface Display {
   toString(): string;
+}
+
+/** Validation failure. */
+export class ValidationFailure {
+  /** The validation failure message. */
+  message: string;
+
+  /** The path to a part of the instance. */
+  instancePath: string[];
+
+  constructor(
+    message?: string,
+    options?: Readonly<{ instancePath: string[] }>,
+  ) {
+    this.message = message ?? "";
+    this.instancePath = options?.instancePath ?? [];
+  }
 }
 
 export interface Transformer<in In = unknown, out Out = In> {
@@ -32,28 +49,6 @@ export class Assert {
 
 export interface AssertiveValidator<In = unknown, In_ extends In = In>
   extends Validator<In>, Assert<In_> {}
-
-/** Validation error options. */
-export interface ValidationErrorOptions extends ErrorOptions {
-  /** Path to instance. */
-  instancePath?: string[];
-}
-
-/** Validation error. */
-export class ValidationError extends Error {
-  /** The path to a part of the instance. */
-  instancePath: string[];
-
-  override name = "ValidationError";
-
-  constructor(
-    message?: string,
-    options: ValidationErrorOptions = {},
-  ) {
-    super(message, options);
-    this.instancePath = options.instancePath ?? [];
-  }
-}
 
 export interface Reporter<T = unknown> {
   report(context: T): string;
@@ -109,10 +104,10 @@ export class Err {
   type: "error" = "error";
 
   /** Actual errors. */
-  errors: readonly ValidationError[];
+  failures: readonly ValidationFailure[];
 
-  constructor(errors: readonly ValidationError[]) {
-    this.errors = errors;
+  constructor(failures: readonly ValidationFailure[]) {
+    this.failures = failures;
   }
 
   /** Whether the {@link Result} is {@link Ok} or not. */

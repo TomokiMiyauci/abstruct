@@ -7,7 +7,7 @@ import {
   Assert,
   AssertiveValidator,
   Validation,
-  ValidationError,
+  type ValidationFailure,
 } from "../../types.ts";
 
 export class ItemValidator<In = unknown, In_ extends In = In>
@@ -15,7 +15,7 @@ export class ItemValidator<In = unknown, In_ extends In = In>
   declare [Assert.symbol]: Iterable<In_>;
   constructor(public readonly validator: Validation<In, In_>) {}
 
-  *validate(input: Iterable<In>): Iterable<ValidationError> {
+  *validate(input: Iterable<In>): Iterable<ValidationFailure> {
     for (const [i, el] of enumerate(input)) {
       const iterable = this.validator.validate(el);
       const createError = curryR(fromPath, `${i}`);
