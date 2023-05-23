@@ -17,7 +17,7 @@ export class MaxCountValidator extends ScalarValidator<Iterable<unknown>> {
     return getCount(input) <= this.size;
   }
 
-  toString(): string {
+  override toString(): string {
     return `max item count of ${this.size}`;
   }
 }

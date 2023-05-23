@@ -16,7 +16,7 @@ export class PatternValidator extends ScalarValidator<string> {
     return this.pattern.test(input);
   }
 
-  toString(): string {
+  override toString(): string {
     return `pattern of \`${this.pattern}\``;
   }
 }

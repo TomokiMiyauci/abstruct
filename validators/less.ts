@@ -14,7 +14,7 @@ export class LessValidator<In> extends ScalarValidator<In> {
     return input < this.base;
   }
 
-  toString(): string {
+  override toString(): string {
     return `less then ${this.base}`;
   }
 }

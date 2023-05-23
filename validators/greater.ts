@@ -14,7 +14,7 @@ export class GreaterValidator<In> extends ScalarValidator<In> {
     return this.base < input;
   }
 
-  toString(): string {
+  override toString(): string {
     return `greater then ${this.base}`;
   }
 }

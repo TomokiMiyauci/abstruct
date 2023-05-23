@@ -17,7 +17,7 @@ export class MinCountValidator extends ScalarValidator<Iterable<unknown>> {
     return this.size <= getCount(input);
   }
 
-  toString(): string {
+  override toString(): string {
     return `min item count of ${this.size}`;
   }
 }

@@ -37,7 +37,7 @@ export class TypeValidator<T extends Type>
     return typeOf(input) === this.of;
   }
 
-  toString(): string {
+  override toString(): string {
     return `type of ${this.of}`;
   }
 }

@@ -5,7 +5,7 @@ import { shouldBeBut } from "./utils.ts";
 import { ScalarValidator } from "../utils.ts";
 import type { Assert, AssertiveValidator } from "../types.ts";
 
-export class EqualValidator<const In_ = unknown> extends ScalarValidator
+export class EqualityValidator<const In_ = unknown> extends ScalarValidator
   implements AssertiveValidator<unknown, In_> {
   declare [Assert.symbol]: In_;
   constructor(public value: In_) {
@@ -17,7 +17,7 @@ export class EqualValidator<const In_ = unknown> extends ScalarValidator
     return input === this.value;
   }
 
-  toString(): string {
+  override toString(): string {
     return `${this.value}`;
   }
 }

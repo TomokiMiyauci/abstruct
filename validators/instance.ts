@@ -22,7 +22,7 @@ AssertiveScalarValidator<{}, InstanceType<T>> {
     return input instanceof this.of;
   }
 
-  toString(): string {
+  override toString(): string {
     return `instance of ${this.of.name}`;
   }
 }

@@ -18,7 +18,7 @@ export class CountValidator extends ScalarValidator<Iterable<unknown>> {
     return getCount(input) === this.count;
   }
 
-  toString(): string {
+  override toString(): string {
     const pr = new Intl.PluralRules("en-US");
     const suffix = plural[pr.select(this.count)];
 
