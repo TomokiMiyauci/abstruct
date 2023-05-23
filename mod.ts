@@ -23,6 +23,7 @@ export {
   optional,
   pattern,
   positive,
+  property,
   string,
   type,
   unique,

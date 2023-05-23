@@ -3,6 +3,7 @@
 
 import { TypeValidator } from "./validators/type.ts";
 import { InstanceValidator } from "./validators/instance.ts";
+import { PropertyValidator } from "./validators/property.ts";
 import { DictionaryValidator } from "./validators/object/dictionary.ts";
 import { OptionalValidator } from "./validators/object/optional.ts";
 import { NullishValidator } from "./validators/nullish.ts";
@@ -35,6 +36,9 @@ export const eq = /* @__PURE__ */ lazy(EqualityValidator);
 export const lt = /* @__PURE__ */ lazy(LessValidator);
 export const gt = /* @__PURE__ */ lazy(GreaterValidator);
 export const and = /* @__PURE__ */ lazy(AndValidator);
+
+// known
+export const property = /* @__PURE__ */ lazy(PropertyValidator);
 
 // Date
 export const validDate = /* @__PURE__ */ new ValidDateValidator();
