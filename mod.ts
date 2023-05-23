@@ -24,5 +24,6 @@ export {
   positive,
   string,
   type,
+  unique,
   validDate,
 } from "./combinator.ts";

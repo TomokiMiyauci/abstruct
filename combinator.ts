@@ -12,6 +12,7 @@ import { PatternValidator } from "./validators/string/pattern.ts";
 import { CountValidator } from "./validators/iterable/count.ts";
 import { EmptyValidator } from "./validators/iterable/empty.ts";
 import { ItemValidator } from "./validators/iterable/item.ts";
+import { UniqueValidator } from "./validators/iterable/unique.ts";
 import { MaxCountValidator } from "./validators/iterable/max_count.ts";
 import { MinCountValidator } from "./validators/iterable/min_count.ts";
 import { NonEmptyValidator } from "./validators/iterable/non_empty.ts";
@@ -43,6 +44,7 @@ export const item = /* @__PURE__ */ lazy(ItemValidator);
 export const maxCount = /* @__PURE__ */ lazy(MaxCountValidator);
 export const minCount = /* @__PURE__ */ lazy(MinCountValidator);
 export const nonEmpty = /* @__PURE__ */ new NonEmptyValidator();
+export const unique = /* @__PURE__ */ new UniqueValidator();
 
 // number
 export const int = /* @__PURE__ */ new IntegerValidator();
