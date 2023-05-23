@@ -3,6 +3,7 @@
 
 export { assert, is, validate, type ValidateOptions } from "./validation.ts";
 export {
+  and,
   bigint,
   boolean,
   count,
@@ -23,4 +24,5 @@ export {
   positive,
   string,
   type,
+  validDate,
 } from "./combinator.ts";
