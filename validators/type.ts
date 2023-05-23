@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { type Display } from "../types.ts";
-import { AssertiveScalarValidator, format } from "../utils.ts";
+import { AssertiveScalarValidator, interpolate } from "../utils.ts";
 import error from "./error.json" assert { type: "json" };
 
 interface LegacyTypeMap {
@@ -52,5 +52,5 @@ export function typeOf(input: unknown): Type {
 }
 
 export function message(this: Display, { input }: { input: unknown }): string {
-  return format(error.should_be_but, this, typeof input);
+  return interpolate(error.should_be_but, [this, typeof input]);
 }

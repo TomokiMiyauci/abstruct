@@ -10,8 +10,9 @@ import {
 } from "./types.ts";
 import { escapeStringRegex } from "./deps.ts";
 
-export function display(repr: string): ClassDecorator {
-  return function (constructor) {
+export function display(repr: string) {
+  // deno-lint-ignore no-explicit-any
+  return function <C extends { new (...args: any): any }>(constructor: C) {
     return class extends constructor implements Display {
       toString(): string {
         return repr;
@@ -45,21 +46,11 @@ export abstract class AssertiveScalarValidator<
   In_ extends In,
 > extends ScalarValidator<In> {
   /** Whether the {@link In} is {@link Out} or not. */
-  abstract is(input: In): input is In_;
+  abstract override is(input: In): input is In_;
 }
 
 export interface AssertiveScalarValidator<In, In_>
   extends ScalarValidator<In>, Assert<In_> {}
-
-export function format(input: string, ...placeholders: unknown[]): string {
-  for (const [i, placeholder] of placeholders.entries()) {
-    const pattern = new RegExp(`\\{${i}\\}`, "g");
-
-    input = input.replace(pattern, `${placeholder}`);
-  }
-
-  return input;
-}
 
 export function curryR<A0, A extends readonly unknown[], R>(
   fn: (...args: [...A, A0]) => R,
@@ -90,10 +81,10 @@ export function fromPath(
 }
 
 export function interpolate<
-  T,
+  T extends string,
   const U extends Delimiters = { prefix: "{"; suffix: "}" },
 >(
-  template: string & T,
+  template: string,
   placeholders: { [k in ParsePlaceholder<T, U>]: unknown },
   options?: U,
 ): string {
