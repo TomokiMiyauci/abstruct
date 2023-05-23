@@ -9,7 +9,7 @@
 [![test](https://github.com/TomokiMiyauci/abstruct/actions/workflows/test.yaml/badge.svg)](https://github.com/TomokiMiyauci/abstruct/actions/workflows/test.yaml)
 [![NPM](https://nodei.co/npm/abstruct.png?mini=true)](https://nodei.co/npm/abstruct/)
 
-Composable, validation for JavaScript data
+Abstract structure for JavaScript data validation
 
 Abstruct(not abstract!) provides functions for defining data structures. It also
 has an abstract interface that allows data structures to be used for any
