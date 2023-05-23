@@ -2,14 +2,7 @@
 // This module is browser compatible.
 
 import { isEmpty } from "./deps.ts";
-import {
-  Err,
-  Ok,
-  Result,
-  Validation,
-  ValidationFailure,
-  Validator,
-} from "./types.ts";
+import { Validation, type ValidationFailure, Validator } from "./types.ts";
 import { take } from "./iter_utils.ts";
 
 /** Whether the input satisfy the schema or not. */
@@ -81,7 +74,7 @@ export function assert(
   if (result.isOk()) return;
 
   if (hasOnce) {
-    const failure = result.failures[0]!;
+    const failure = result.value[0]!;
     const {
       error = ValidationError,
       message = makeMsg(failure, { rootName }),
@@ -94,7 +87,7 @@ export function assert(
 
   options.error ??= AggregateError;
 
-  const errors = result.failures
+  const errors = result.value
     .map((failure) =>
       new ValidationError(makeMsg(failure, { rootName }), {
         instancePath: failure.instancePath,
@@ -127,7 +120,7 @@ export function validate<In = unknown, In_ extends In = In>(
   validation: Validation<In, In_>,
   input: In,
   options: ValidateOptions = {},
-): Result<In_> {
+): Result<In_, ValidationFailure[]> {
   const failures = [...take(validation.validate(input), options.maxErrors)];
 
   if (!failures.length) return new Ok(input as In_);
@@ -150,6 +143,55 @@ export class ValidationError extends Error {
     this.instancePath = options.instancePath ?? [];
   }
 }
+
+/** Result of OK API. */
+export class Ok<T> {
+  /** Node type. */
+  type: "ok" = "ok";
+
+  /** Actual data. */
+  value: T;
+
+  constructor(value: T) {
+    this.value = value;
+  }
+
+  /** Whether the {@link Result} is {@link Ok} or not. */
+  isOk(): this is Ok<T> {
+    return true;
+  }
+
+  /** Whether the {@link Result} is {@link Err} or not. */
+  isErr(): this is Err<never> {
+    return false;
+  }
+}
+
+/** Result of Error API. */
+export class Err<E> {
+  /** Node type. */
+  type: "error" = "error";
+
+  /** Actual error. */
+  value: E;
+
+  constructor(value: E) {
+    this.value = value;
+  }
+
+  /** Whether the {@link Result} is {@link Ok} or not. */
+  isOk(): this is Ok<never> {
+    return false;
+  }
+
+  /** Whether the {@link Result} is {@link Err} or not. */
+  isErr(): this is Err<E> {
+    return true;
+  }
+}
+
+/** Represent {@link Ok} or {@link Err}.  */
+export type Result<T, E> = Ok<T> | Err<E>;
 
 /** Validation error options. */
 export interface ValidationErrorOptions extends ErrorOptions {
