@@ -1,7 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-export { isUndefined } from "https://deno.land/x/isx@1.3.1/is_undefined.ts";
 export { isEmpty } from "https://deno.land/x/isx@1.3.1/iterable/is_empty.ts";
 export { isNotEmpty } from "https://deno.land/x/isx@1.3.1/iterable/is_not_empty.ts";
 export { isNonNullable } from "https://deno.land/x/isx@1.3.1/is_non_nullable.ts";

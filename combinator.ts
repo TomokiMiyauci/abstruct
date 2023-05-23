@@ -4,6 +4,7 @@
 import { TypeValidator } from "./validators/type.ts";
 import { InstanceValidator } from "./validators/instance.ts";
 import { DictionaryValidator } from "./validators/object/dictionary.ts";
+import { OptionalValidator } from "./validators/object/optional.ts";
 import { NullishValidator } from "./validators/nullish.ts";
 import { IntegerValidator } from "./validators/number/integer.ts";
 import { PositiveNumberValidator } from "./validators/number/positive_number.ts";
@@ -28,6 +29,7 @@ export const boolean = /* @__PURE__ */ new TypeValidator("boolean");
 export const instance = /* @__PURE__ */ lazy(InstanceValidator);
 export const type = /* @__PURE__ */ lazy(TypeValidator);
 export const object = /* @__PURE__ */ lazy(DictionaryValidator);
+export const optional = /* @__PURE__ */ lazy(OptionalValidator);
 export const nullish = /* @__PURE__ */ new NullishValidator();
 export const eq = /* @__PURE__ */ lazy(EqualityValidator);
 export const lt = /* @__PURE__ */ lazy(LessValidator);

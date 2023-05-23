@@ -20,6 +20,7 @@ export {
   nullish,
   number,
   object,
+  optional,
   pattern,
   positive,
   string,
