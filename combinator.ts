@@ -22,8 +22,9 @@ import { LessThenOrEqualValidator } from "./validators/operators/lte.ts";
 import { GreaterThenValidator } from "./validators/operators/gt.ts";
 import { GreaterThenOrEqualValidator } from "./validators/operators/gte.ts";
 import { InequalityValidator } from "./validators/operators/inequality.ts";
-import { TypeValidator } from "./validators/operators/typeof.ts";
 import { InstanceValidator } from "./validators/operators/instanceof.ts";
+import { OrValidator } from "./validators/operators/or.ts";
+import { TypeValidator } from "./validators/operators/typeof.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
 
 export const string = /* @__PURE__ */ new TypeValidator("string");
@@ -41,6 +42,7 @@ export const lte = /* @__PURE__ */ lazy(LessThenOrEqualValidator);
 export const gt = /* @__PURE__ */ lazy(GreaterThenValidator);
 export const gte = /* @__PURE__ */ lazy(GreaterThenOrEqualValidator);
 export const ne = /* @__PURE__ */ lazy(InequalityValidator);
+export const or = /* @__PURE__ */ lazy(OrValidator);
 export const and = /* @__PURE__ */ lazy(AndValidator);
 
 // known

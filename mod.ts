@@ -24,6 +24,7 @@ export {
   number,
   object,
   optional,
+  or,
   pattern,
   positive,
   property,
