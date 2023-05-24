@@ -10,6 +10,7 @@ export {
   empty,
   eq,
   gt,
+  gte,
   instance,
   int,
   item,

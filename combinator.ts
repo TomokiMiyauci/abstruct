@@ -19,6 +19,7 @@ import { AndValidator } from "./validators/operators/and.ts";
 import { EqualityValidator } from "./validators/operators/eq.ts";
 import { LessThenValidator } from "./validators/operators/lt.ts";
 import { GreaterThenValidator } from "./validators/operators/gt.ts";
+import { GreaterThenOrEqualValidator } from "./validators/operators/gte.ts";
 import { TypeValidator } from "./validators/operators/typeof.ts";
 import { InstanceValidator } from "./validators/operators/instanceof.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
@@ -35,6 +36,7 @@ export const nullish = /* @__PURE__ */ new NullishValidator();
 export const eq = /* @__PURE__ */ lazy(EqualityValidator);
 export const lt = /* @__PURE__ */ lazy(LessThenValidator);
 export const gt = /* @__PURE__ */ lazy(GreaterThenValidator);
+export const gte = /* @__PURE__ */ lazy(GreaterThenOrEqualValidator);
 export const and = /* @__PURE__ */ lazy(AndValidator);
 
 // known
