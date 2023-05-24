@@ -20,6 +20,7 @@ export {
   minCount,
   ne,
   nonEmpty,
+  not,
   nullish,
   number,
   object,
