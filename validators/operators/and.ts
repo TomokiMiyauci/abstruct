@@ -21,7 +21,8 @@ export class AndValidator<In, In_ extends Via, Via extends In = In & In_>
   *validate(input: In): Iterable<ValidationFailure> {
     for (const validator of this.validators) {
       const iterable = validator.validate(input);
-      const result = iter(iterable);
+      const iterator = iter(iterable);
+      const result = iterator.next();
 
       if (result.done) continue;
 

@@ -14,11 +14,8 @@ export function* map<T, V>(
   }
 }
 
-export function iter<T>(iterable: Iterable<T>): IteratorResult<T> {
-  const iterator = iterable[Symbol.iterator]();
-  const result = iterator.next();
-
-  return result;
+export function iter<T>(iterable: Iterable<T>): Iterator<T> {
+  return iterable[Symbol.iterator]();
 }
 
 /** Take element from iterable.

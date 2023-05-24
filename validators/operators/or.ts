@@ -33,7 +33,7 @@ export class OrValidator<in In = unknown, In_ extends In = In>
     for (const validator of this.validators) {
       const iterable = validator.validate(input);
 
-      if (iter(iterable).done) return;
+      if (iter(iterable).next().done) return;
     }
 
     const context: ReportContext<In> = { input };
