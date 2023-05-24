@@ -1,19 +1,18 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { isEmpty } from "../../deps.ts";
 import { curryR, fromPath } from "../../utils.ts";
 import { enumerate, map } from "../../iter_utils.ts";
-import {
-  Assert,
-  AssertiveValidator,
-  Validation,
-  type ValidationFailure,
-} from "../../types.ts";
+import { type ValidationFailure, Validator } from "../../types.ts";
 
 export class ItemValidator<In = unknown, In_ extends In = In>
-  implements AssertiveValidator<Iterable<In>, Iterable<In_>> {
-  declare [Assert.symbol]: Iterable<In_>;
-  constructor(public readonly validator: Validation<In, In_>) {}
+  implements Validator<Iterable<In>, Iterable<In_>> {
+  constructor(public readonly validator: Validator<In, In_>) {}
+
+  is(input: Iterable<In>): input is Iterable<In_> {
+    return isEmpty(this.validate(input));
+  }
 
   *validate(input: Iterable<In>): Iterable<ValidationFailure> {
     for (const [i, el] of enumerate(input)) {

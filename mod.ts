@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-export { assert, is, validate, type ValidateOptions } from "./validation.ts";
+export { assert, validate, type ValidateOptions } from "./validation.ts";
 export {
   and,
   bigint,

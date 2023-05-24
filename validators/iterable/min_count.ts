@@ -13,7 +13,7 @@ export class MinCountValidator extends ScalarValidator<Iterable<unknown>> {
     );
   }
 
-  override is(input: Iterable<unknown>): boolean {
+  override is(input: Iterable<unknown>): input is Iterable<unknown> {
     return this.size <= getCount(input);
   }
 

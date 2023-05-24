@@ -13,7 +13,7 @@ export class MaxCountValidator extends ScalarValidator<Iterable<unknown>> {
     );
   }
 
-  override is(input: Iterable<unknown>): boolean {
+  override is(input: Iterable<unknown>): input is Iterable<unknown> {
     return getCount(input) <= this.size;
   }
 

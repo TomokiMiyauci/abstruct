@@ -10,7 +10,7 @@ export class LessValidator<In> extends ScalarValidator<In> {
     super.expect(shouldBeBut);
   }
 
-  override is(input: In): boolean {
+  override is(input: In): input is In {
     return input < this.base;
   }
 

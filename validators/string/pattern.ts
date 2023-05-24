@@ -12,7 +12,7 @@ export class PatternValidator extends ScalarValidator<string> {
     );
   }
 
-  is(input: string): boolean {
+  is(input: string): input is string {
     return this.pattern.test(input);
   }
 

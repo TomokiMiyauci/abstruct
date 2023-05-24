@@ -3,17 +3,15 @@
 
 import { shouldBeBut } from "./utils.ts";
 import { ScalarValidator } from "../utils.ts";
-import type { Assert, AssertiveValidator } from "../types.ts";
 
-export class EqualityValidator<const In_ = unknown> extends ScalarValidator
-  implements AssertiveValidator<unknown, In_> {
-  declare [Assert.symbol]: In_;
-  constructor(public value: In_) {
+export class EqualityValidator<const A = unknown>
+  extends ScalarValidator<unknown, A> {
+  constructor(public value: A) {
     super();
     super.expect(shouldBeBut);
   }
 
-  is(input: unknown): boolean {
+  override is(input: unknown): input is A {
     return input === this.value;
   }
 

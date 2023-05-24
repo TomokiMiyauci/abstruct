@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isValidDate } from "../../deps.ts";
+import { isValidDate, type ToPredicate } from "../../deps.ts";
 import { shouldBe } from "../utils.ts";
 import { display, ScalarValidator } from "../../utils.ts";
 
@@ -12,5 +12,5 @@ export class ValidDateValidator extends ScalarValidator<Date> {
     super.expect(shouldBe);
   }
 
-  override is = isValidDate;
+  override is = isValidDate as ToPredicate<typeof isValidDate>;
 }

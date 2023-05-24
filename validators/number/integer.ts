@@ -1,6 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { ToPredicate } from "../../deps.ts";
 import { shouldBeBut } from "../utils.ts";
 import { display, ScalarValidator } from "../../utils.ts";
 
@@ -11,5 +12,5 @@ export class IntegerValidator extends ScalarValidator<number> {
     super.expect(shouldBeBut);
   }
 
-  is = Number.isInteger;
+  is = Number.isInteger as ToPredicate<(input: number) => boolean>;
 }

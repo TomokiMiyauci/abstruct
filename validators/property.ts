@@ -2,23 +2,21 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { isEmpty } from "../deps.ts";
 import { curryR, fromPath } from "../utils.ts";
 import { map } from "../iter_utils.ts";
-import {
-  Assert,
-  AssertiveValidator,
-  Validation,
-  type ValidationFailure,
-  Validator,
-} from "../types.ts";
+import { type ValidationFailure, Validator } from "../types.ts";
 
 export class PropertyValidator<In_ extends string = string>
-  implements AssertiveValidator<{}, Record<In_, unknown>> {
-  declare [Assert.symbol]: Record<In_, unknown>;
-  validator: Validation<string>;
+  implements Validator<{}, Record<In_, unknown>> {
+  validator: Validator<string>;
 
-  constructor(validator: Validation<string, In_>) {
+  constructor(validator: Validator<string, In_>) {
     this.validator = validator as Validator<string>;
+  }
+
+  is(input: {}): input is Record<In_, unknown> {
+    return isEmpty(this.validate(input));
   }
 
   *validate(input: {}): Iterable<ValidationFailure> {

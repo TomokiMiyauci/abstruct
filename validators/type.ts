@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { type Display } from "../types.ts";
-import { AssertiveScalarValidator, interpolate } from "../utils.ts";
+import { interpolate, ScalarValidator } from "../utils.ts";
 import error from "./error.json" assert { type: "json" };
 
 interface LegacyTypeMap {
@@ -27,7 +27,7 @@ export interface TypeMap extends LegacyTypeMap {
 export type Type = keyof TypeMap;
 
 export class TypeValidator<T extends Type>
-  extends AssertiveScalarValidator<unknown, TypeMap[T]> {
+  extends ScalarValidator<unknown, TypeMap[T]> {
   constructor(public of: T) {
     super();
     super.expect(message);

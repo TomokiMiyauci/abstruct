@@ -1,6 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { isEmpty } from "../../deps.ts";
 import { enumerate } from "../../iter_utils.ts";
 import { display, interpolate } from "../../utils.ts";
 import { Reporter, ValidationFailure, Validator } from "../../types.ts";
@@ -19,6 +20,11 @@ export class UniqueValidator extends Reporter<Context>
     super();
     super.expect(({ item }) => interpolate(error.unique, [item]));
   }
+
+  is(input: Iterable<unknown>): input is Iterable<unknown> {
+    return isEmpty(this.validate(input));
+  }
+
   *validate(input: Iterable<unknown>): Iterable<ValidationFailure> {
     for (const [index, item] of duplicates(input)) {
       yield new ValidationFailure(

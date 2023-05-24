@@ -1,25 +1,23 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { filterKeys } from "../../deps.ts";
+import { filterKeys, isEmpty } from "../../deps.ts";
 import { DictionaryValidator } from "./dictionary.ts";
-import {
-  Assert,
-  AssertiveValidator,
-  Validation,
-  ValidationFailure,
-} from "../../types.ts";
+import { ValidationFailure, Validator } from "../../types.ts";
 
 export class OptionalValidator<
   In extends Record<string, unknown> = Record<string, unknown>,
   In_ extends In = In,
-> implements AssertiveValidator<Partial<In>, Partial<In_>> {
-  declare [Assert.symbol]: Partial<In_>;
+> implements Validator<Partial<In>, Partial<In_>> {
   constructor(
     public validators:
-      & { [k in keyof In]: Validation<In[k], In_[k]> }
-      & { [k in keyof In_]: Validation<In_[k]> },
+      & { [k in keyof In]: Validator<In[k], In_[k]> }
+      & { [k in keyof In_]: Validator<In_[k]> },
   ) {}
+
+  is(input: Partial<In>): input is Partial<In_> {
+    return isEmpty(this.validate(input));
+  }
 
   *validate(input: Partial<In>): Iterable<ValidationFailure> {
     const validators = filterKeys(

@@ -1,13 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import {
-  Assert,
-  Display,
-  Reporter,
-  ValidationError,
-  Validator,
-} from "./types.ts";
+import { Display, Reporter, ValidationFailure, Validator } from "./types.ts";
 import { escapeStringRegex } from "./deps.ts";
 
 export function display(repr: string) {
@@ -22,35 +16,23 @@ export function display(repr: string) {
 }
 
 /** Validator constructor for scalar value. */
-export abstract class ScalarValidator<In = unknown>
+export abstract class ScalarValidator<In = unknown, A extends In = In>
   extends Reporter<{ input: In }>
-  implements Validator<In> {
+  implements Validator<In, A> {
   /** Whether the input is valid or not. */
-  abstract is(input: In): boolean;
+  abstract is(input: In): input is A;
 
   /** Check the input and return message on error. */
   check(input: In): true | string {
     return this.is(input) || this.report({ input });
   }
 
-  *validate(input: In): Iterable<ValidationError> {
+  *validate(input: In): Iterable<ValidationFailure> {
     const result = this.check(input);
 
-    if (result !== true) yield new ValidationError(result);
+    if (result !== true) yield new ValidationFailure(result);
   }
 }
-
-/** Assertive validator constructor for scalar value. */
-export abstract class AssertiveScalarValidator<
-  In,
-  In_ extends In,
-> extends ScalarValidator<In> {
-  /** Whether the {@link In} is {@link Out} or not. */
-  abstract override is(input: In): input is In_;
-}
-
-export interface AssertiveScalarValidator<In, In_>
-  extends ScalarValidator<In>, Assert<In_> {}
 
 export function curryR<A0, A extends readonly unknown[], R>(
   fn: (...args: [...A, A0]) => R,
@@ -71,13 +53,12 @@ export function curryR<AX, R>(
 }
 
 export function fromPath(
-  error: ValidationError,
+  failure: ValidationFailure,
   path: string,
-): ValidationError {
-  return new ValidationError(error.message, {
-    cause: error.cause,
-    instancePath: [path, ...error.instancePath],
-  });
+): ValidationFailure {
+  const instancePath = [path, ...failure.instancePath];
+
+  return new ValidationFailure(failure.message, { instancePath });
 }
 
 export function interpolate<

@@ -1,8 +1,7 @@
-import { AssertiveScalarValidator } from "../utils.ts";
+import { ScalarValidator } from "../utils.ts";
 import { displayOr, shouldBeBut } from "./utils.ts";
 
-export class EnumValidator<const T>
-  extends AssertiveScalarValidator<unknown, T> {
+export class EnumValidator<const T> extends ScalarValidator<unknown, T> {
   values: [T, T, ...T[]];
   constructor(v1: T, v2: T, ...values: readonly T[]) {
     super();
@@ -14,7 +13,7 @@ export class EnumValidator<const T>
     return (this.values as unknown[]).includes(input);
   }
 
-  toString(): string {
+  override toString(): string {
     return `one of ${displayOr(...this.values)}`;
   }
 }

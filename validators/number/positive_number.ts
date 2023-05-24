@@ -3,7 +3,7 @@
 
 import { shouldBeBut } from "../utils.ts";
 import { display, ScalarValidator } from "../../utils.ts";
-import { isPositiveNumber } from "../../deps.ts";
+import { isPositiveNumber, ToPredicate } from "../../deps.ts";
 
 @display("positive number")
 export class PositiveNumberValidator extends ScalarValidator<number> {
@@ -12,5 +12,5 @@ export class PositiveNumberValidator extends ScalarValidator<number> {
     super.expect(shouldBeBut);
   }
 
-  is = isPositiveNumber;
+  is = isPositiveNumber as ToPredicate<typeof isPositiveNumber>;
 }

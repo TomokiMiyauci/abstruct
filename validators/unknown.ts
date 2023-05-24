@@ -5,7 +5,7 @@ import { display, ScalarValidator } from "../utils.ts";
 
 @display("unknown")
 export class UnknownValidator extends ScalarValidator {
-  is(): boolean {
+  is(_: unknown): _ is unknown {
     return true;
   }
 }

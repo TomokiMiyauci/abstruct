@@ -12,3 +12,7 @@ export { default as escapeStringRegex } from "https://esm.sh/escape-string-regex
 
 // deno-lint-ignore no-explicit-any
 export type Constructor = abstract new (...args: any) => any;
+
+export type ToPredicate<F> = F extends (input: infer In) => boolean
+  ? (input: In) => input is In
+  : never;

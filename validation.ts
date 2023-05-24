@@ -1,19 +1,8 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isEmpty } from "./deps.ts";
-import { Validation, type ValidationFailure, Validator } from "./types.ts";
+import { type ValidationFailure, Validator } from "./types.ts";
 import { take } from "./iter_utils.ts";
-
-/** Whether the input satisfy the schema or not. */
-export function is<In = unknown, In_ extends In = In>(
-  validator: Validation<In, In_>,
-  input: In,
-): input is In_ {
-  const iterable = validator.validate(input);
-
-  return isEmpty(iterable);
-}
 
 export interface AssertOptions extends ErrorOptions {
   message?: string;
@@ -42,7 +31,7 @@ export interface MultipleAssertOptions extends AssertOptions {
  * @throws {ValidationError}
  */
 export function assert<In = unknown, In_ extends In = In>(
-  validator: Validation<In, In_>,
+  validator: Validator<In, In_>,
   input: In,
   options?: SingleAssertOptions,
 ): asserts input is In_;
@@ -51,7 +40,7 @@ export function assert<In = unknown, In_ extends In = In>(
  * @throws {AggregateError}
  */
 export function assert<In = unknown, In_ extends In = In>(
-  validator: Validation<In, In_>,
+  validator: Validator<In, In_>,
   input: In,
   options?: MultipleAssertOptions,
 ): asserts input is In_;
@@ -117,11 +106,11 @@ export interface ValidateOptions {
  * @throws {RangeError} If the {@link ValidateOptions.maxErrors} is not positive integer.
  */
 export function validate<In = unknown, In_ extends In = In>(
-  validation: Validation<In, In_>,
+  validator: Validator<In, In_>,
   input: In,
   options: ValidateOptions = {},
 ): Result<In_, ValidationFailure[]> {
-  const failures = [...take(validation.validate(input), options.maxErrors)];
+  const failures = [...take(validator.validate(input), options.maxErrors)];
 
   if (!failures.length) return new Ok(input as In_);
 

@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { type Constructor } from "../deps.ts";
-import { AssertiveScalarValidator, interpolate } from "../utils.ts";
+import { interpolate, ScalarValidator } from "../utils.ts";
 import { type Display } from "../types.ts";
 import error from "./error.json" assert { type: "json" };
 
@@ -12,7 +12,7 @@ export function message(this: Display, { input }: { input: {} }): string {
 }
 
 export class InstanceValidator<T extends Constructor = Constructor> extends // deno-lint-ignore ban-types
-AssertiveScalarValidator<{}, InstanceType<T>> {
+ScalarValidator<{}, InstanceType<T>> {
   constructor(public of: T) {
     super();
     super.expect(message);
