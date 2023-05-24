@@ -1,9 +1,9 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isEmpty } from "../deps.ts";
-import { iter } from "../iter_utils.ts";
-import { type ValidationFailure, Validator } from "../types.ts";
+import { isEmpty } from "../../deps.ts";
+import { iter } from "../../iter_utils.ts";
+import { type ValidationFailure, Validator } from "../../types.ts";
 
 export class AndValidator<In, In_ extends Via, Via extends In = In & In_>
   implements Validator<In, In & In_ & Via> {

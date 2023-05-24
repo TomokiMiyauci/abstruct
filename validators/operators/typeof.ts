@@ -1,9 +1,9 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { type Display } from "../types.ts";
-import { interpolate, ScalarValidator } from "../utils.ts";
-import error from "./error.json" assert { type: "json" };
+import { type Display } from "../../types.ts";
+import { interpolate, ScalarValidator } from "../../utils.ts";
+import error from "../error.json" assert { type: "json" };
 
 interface LegacyTypeMap {
   bigint: bigint;

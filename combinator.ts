@@ -1,15 +1,12 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { TypeValidator } from "./validators/type.ts";
-import { InstanceValidator } from "./validators/instance.ts";
 import { PropertyValidator } from "./validators/property.ts";
 import { DictionaryValidator } from "./validators/object/dictionary.ts";
 import { OptionalValidator } from "./validators/object/optional.ts";
 import { NullishValidator } from "./validators/nullish.ts";
 import { IntegerValidator } from "./validators/number/integer.ts";
 import { PositiveNumberValidator } from "./validators/number/positive_number.ts";
-import { EqualityValidator } from "./validators/equal.ts";
 import { PatternValidator } from "./validators/string/pattern.ts";
 import { CountValidator } from "./validators/iterable/count.ts";
 import { EmptyValidator } from "./validators/iterable/empty.ts";
@@ -18,10 +15,13 @@ import { UniqueValidator } from "./validators/iterable/unique.ts";
 import { MaxCountValidator } from "./validators/iterable/max_count.ts";
 import { MinCountValidator } from "./validators/iterable/min_count.ts";
 import { NonEmptyValidator } from "./validators/iterable/non_empty.ts";
-import { LessValidator } from "./validators/less.ts";
-import { GreaterValidator } from "./validators/greater.ts";
+import { AndValidator } from "./validators/operators/and.ts";
+import { EqualityValidator } from "./validators/operators/eq.ts";
+import { LessThenValidator } from "./validators/operators/lt.ts";
+import { GreaterThenValidator } from "./validators/operators/gt.ts";
+import { TypeValidator } from "./validators/operators/typeof.ts";
+import { InstanceValidator } from "./validators/operators/instanceof.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
-import { AndValidator } from "./operators/and.ts";
 
 export const string = /* @__PURE__ */ new TypeValidator("string");
 export const number = /* @__PURE__ */ new TypeValidator("number");
@@ -33,8 +33,8 @@ export const object = /* @__PURE__ */ lazy(DictionaryValidator);
 export const optional = /* @__PURE__ */ lazy(OptionalValidator);
 export const nullish = /* @__PURE__ */ new NullishValidator();
 export const eq = /* @__PURE__ */ lazy(EqualityValidator);
-export const lt = /* @__PURE__ */ lazy(LessValidator);
-export const gt = /* @__PURE__ */ lazy(GreaterValidator);
+export const lt = /* @__PURE__ */ lazy(LessThenValidator);
+export const gt = /* @__PURE__ */ lazy(GreaterThenValidator);
 export const and = /* @__PURE__ */ lazy(AndValidator);
 
 // known

@@ -1,10 +1,10 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { type Constructor } from "../deps.ts";
-import { interpolate, ScalarValidator } from "../utils.ts";
-import { type Display } from "../types.ts";
-import error from "./error.json" assert { type: "json" };
+import { type Constructor } from "../../deps.ts";
+import { interpolate, ScalarValidator } from "../../utils.ts";
+import { type Display } from "../../types.ts";
+import error from "../error.json" assert { type: "json" };
 
 // deno-lint-ignore ban-types
 export function message(this: Display, { input }: { input: {} }): string {
