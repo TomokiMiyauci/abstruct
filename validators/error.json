@@ -2,5 +2,6 @@
   "should_be_but": "should be {0}, but {1}",
   "should_be": "should be {0}",
   "max_count": "item count should be less than or equal to {0}, but {1}",
-  "min_count": "item count should be greater than or equal to {0}, but {1}"
+  "min_count": "item count should be greater than or equal to {0}, but {1}",
+  "unique": "item(0) should be unique"
 }
