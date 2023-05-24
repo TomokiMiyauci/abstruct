@@ -15,6 +15,7 @@ export {
   int,
   item,
   lt,
+  lte,
   maxCount,
   minCount,
   nonEmpty,
