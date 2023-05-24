@@ -18,6 +18,7 @@ export {
   lte,
   maxCount,
   minCount,
+  ne,
   nonEmpty,
   nullish,
   number,
