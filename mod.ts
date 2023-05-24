@@ -16,6 +16,7 @@ export {
 } from "./validation.ts";
 export {
   and,
+  between,
   bigint,
   boolean,
   count,

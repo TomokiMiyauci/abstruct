@@ -2,6 +2,7 @@
 // This module is browser compatible.
 
 import { PropertyValidator } from "./validators/property.ts";
+import { RangeValidator } from "./validators/range.ts";
 import { FixedArrayValidator } from "./validators/array/fixed_array.ts";
 import { DictionaryValidator } from "./validators/object/dictionary.ts";
 import { OptionalValidator } from "./validators/object/optional.ts";
@@ -48,6 +49,7 @@ export const ne = /* @__PURE__ */ lazy(InequalityValidator);
 export const not = /* @__PURE__ */ lazy(NotValidator);
 export const or = /* @__PURE__ */ lazy(OrValidator);
 export const and = /* @__PURE__ */ lazy(AndValidator);
+export const between = /* @__PURE__ */ lazy(RangeValidator);
 
 // known
 export const property = /* @__PURE__ */ lazy(PropertyValidator);
