@@ -9,6 +9,7 @@ export {
   count,
   empty,
   eq,
+  fixedArray,
   gt,
   gte,
   instance,

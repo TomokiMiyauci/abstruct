@@ -2,6 +2,7 @@
 // This module is browser compatible.
 
 import { PropertyValidator } from "./validators/property.ts";
+import { FixedArrayValidator } from "./validators/array/fixed_array.ts";
 import { DictionaryValidator } from "./validators/object/dictionary.ts";
 import { OptionalValidator } from "./validators/object/optional.ts";
 import { NullishValidator } from "./validators/nullish.ts";
@@ -49,6 +50,9 @@ export const and = /* @__PURE__ */ lazy(AndValidator);
 
 // known
 export const property = /* @__PURE__ */ lazy(PropertyValidator);
+
+// Array
+export const fixedArray = /* @__PURE__ */ lazy(FixedArrayValidator);
 
 // Date
 export const validDate = /* @__PURE__ */ new ValidDateValidator();
