@@ -1,3 +1,21 @@
+# [1.0.0-beta.2](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.1...1.0.0-beta.2) (2023-05-24)
+
+
+### Features
+
+* change validator interface and change validators ([4734796](https://github.com/TomokiMiyauci/abstruct/commit/4734796dae920eb28e7d5508998cf0fe3c9fc9db))
+* **fixed_array:** add validator for fixed array aka tuple ([e7704a7](https://github.com/TomokiMiyauci/abstruct/commit/e7704a70a2c707183495390e1fc7c777e4f6f226))
+* **gte:** add validator for greater than or equal operator ([629919b](https://github.com/TomokiMiyauci/abstruct/commit/629919b89941b13ee75b42b0a7956155e19ab6ce))
+* **inequality:** add validator for inequality operator ([caee113](https://github.com/TomokiMiyauci/abstruct/commit/caee1133bb89b8a6b576c62a2fc79bee166119a0))
+* **lte:** add validator for less than or equal operator ([cb247f8](https://github.com/TomokiMiyauci/abstruct/commit/cb247f8aeaaef5e2dc809e8e4825bcd3c074fba2))
+* **mod:** export related types ([e61e888](https://github.com/TomokiMiyauci/abstruct/commit/e61e8889f57a66ea39983097eed5dcee7b8cb4b2))
+* **not:** add validator for logical not operator ([65b97bf](https://github.com/TomokiMiyauci/abstruct/commit/65b97bfe73cf4076bdfe0473a5a589ad454e2ccd))
+* **optional:** add validator for optional object ([9ce9e84](https://github.com/TomokiMiyauci/abstruct/commit/9ce9e84abeb2829b8f883eb319532595e1c16dfe))
+* **or:** add validator for logical or operator ([63d8d2f](https://github.com/TomokiMiyauci/abstruct/commit/63d8d2f7e891dbf99fd4681628c839d47c99856d))
+* **property:** add validator for property ([9e46ffd](https://github.com/TomokiMiyauci/abstruct/commit/9e46ffd9ab30e8d616d93bea87a5f7d0e181b6ee))
+* **types:** rename interface of `ValidationError` ([a121e4f](https://github.com/TomokiMiyauci/abstruct/commit/a121e4fc750d7b158cba0aa0148830cff09a0f83))
+* **unique:** add validator for unique item ([0d34889](https://github.com/TomokiMiyauci/abstruct/commit/0d348892d8eaa8b9bf923fdff06dbe22578455ce))
+
 # 1.0.0-beta.1 (2023-05-23)
 
 
