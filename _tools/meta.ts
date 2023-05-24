@@ -52,6 +52,11 @@ export const makeOptions = (version: string): BuildOptions => ({
       version: "1.3.1",
       subPath: "iterable/is_not_empty.js",
     },
+    "https://deno.land/x/isx@1.3.1/iterable/is_single.ts": {
+      name: "@miyauci/isx",
+      version: "1.3.1",
+      subPath: "iterable/is_single.js",
+    },
     "https://deno.land/x/isx@1.3.1/is_string.ts": {
       name: "@miyauci/isx",
       version: "1.3.1",

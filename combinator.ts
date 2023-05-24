@@ -16,7 +16,7 @@ import { UniqueValidator } from "./validators/iterable/unique.ts";
 import { MaxCountValidator } from "./validators/iterable/max_count.ts";
 import { MinCountValidator } from "./validators/iterable/min_count.ts";
 import { NonEmptyValidator } from "./validators/iterable/non_empty.ts";
-import { AndValidator } from "./validators/operators/and.ts";
+import { SingleValidator } from "./validators/iterable/single.ts";
 import { EqualityValidator } from "./validators/operators/eq.ts";
 import { LessThenValidator } from "./validators/operators/lt.ts";
 import { LessThenOrEqualValidator } from "./validators/operators/lte.ts";
@@ -24,6 +24,7 @@ import { GreaterThenValidator } from "./validators/operators/gt.ts";
 import { GreaterThenOrEqualValidator } from "./validators/operators/gte.ts";
 import { InequalityValidator } from "./validators/operators/inequality.ts";
 import { InstanceValidator } from "./validators/operators/instanceof.ts";
+import { AndValidator } from "./validators/operators/and.ts";
 import { NotValidator } from "./validators/operators/not.ts";
 import { OrValidator } from "./validators/operators/or.ts";
 import { TypeValidator } from "./validators/operators/typeof.ts";
@@ -64,6 +65,7 @@ export const item = /* @__PURE__ */ lazy(ItemValidator);
 export const maxCount = /* @__PURE__ */ lazy(MaxCountValidator);
 export const minCount = /* @__PURE__ */ lazy(MinCountValidator);
 export const nonEmpty = /* @__PURE__ */ new NonEmptyValidator();
+export const single = /* @__PURE__ */ new SingleValidator();
 export const unique = /* @__PURE__ */ new UniqueValidator();
 
 // number

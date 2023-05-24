@@ -3,6 +3,7 @@
 
 export { isEmpty } from "https://deno.land/x/isx@1.3.1/iterable/is_empty.ts";
 export { isNotEmpty } from "https://deno.land/x/isx@1.3.1/iterable/is_not_empty.ts";
+export { isSingle } from "https://deno.land/x/isx@1.3.1/iterable/is_single.ts";
 export { isNonNullable } from "https://deno.land/x/isx@1.3.1/is_non_nullable.ts";
 export { isString } from "https://deno.land/x/isx@1.3.1/is_string.ts";
 export { isPositiveNumber } from "https://deno.land/x/isx@1.3.1/number/is_positive_number.ts";
