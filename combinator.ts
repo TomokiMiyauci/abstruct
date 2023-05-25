@@ -33,7 +33,7 @@ import { InstanceValidator } from "./validators/operators/instanceof.ts";
 import { AndValidator } from "./validators/operators/and.ts";
 import { NotValidator } from "./validators/operators/not.ts";
 import { OrValidator } from "./validators/operators/or.ts";
-import { TypeValidator } from "./validators/operators/typeof.ts";
+import { type Type, TypeValidator } from "./validators/operators/typeof.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
 import { Error } from "./constants.ts";
 import { NonNegativeNumberValidator } from "./validators/number/non_negative_number.ts";
@@ -48,16 +48,16 @@ export function message1(this: Display, { input }: { input: {} }): string {
   return interpolate(Error.ShouldBeBut, [this, input.constructor.name]);
 }
 
-export const string = /* @__PURE__ */ new TypeValidator("string");
-export const number = /* @__PURE__ */ new TypeValidator("number");
-export const bigint = /* @__PURE__ */ new TypeValidator("bigint");
-export const boolean = /* @__PURE__ */ new TypeValidator("boolean");
+export function type<T extends Type>(of: T): TypeValidator<T> {
+  return new TypeValidator(of).expect(message);
+}
+
+export const string = /* @__PURE__ */ type("string");
+export const number = /* @__PURE__ */ type("number");
+export const bigint = /* @__PURE__ */ type("bigint");
+export const boolean = /* @__PURE__ */ type("boolean");
 export const instance = /* @__PURE__ */ lazy(
   /* @__PURE__ */ bind(InstanceValidator).expect(message1).build(),
-);
-
-export const type = /* @__PURE__ */ lazy(
-  /* @__PURE__ */ bind(TypeValidator).expect(message).build(),
 );
 export const object = /* @__PURE__ */ lazy(DictionaryValidator);
 export const optional = /* @__PURE__ */ lazy(OptionalValidator);
