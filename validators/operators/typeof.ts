@@ -1,9 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { type Display } from "../../types.ts";
-import { interpolate, ScalarValidator } from "../../utils.ts";
-import error from "../error.json" assert { type: "json" };
+import { ScalarValidator } from "../../utils.ts";
 
 interface LegacyTypeMap {
   bigint: bigint;
@@ -30,7 +28,6 @@ export class TypeValidator<T extends Type>
   extends ScalarValidator<unknown, TypeMap[T]> {
   constructor(public of: T) {
     super();
-    super.expect(message);
   }
 
   override is(input: unknown): input is TypeMap[T] {
@@ -49,8 +46,4 @@ export function typeOf(input: unknown): Type {
   if (of === "object" && input === null) return "null";
 
   return of;
-}
-
-export function message(this: Display, { input }: { input: unknown }): string {
-  return interpolate(error.should_be_but, [this, typeof input]);
 }

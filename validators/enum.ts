@@ -1,11 +1,10 @@
 import { ScalarValidator } from "../utils.ts";
-import { displayOr, shouldBeBut } from "./utils.ts";
+import { displayOr } from "./utils.ts";
 
 export class EnumValidator<const T> extends ScalarValidator<unknown, T> {
   values: [T, T, ...T[]];
   constructor(v1: T, v2: T, ...values: readonly T[]) {
     super();
-    super.expect(shouldBeBut);
     this.values = [v1, v2, ...values];
   }
 

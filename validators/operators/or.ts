@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { isEmpty } from "../../deps.ts";
-import { displayOr, shouldBe } from "../utils.ts";
+import { displayOr } from "../utils.ts";
 import { Reporter, ValidationFailure, Validator } from "../../types.ts";
 import { iter } from "../../iter_utils.ts";
 
@@ -21,7 +21,6 @@ export class OrValidator<in In = unknown, In_ extends In = In>
     ...validations: Validator<In, In_>[]
   ) {
     super();
-    this.expect(shouldBe);
     this.validators = [left, right, ...validations];
   }
 

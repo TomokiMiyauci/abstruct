@@ -1,7 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { shouldBeBut } from "../utils.ts";
 import { Reporter, ValidationFailure, Validator } from "../../types.ts";
 
 export interface ReportContext<In = unknown> {
@@ -15,7 +14,6 @@ export class NotValidator<in In = unknown, In_ extends In = In>
 
   constructor(validator: Validator<In, In_>) {
     super();
-    super.expect(shouldBeBut);
     this.validator = validator;
   }
 

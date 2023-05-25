@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isInRange, shouldBeBut } from "./utils.ts";
+import { isInRange } from "./utils.ts";
 import { ScalarValidator } from "../utils.ts";
 
 export class RangeValidator<In> extends ScalarValidator<In> {
@@ -24,7 +24,6 @@ export class RangeValidator<In> extends ScalarValidator<In> {
    */
   constructor(min: In, max: In) {
     super();
-    super.expect(shouldBeBut);
 
     this.range = [min, max];
   }

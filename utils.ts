@@ -1,7 +1,8 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { Reporter, ValidationFailure, Validator } from "./types.ts";
+import { Error } from "./constants.ts";
+import { Display, Reporter, ValidationFailure, Validator } from "./types.ts";
 import { escapeStringRegex } from "./deps.ts";
 
 /** Validator constructor for scalar value. */
@@ -79,8 +80,10 @@ interface Delimiters {
 
 type Primitive = string | number | bigint | boolean | null | undefined;
 
-type ParsePlaceholder<T, U extends Partial<Delimiters>> = T extends
-  `${string}${U["prefix"]}${infer P}${U["suffix"]}${infer R}`
+export type ParsePlaceholder<
+  T,
+  U extends Partial<Delimiters>,
+> = T extends `${string}${U["prefix"]}${infer P}${U["suffix"]}${infer R}`
   ? P | ParsePlaceholder<R, U>
   : never;
 
@@ -113,4 +116,17 @@ export class Binder<C extends { new (...args: any): any }> {
       }
     };
   }
+}
+
+export function shouldBe(
+  this: Display,
+): string {
+  return interpolate(Error.ShouldBe, [this]);
+}
+
+export function shouldBeBut(
+  this: Display,
+  { input }: { input: unknown },
+): string {
+  return interpolate(Error.ShouldBeBut, [this, input]);
 }

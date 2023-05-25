@@ -2,12 +2,10 @@
 // This module is browser compatible.
 
 import { ScalarValidator } from "../../utils.ts";
-import { shouldBeBut } from "../utils.ts";
 
 export class LessThenOrEqualValidator<In> extends ScalarValidator<In> {
   constructor(public base: In) {
     super();
-    super.expect(shouldBeBut);
   }
 
   override is(input: In): input is In {
