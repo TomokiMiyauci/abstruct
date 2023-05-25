@@ -4,7 +4,7 @@
 import { type Display } from "./types.ts";
 import { getCount } from "./iter_utils.ts";
 import { bind, interpolate, shouldBe, shouldBeBut } from "./utils.ts";
-import { PropertyValidator } from "./validators/property.ts";
+import { PropertyValidator } from "./validators/property_key.ts";
 import { RangeValidator } from "./validators/range.ts";
 import { FixedArrayValidator } from "./validators/array/fixed_array.ts";
 import { DictionaryValidator } from "./validators/object/dictionary.ts";
