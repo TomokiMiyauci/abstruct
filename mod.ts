@@ -61,3 +61,4 @@ export {
   validDate,
   value,
 } from "./combinator.ts";
+export { lazy } from "./utils.ts";

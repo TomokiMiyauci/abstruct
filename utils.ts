@@ -151,3 +151,44 @@ export function bind<
 
   return proxy;
 }
+
+export function memoize<A extends readonly unknown[], R>(
+  fn: (...args: A) => R,
+): (...args: A) => R {
+  const cache = new Map<string, R>();
+
+  return function (...args: A): R {
+    const key = JSON.stringify(args);
+
+    if (cache.has(key)) return cache.get(key)!;
+
+    const value = fn(...args);
+
+    cache.set(key, value);
+
+    return value;
+  };
+}
+
+/** Convert constructor to function. */
+export function ctorFn<Args extends readonly unknown[], R>(
+  ctor: { new (...args: Args): R },
+): (...args: Args) => R {
+  return (...args) => new ctor(...args);
+}
+
+/** Crate validator lazily.  */
+export function lazy<In, A extends In = In>(
+  fn: () => Validator<In, A>,
+): Validator<In, A> {
+  const $fn = memoize(fn);
+
+  return {
+    is: (input: In): input is A => {
+      return $fn().is(input);
+    },
+    *validate(input: In): Iterable<ValidationFailure> {
+      yield* $fn().validate(input);
+    },
+  };
+}
