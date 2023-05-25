@@ -3,7 +3,7 @@
 
 import { Error } from "./constants.ts";
 import { Display, Reporter, ValidationFailure, Validator } from "./types.ts";
-import { escapeStringRegex } from "./deps.ts";
+import { escapeStringRegex, isString } from "./deps.ts";
 
 /** Validator constructor for scalar value. */
 export abstract class ScalarValidator<In = unknown, A extends In = In>
@@ -87,37 +87,6 @@ export type ParsePlaceholder<
   ? P | ParsePlaceholder<R, U>
   : never;
 
-// deno-lint-ignore no-explicit-any
-export class Binder<C extends { new (...args: any): any }> {
-  constructor(public ctor: C) {}
-
-  #fns: ((this: InstanceType<C>, ...args: ConstructorParameters<C>) => void)[] =
-    [];
-
-  map(
-    fn: (this: InstanceType<C>, ...args: ConstructorParameters<C>) => void,
-  ): this {
-    this.#fns.push(fn);
-
-    return this;
-  }
-
-  build(): C {
-    const fns = this.#fns;
-
-    return class extends this.ctor {
-      // deno-lint-ignore no-explicit-any
-      constructor(...args: any) {
-        super(...args);
-
-        for (const fn of fns) {
-          fn.call(this as InstanceType<typeof this.ctor>, ...args);
-        }
-      }
-    };
-  }
-}
-
 export function shouldBe(
   this: Display,
 ): string {
@@ -129,4 +98,47 @@ export function shouldBeBut(
   { input }: { input: unknown },
 ): string {
   return interpolate(Error.ShouldBeBut, [this, input]);
+}
+
+export function bind<
+  // deno-lint-ignore no-explicit-any
+  C extends { new (...args: any): any },
+  T extends InstanceType<C & { build: () => C }>,
+>(
+  ctor: C,
+): T & { build: () => C } {
+  const calls: [method: string | symbol, args: unknown[]][] = [];
+
+  const base = Object.assign(ctor.prototype, {
+    build: () =>
+      class extends ctor {
+        // deno-lint-ignore no-explicit-any
+        constructor(...constructorParams: any) {
+          super(...constructorParams);
+
+          for (const [key, args] of calls) {
+            if (isString(key)) {
+              this[key](...args, ...constructorParams);
+            }
+          }
+        }
+      },
+  });
+  const proxy = new Proxy(base, {
+    get: (target, prop) => {
+      if (typeof target[prop] === "function") {
+        if (prop === "build") target[prop];
+
+        return (...args: unknown[]) => {
+          calls.push([prop, args]);
+
+          return proxy;
+        };
+      }
+
+      return target[prop];
+    },
+  });
+
+  return proxy;
 }
