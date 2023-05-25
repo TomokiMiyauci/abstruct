@@ -12,6 +12,7 @@ import { OptionalValidator } from "./validators/object/optional.ts";
 import { NullishValidator } from "./validators/nullish.ts";
 import { IntegerValidator } from "./validators/number/integer.ts";
 import { PositiveNumberValidator } from "./validators/number/positive_number.ts";
+import { NegativeNumberValidator } from "./validators/number/negative_number.ts";
 import { PatternValidator } from "./validators/string/pattern.ts";
 import { CountValidator } from "./validators/iterable/count.ts";
 import { EmptyValidator } from "./validators/iterable/empty.ts";
@@ -127,6 +128,9 @@ export const unique = /* @__PURE__ */ new UniqueValidator().expect(({ item }) =>
 
 // number
 export const int = /* @__PURE__ */ new IntegerValidator().expect(shouldBeBut);
+export const negative = /* @__PURE__ */ new NegativeNumberValidator().expect(
+  shouldBeBut,
+);
 export const positive = /* @__PURE__ */ new PositiveNumberValidator()
   .expect(shouldBeBut);
 
