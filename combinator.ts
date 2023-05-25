@@ -34,7 +34,13 @@ import { NotValidator } from "./validators/operators/not.ts";
 import { OrValidator } from "./validators/operators/or.ts";
 import { TypeValidator } from "./validators/operators/typeof.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
-import { Error } from "./constants.ts";
+import {
+  Error,
+  Int16Range,
+  Int32Range,
+  Int8Range,
+  UnsignedUpper,
+} from "./constants.ts";
 
 export function message(this: Display, { input }: { input: unknown }): string {
   return interpolate(Error.ShouldBeBut, [this, typeof input]);
@@ -128,6 +134,30 @@ export const unique = /* @__PURE__ */ new UniqueValidator().expect(({ item }) =>
 
 // number
 export const int = /* @__PURE__ */ new IntegerValidator().expect(shouldBeBut);
+export const int8 = /* @__PURE__ */ and(
+  int,
+  /* @__PURE__ */ between(Int8Range.Bottom, Int8Range.Upper),
+);
+export const int16 = /* @__PURE__ */ and(
+  int,
+  /* @__PURE__ */ between(Int16Range.Bottom, Int16Range.Upper),
+);
+export const int32 = /* @__PURE__ */ and(
+  int,
+  /* @__PURE__ */ between(Int32Range.Bottom, Int32Range.Upper),
+);
+export const uint8 = /* @__PURE__ */ and(
+  int,
+  /* @__PURE__ */ between(0, UnsignedUpper.Uint8),
+);
+export const uint16 = /* @__PURE__ */ and(
+  int,
+  /* @__PURE__ */ between(0, UnsignedUpper.Uint16),
+);
+export const uint32 = /* @__PURE__ */ and(
+  int,
+  /* @__PURE__ */ between(0, UnsignedUpper.Unit32),
+);
 export const negative = /* @__PURE__ */ new NegativeNumberValidator().expect(
   shouldBeBut,
 );
