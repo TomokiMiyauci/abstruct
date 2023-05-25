@@ -118,7 +118,7 @@ export function bind<
 
           for (const [key, args] of calls) {
             if (isString(key)) {
-              this[key](...args, ...constructorParams);
+              this[key](...args);
             }
           }
         }
@@ -127,7 +127,7 @@ export function bind<
   const proxy = new Proxy(base, {
     get: (target, prop) => {
       if (typeof target[prop] === "function") {
-        if (prop === "build") target[prop];
+        if (prop === "build") return target[prop];
 
         return (...args: unknown[]) => {
           calls.push([prop, args]);
