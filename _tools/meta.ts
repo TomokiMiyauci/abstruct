@@ -72,10 +72,20 @@ export const makeOptions = (version: string): BuildOptions => ({
       version: "1.3.1",
       subPath: "number/is_positive_number.js",
     },
+    "https://deno.land/x/isx@1.3.1/number/is_non_positive_number.ts": {
+      name: "@miyauci/isx",
+      version: "1.3.1",
+      subPath: "number/is_non_positive_number.js",
+    },
     "https://deno.land/x/isx@1.3.1/number/is_negative_number.ts": {
       name: "@miyauci/isx",
       version: "1.3.1",
       subPath: "number/is_negative_number.js",
+    },
+    "https://deno.land/x/isx@1.3.1/number/is_non_negative_number.ts": {
+      name: "@miyauci/isx",
+      version: "1.3.1",
+      subPath: "number/is_non_negative_number.js",
     },
     "https://deno.land/x/isx@1.3.1/date/is_valid_date.ts": {
       name: "@miyauci/isx",

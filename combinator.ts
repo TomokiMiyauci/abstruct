@@ -35,6 +35,8 @@ import { OrValidator } from "./validators/operators/or.ts";
 import { TypeValidator } from "./validators/operators/typeof.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
 import { Error } from "./constants.ts";
+import { NonNegativeNumberValidator } from "./validators/number/non_negative_number.ts";
+import { NonPositiveNumberValidator } from "./validators/number/non_positive_number.ts";
 
 export function message(this: Display, { input }: { input: unknown }): string {
   return interpolate(Error.ShouldBeBut, [this, typeof input]);
@@ -155,6 +157,10 @@ export const uint32 = /* @__PURE__ */ and(
 export const negative = /* @__PURE__ */ new NegativeNumberValidator().expect(
   shouldBeBut,
 );
+export const nonNegative = /* @__PURE__ */ new NonNegativeNumberValidator()
+  .expect(shouldBeBut);
+export const nonPositive = /* @__PURE__ */ new NonPositiveNumberValidator()
+  .expect(shouldBeBut);
 export const positive = /* @__PURE__ */ new PositiveNumberValidator()
   .expect(shouldBeBut);
 

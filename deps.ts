@@ -8,6 +8,8 @@ export { isNonNullable } from "https://deno.land/x/isx@1.3.1/is_non_nullable.ts"
 export { isString } from "https://deno.land/x/isx@1.3.1/is_string.ts";
 export { isPositiveNumber } from "https://deno.land/x/isx@1.3.1/number/is_positive_number.ts";
 export { isNegativeNumber } from "https://deno.land/x/isx@1.3.1/number/is_negative_number.ts";
+export { isNonPositiveNumber } from "https://deno.land/x/isx@1.3.1/number/is_non_positive_number.ts";
+export { isNonNegativeNumber } from "https://deno.land/x/isx@1.3.1/number/is_non_negative_number.ts";
 export { isValidDate } from "https://deno.land/x/isx@1.3.1/date/is_valid_date.ts";
 export { filterKeys } from "https://deno.land/std@0.187.0/collections/filter_keys.ts";
 export { default as escapeStringRegex } from "https://esm.sh/escape-string-regexp@5.0.0?pin=v122";

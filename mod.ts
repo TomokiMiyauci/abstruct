@@ -38,6 +38,8 @@ export {
   ne,
   negative,
   nonEmpty,
+  nonNegative,
+  nonPositive,
   not,
   nullish,
   number,
