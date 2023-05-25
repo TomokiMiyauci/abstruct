@@ -2,10 +2,9 @@
 // This module is browser compatible.
 
 import { shouldBeBut } from "../utils.ts";
-import { display, ScalarValidator } from "../../utils.ts";
+import { ScalarValidator } from "../../utils.ts";
 import { isPositiveNumber, ToPredicate } from "../../deps.ts";
 
-@display("positive number")
 export class PositiveNumberValidator extends ScalarValidator<number> {
   constructor() {
     super();
@@ -13,4 +12,8 @@ export class PositiveNumberValidator extends ScalarValidator<number> {
   }
 
   is = isPositiveNumber as ToPredicate<typeof isPositiveNumber>;
+
+  override toString() {
+    return "positive number";
+  }
 }

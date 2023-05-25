@@ -3,13 +3,16 @@
 
 import { shouldBe } from "../utils.ts";
 import { isEmpty } from "../../deps.ts";
-import { display, ScalarValidator } from "../../utils.ts";
+import { ScalarValidator } from "../../utils.ts";
 
-@display("empty")
 export class EmptyValidator extends ScalarValidator<Iterable<unknown>> {
   constructor() {
     super();
     super.expect(shouldBe);
   }
   override is = isEmpty;
+
+  override toString() {
+    return "empty";
+  }
 }

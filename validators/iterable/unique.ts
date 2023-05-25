@@ -3,7 +3,7 @@
 
 import { isEmpty } from "../../deps.ts";
 import { enumerate } from "../../iter_utils.ts";
-import { display, interpolate } from "../../utils.ts";
+import { interpolate } from "../../utils.ts";
 import { Reporter, ValidationFailure, Validator } from "../../types.ts";
 import error from "../error.json" assert { type: "json" };
 
@@ -13,7 +13,6 @@ interface Context {
   item: unknown;
 }
 
-@display("unique")
 export class UniqueValidator extends Reporter<Context>
   implements Validator<Iterable<unknown>> {
   constructor() {
@@ -34,6 +33,10 @@ export class UniqueValidator extends Reporter<Context>
         },
       );
     }
+  }
+
+  override toString() {
+    return "unique";
   }
 }
 

@@ -1,19 +1,8 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { Display, Reporter, ValidationFailure, Validator } from "./types.ts";
+import { Reporter, ValidationFailure, Validator } from "./types.ts";
 import { escapeStringRegex } from "./deps.ts";
-
-export function display(repr: string) {
-  // deno-lint-ignore no-explicit-any
-  return function <C extends { new (...args: any): any }>(constructor: C) {
-    return class extends constructor implements Display {
-      toString(): string {
-        return repr;
-      }
-    };
-  };
-}
 
 /** Validator constructor for scalar value. */
 export abstract class ScalarValidator<In = unknown, A extends In = In>
@@ -94,3 +83,34 @@ type ParsePlaceholder<T, U extends Partial<Delimiters>> = T extends
   `${string}${U["prefix"]}${infer P}${U["suffix"]}${infer R}`
   ? P | ParsePlaceholder<R, U>
   : never;
+
+// deno-lint-ignore no-explicit-any
+export class Binder<C extends { new (...args: any): any }> {
+  constructor(public ctor: C) {}
+
+  #fns: ((this: InstanceType<C>, ...args: ConstructorParameters<C>) => void)[] =
+    [];
+
+  map(
+    fn: (this: InstanceType<C>, ...args: ConstructorParameters<C>) => void,
+  ): this {
+    this.#fns.push(fn);
+
+    return this;
+  }
+
+  build(): C {
+    const fns = this.#fns;
+
+    return class extends this.ctor {
+      // deno-lint-ignore no-explicit-any
+      constructor(...args: any) {
+        super(...args);
+
+        for (const fn of fns) {
+          fn.call(this as InstanceType<typeof this.ctor>, ...args);
+        }
+      }
+    };
+  }
+}

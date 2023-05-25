@@ -2,12 +2,15 @@
 // This module is browser compatible.
 
 import { isNonNullable } from "../deps.ts";
-import { display, ScalarValidator } from "../utils.ts";
+import { ScalarValidator } from "../utils.ts";
 
-@display("nullish")
 export class NullishValidator
   extends ScalarValidator<unknown, undefined | null> {
   override is(input: unknown): input is null | undefined {
     return isNonNullable(input);
+  }
+
+  override toString() {
+    return "nullish";
   }
 }

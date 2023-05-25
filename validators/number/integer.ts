@@ -3,9 +3,8 @@
 
 import { ToPredicate } from "../../deps.ts";
 import { shouldBeBut } from "../utils.ts";
-import { display, ScalarValidator } from "../../utils.ts";
+import { ScalarValidator } from "../../utils.ts";
 
-@display("integer")
 export class IntegerValidator extends ScalarValidator<number> {
   constructor() {
     super();
@@ -13,4 +12,8 @@ export class IntegerValidator extends ScalarValidator<number> {
   }
 
   is = Number.isInteger as ToPredicate<(input: number) => boolean>;
+
+  override toString() {
+    return "integer";
+  }
 }
