@@ -50,6 +50,7 @@ export {
   or,
   pattern,
   positive,
+  single,
   string,
   type,
   uint16,
