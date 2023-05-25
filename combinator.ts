@@ -4,6 +4,7 @@
 import { type Display } from "./types.ts";
 import { getCount } from "./iter_utils.ts";
 import { bind, interpolate, shouldBe, shouldBeBut } from "./utils.ts";
+import { EnumValidator } from "./validators/enum.ts";
 import { KeyValidator } from "./validators/key.ts";
 import { ValueValidator } from "./validators/value.ts";
 import { RangeValidator } from "./validators/range.ts";
@@ -56,9 +57,13 @@ export const string = /* @__PURE__ */ type("string");
 export const number = /* @__PURE__ */ type("number");
 export const bigint = /* @__PURE__ */ type("bigint");
 export const boolean = /* @__PURE__ */ type("boolean");
+export const enumerate = /* @__PURE__ */ lazy(
+  /* @__PURE__ */ bind(EnumValidator).expect(shouldBeBut).build(),
+);
 export const instance = /* @__PURE__ */ lazy(
   /* @__PURE__ */ bind(InstanceValidator).expect(message1).build(),
 );
+
 export const object = /* @__PURE__ */ lazy(DictionaryValidator);
 export const optional = /* @__PURE__ */ lazy(OptionalValidator);
 export const nullish = /* @__PURE__ */ new NullishValidator();
