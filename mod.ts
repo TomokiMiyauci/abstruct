@@ -48,7 +48,7 @@ export {
   or,
   pattern,
   positive,
-  property,
+  propertyKey,
   string,
   type,
   uint16,

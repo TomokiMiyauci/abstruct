@@ -7,7 +7,7 @@ import { curryR, fromPath } from "../utils.ts";
 import { map } from "../iter_utils.ts";
 import { type ValidationFailure, Validator } from "../types.ts";
 
-export class PropertyValidator<In_ extends string = string>
+export class PropertyKeyValidator<In_ extends string = string>
   implements Validator<{}, Record<In_, unknown>> {
   validator: Validator<string>;
 
