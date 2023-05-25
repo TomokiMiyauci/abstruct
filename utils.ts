@@ -51,6 +51,15 @@ export function fromPath(
   return new ValidationFailure(failure.message, { instancePath });
 }
 
+export function fromMessage(
+  failure: ValidationFailure,
+  message: string,
+): ValidationFailure {
+  return new ValidationFailure(message || failure.message, {
+    instancePath: failure.instancePath,
+  });
+}
+
 export function interpolate<
   T extends string,
   const U extends Delimiters = { prefix: "{"; suffix: "}" },

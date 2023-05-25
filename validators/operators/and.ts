@@ -2,15 +2,23 @@
 // This module is browser compatible.
 
 import { isEmpty } from "../../deps.ts";
-import { iter } from "../../iter_utils.ts";
-import { type ValidationFailure, Validator } from "../../types.ts";
+import { iter, map } from "../../iter_utils.ts";
+import { curryR, fromMessage } from "../../utils.ts";
+import {
+  Reporter,
+  type ValidationContext,
+  type ValidationFailure,
+  Validator,
+} from "../../types.ts";
 
 export class AndValidator<In, In_ extends Via, Via extends In = In & In_>
+  extends Reporter<ValidationContext<In>>
   implements Validator<In, In & In_ & Via> {
   validators: Validator[] = [];
 
   constructor(left: Validator<In, Via>, right: Validator<Via, In_>);
   constructor(...validators: Validator[]) {
+    super();
     this.validators = validators;
   }
 
@@ -26,8 +34,10 @@ export class AndValidator<In, In_ extends Via, Via extends In = In & In_>
 
       if (result.done) continue;
 
-      yield result.value;
-      yield* iterable;
+      const message = this.report({ input });
+
+      yield fromMessage(result.value, message);
+      yield* map(iterable, curryR(fromMessage, message));
       return;
     }
   }
