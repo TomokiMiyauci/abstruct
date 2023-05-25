@@ -57,6 +57,7 @@ export const string = /* @__PURE__ */ type("string");
 export const number = /* @__PURE__ */ type("number");
 export const bigint = /* @__PURE__ */ type("bigint");
 export const boolean = /* @__PURE__ */ type("boolean");
+export const symbol = /* @__PURE__ */ type("symbol");
 export const enumerate = /* @__PURE__ */ lazy(
   /* @__PURE__ */ bind(EnumValidator).expect(shouldBeBut).build(),
 );
@@ -104,8 +105,9 @@ export const value = /* @__PURE__ */ lazy(ValueValidator);
 export const fixedArray = /* @__PURE__ */ lazy(FixedArrayValidator);
 
 // Date
-export const validDate = /* @__PURE__ */ new ValidDateValidator()
-  .expect(shouldBe);
+export const validDate = /* @__PURE__ */ new ValidDateValidator().expect(
+  shouldBe,
+);
 
 // iterable
 export const count = /* @__PURE__ */ lazy(

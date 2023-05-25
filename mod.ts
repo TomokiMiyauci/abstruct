@@ -52,6 +52,7 @@ export {
   positive,
   single,
   string,
+  symbol,
   type,
   uint16,
   uint32,
