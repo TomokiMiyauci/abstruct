@@ -5,6 +5,7 @@ import { type Display } from "./types.ts";
 import { getCount } from "./iter_utils.ts";
 import { bind, interpolate, shouldBe, shouldBeBut } from "./utils.ts";
 import { KeyValidator } from "./validators/key.ts";
+import { ValueValidator } from "./validators/value.ts";
 import { RangeValidator } from "./validators/range.ts";
 import { FixedArrayValidator } from "./validators/array/fixed_array.ts";
 import { DictionaryValidator } from "./validators/object/dictionary.ts";
@@ -92,6 +93,7 @@ export const between = /* @__PURE__ */ lazy(
 
 // known
 export const key = /* @__PURE__ */ lazy(KeyValidator);
+export const value = /* @__PURE__ */ lazy(ValueValidator);
 
 // Array
 export const fixedArray = /* @__PURE__ */ lazy(FixedArrayValidator);

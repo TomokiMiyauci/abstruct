@@ -56,4 +56,5 @@ export {
   uint8,
   unique,
   validDate,
+  value,
 } from "./combinator.ts";
