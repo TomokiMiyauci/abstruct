@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { type Display } from "./types.ts";
+import { type Display, type Validator } from "./types.ts";
 import { getCount } from "./iter_utils.ts";
 import { bind, ctorFn, interpolate, shouldBe, shouldBeBut } from "./utils.ts";
 import { EnumValidator } from "./validators/enum.ts";
@@ -96,7 +96,62 @@ export const not = /* @__PURE__ */ ctorFn(
 export const or = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(OrValidator).expect(shouldBe).build(),
 );
-export const and = /* @__PURE__ */ ctorFn(AndValidator);
+
+export function and<
+  In,
+  A extends In,
+  In2,
+  A2 extends In2,
+>(v1: Validator<In, A>, v2: Validator<In2 | A, A2>): AndValidator<In, A & A2>;
+export function and<
+  In,
+  A extends In,
+  In2,
+  A2 extends In2,
+  In3,
+  A3 extends In3,
+>(
+  v1: Validator<In, A>,
+  v2: Validator<In2 | A, A2>,
+  v3: Validator<In3 | A & A2, A3>,
+): AndValidator<In, A & A2 & A3>;
+export function and<
+  In,
+  A extends In,
+  In2,
+  A2 extends In2,
+  In3,
+  A3 extends In3,
+  In4,
+  A4 extends In4,
+>(
+  v1: Validator<In, A>,
+  v2: Validator<In2 | A, A2>,
+  v3: Validator<In3 | A & A2, A3>,
+  v4: Validator<In4 | A & A2 & A3, A4>,
+): AndValidator<In, A & A2 & A3 & A4>;
+export function and<
+  In,
+  A extends In,
+  In2,
+  A2 extends In2,
+  In3,
+  A3 extends In3,
+  In4,
+  A4 extends In4,
+  In5,
+  A5 extends In5,
+>(
+  v1: Validator<In, A>,
+  v2: Validator<In2 | A, A2>,
+  v3: Validator<In3 | A & A2, A3>,
+  v4: Validator<In4 | A & A2 & A3, A4>,
+  v5: Validator<In5 | A & A2 & A3 & A4, A5>,
+): AndValidator<In, A & A2 & A3 & A4 & A5>;
+export function and(...validators: readonly Validator[]): AndValidator {
+  return AndValidator.create(...validators);
+}
+
 export const between = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(RangeValidator).expect(shouldBeBut).build(),
 );
