@@ -1,5 +1,7 @@
+// Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
+// This module is browser compatible.
+
 import { ScalarValidator } from "../utils.ts";
-import { displayOr } from "./utils.ts";
 
 export class EnumValidator<const T> extends ScalarValidator<unknown, T> {
   values: [T, T, ...T[]];
@@ -13,6 +15,8 @@ export class EnumValidator<const T> extends ScalarValidator<unknown, T> {
   }
 
   override toString(): string {
-    return `one of ${displayOr(...this.values)}`;
+    const intl = new Intl.ListFormat("en", { type: "disjunction" });
+
+    return intl.format(this.values.map(String));
   }
 }
