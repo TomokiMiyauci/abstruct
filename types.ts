@@ -33,6 +33,11 @@ export class ValidationFailure {
   }
 }
 
+export interface ValidationContext<In = unknown> {
+  /** The actual input. */
+  input: In;
+}
+
 export interface Transformer<in In = unknown, out Out = In> {
   transform: (input: In) => Out;
 }
