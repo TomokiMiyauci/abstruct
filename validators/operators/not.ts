@@ -1,14 +1,15 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { Reporter, ValidationFailure, Validator } from "../../types.ts";
-
-export interface ReportContext<In = unknown> {
-  input: In;
-}
+import {
+  Reporter,
+  type ValidationContext,
+  ValidationFailure,
+  type Validator,
+} from "../../types.ts";
 
 export class NotValidator<in In = unknown, In_ extends In = In>
-  extends Reporter<ReportContext<In>>
+  extends Reporter<ValidationContext<In>>
   implements Validator<In, In_> {
   validator: Validator<In, In_>;
 

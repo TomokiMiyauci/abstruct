@@ -2,12 +2,18 @@
 // This module is browser compatible.
 
 import { Error } from "./constants.ts";
-import { Display, Reporter, ValidationFailure, Validator } from "./types.ts";
+import {
+  Display,
+  Reporter,
+  ValidationContext,
+  ValidationFailure,
+  Validator,
+} from "./types.ts";
 import { escapeStringRegex, isString } from "./deps.ts";
 
 /** Validator constructor for scalar value. */
 export abstract class ScalarValidator<In = unknown, A extends In = In>
-  extends Reporter<{ input: In }>
+  extends Reporter<ValidationContext<In>>
   implements Validator<In, A> {
   /** Whether the input is valid or not. */
   abstract is(input: In): input is A;

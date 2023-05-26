@@ -3,10 +3,14 @@
 
 import { isEmpty } from "../../deps.ts";
 import { enumerate } from "../../iter_utils.ts";
-import { Reporter, ValidationFailure, Validator } from "../../types.ts";
+import {
+  Reporter,
+  ValidationContext,
+  ValidationFailure,
+  Validator,
+} from "../../types.ts";
 
-interface Context {
-  input: Iterable<unknown>;
+interface Context extends ValidationContext<Iterable<unknown>> {
   index: number;
   item: unknown;
 }
