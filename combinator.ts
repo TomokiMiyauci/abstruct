@@ -13,6 +13,7 @@ import { DictionaryValidator } from "./validators/object/dictionary.ts";
 import { OptionalValidator } from "./validators/object/optional.ts";
 import { NullishValidator } from "./validators/nullish.ts";
 import { PrototypeValidator } from "./validators/prototype.ts";
+import { FloatValidator } from "./validators/number/float.ts";
 import { IntegerValidator } from "./validators/number/integer.ts";
 import { PositiveNumberValidator } from "./validators/number/positive_number.ts";
 import { NegativeNumberValidator } from "./validators/number/negative_number.ts";
@@ -141,6 +142,7 @@ export const unique = /* @__PURE__ */ new UniqueValidator().expect(({ item }) =>
 );
 
 // number
+export const float = /* @__PURE__ */ new FloatValidator().expect(shouldBeBut);
 export const int = /* @__PURE__ */ new IntegerValidator().expect(shouldBeBut);
 export const int8 = /* @__PURE__ */ and(
   int,

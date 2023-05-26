@@ -31,6 +31,7 @@ export {
   enumerate,
   eq,
   fixedArray,
+  float,
   gt,
   gte,
   instance,
