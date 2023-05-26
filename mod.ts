@@ -15,6 +15,13 @@ export {
   type ValidationErrorOptions,
 } from "./validation.ts";
 export {
+  Reporter,
+  type ValidationContext,
+  ValidationFailure,
+  type ValidationFailureOptions,
+  type Validator,
+} from "./types.ts";
+export {
   and,
   between,
   bigint,

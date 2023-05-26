@@ -26,13 +26,18 @@ export class ValidationFailure {
 
   constructor(
     message?: string,
-    options?: Readonly<{ instancePath: string[] }>,
+    options?: Readonly<ValidationFailureOptions>,
   ) {
     this.message = message ?? "";
-    this.instancePath = options?.instancePath ?? [];
+    this.instancePath = [...options?.instancePath ?? []];
   }
 }
 
+export interface ValidationFailureOptions {
+  instancePath?: readonly string[];
+}
+
+/** Validation context API. */
 export interface ValidationContext<In = unknown> {
   /** The actual input. */
   input: In;
