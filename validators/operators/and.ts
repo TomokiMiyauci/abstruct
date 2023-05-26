@@ -41,4 +41,10 @@ export class AndValidator<In, In_ extends Via, Via extends In = In & In_>
       return;
     }
   }
+
+  override toString(): string {
+    const intl = new Intl.ListFormat("en");
+
+    return intl.format(this.validators.map(String));
+  }
 }

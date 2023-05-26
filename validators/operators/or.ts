@@ -2,7 +2,6 @@
 // This module is browser compatible.
 
 import { isEmpty, maxBy } from "../../deps.ts";
-import { displayOr } from "../utils.ts";
 import {
   Reporter,
   ValidationContext,
@@ -53,6 +52,8 @@ export class OrValidator<in In = unknown, In_ extends In = In>
   }
 
   override toString(): string {
-    return displayOr(...this.validators);
+    const intl = new Intl.ListFormat("en", { type: "disjunction" });
+
+    return intl.format(this.validators.map(String));
   }
 }
