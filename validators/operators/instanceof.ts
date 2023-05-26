@@ -4,8 +4,8 @@
 import { type Constructor } from "../../deps.ts";
 import { ScalarValidator } from "../../utils.ts";
 
-export class InstanceValidator<T extends Constructor> extends // deno-lint-ignore ban-types
-ScalarValidator<{}, InstanceType<T>> {
+export class InstanceValidator<T extends Constructor>
+  extends ScalarValidator<unknown, InstanceType<T>> {
   constructor(public of: T) {
     super();
   }
