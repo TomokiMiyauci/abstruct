@@ -3,7 +3,7 @@
 
 import { type Display } from "./types.ts";
 import { getCount } from "./iter_utils.ts";
-import { bind, interpolate, shouldBe, shouldBeBut } from "./utils.ts";
+import { bind, ctorFn, interpolate, shouldBe, shouldBeBut } from "./utils.ts";
 import { EnumValidator } from "./validators/enum.ts";
 import { KeyValidator } from "./validators/key.ts";
 import { ValueValidator } from "./validators/value.ts";
@@ -58,51 +58,51 @@ export const number = /* @__PURE__ */ type("number");
 export const bigint = /* @__PURE__ */ type("bigint");
 export const boolean = /* @__PURE__ */ type("boolean");
 export const symbol = /* @__PURE__ */ type("symbol");
-export const enumerate = /* @__PURE__ */ lazy(
+export const enumerate = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(EnumValidator).expect(shouldBeBut).build(),
 );
-export const instance = /* @__PURE__ */ lazy(
+export const instance = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(InstanceValidator).expect(message1).build(),
 );
 
-export const object = /* @__PURE__ */ lazy(DictionaryValidator);
-export const optional = /* @__PURE__ */ lazy(OptionalValidator);
+export const object = /* @__PURE__ */ ctorFn(DictionaryValidator);
+export const optional = /* @__PURE__ */ ctorFn(OptionalValidator);
 export const nullish = /* @__PURE__ */ new NullishValidator();
-export const eq = /* @__PURE__ */ lazy(
+export const eq = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(EqualityValidator).expect(shouldBeBut).build(),
 );
-export const lt = /* @__PURE__ */ lazy(
+export const lt = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(LessThenValidator).expect(shouldBeBut).build(),
 );
-export const lte = /* @__PURE__ */ lazy(
+export const lte = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(LessThenOrEqualValidator).expect(shouldBeBut).build(),
 );
-export const gt = /* @__PURE__ */ lazy(
+export const gt = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(GreaterThenValidator).expect(shouldBeBut).build(),
 );
-export const gte = /* @__PURE__ */ lazy(
+export const gte = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(GreaterThenOrEqualValidator).expect(shouldBeBut).build(),
 );
-export const ne = /* @__PURE__ */ lazy(
+export const ne = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(InequalityValidator).expect(shouldBeBut).build(),
 );
-export const not = /* @__PURE__ */ lazy(
+export const not = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(NotValidator).expect(shouldBeBut).build(),
 );
-export const or = /* @__PURE__ */ lazy(
+export const or = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(OrValidator).expect(shouldBe).build(),
 );
-export const and = /* @__PURE__ */ lazy(AndValidator);
-export const between = /* @__PURE__ */ lazy(
+export const and = /* @__PURE__ */ ctorFn(AndValidator);
+export const between = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(RangeValidator).expect(shouldBeBut).build(),
 );
 
 // known
-export const key = /* @__PURE__ */ lazy(KeyValidator);
-export const value = /* @__PURE__ */ lazy(ValueValidator);
+export const key = /* @__PURE__ */ ctorFn(KeyValidator);
+export const value = /* @__PURE__ */ ctorFn(ValueValidator);
 
 // Array
-export const fixedArray = /* @__PURE__ */ lazy(FixedArrayValidator);
+export const fixedArray = /* @__PURE__ */ ctorFn(FixedArrayValidator);
 
 // Date
 export const validDate = /* @__PURE__ */ new ValidDateValidator().expect(
@@ -110,13 +110,13 @@ export const validDate = /* @__PURE__ */ new ValidDateValidator().expect(
 );
 
 // iterable
-export const count = /* @__PURE__ */ lazy(
+export const count = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(CountValidator).expect(({ input }) =>
     interpolate(Error.ShouldBeBut, [this, getCount(input)])
   ).build(),
 );
 export const empty = /* @__PURE__ */ new EmptyValidator().expect(shouldBe);
-export const item = /* @__PURE__ */ lazy(ItemValidator);
+export const item = /* @__PURE__ */ ctorFn(ItemValidator);
 
 export function maxCount(limit: number): MaxCountValidator {
   return new MaxCountValidator(limit).expect(({ input }) =>
@@ -174,15 +174,9 @@ export const positive = /* @__PURE__ */ new PositiveNumberValidator()
   .expect(shouldBeBut);
 
 // string
-export const pattern = /* @__PURE__ */ lazy(
+export const pattern = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(PatternValidator)
     .expect(({ input }) =>
       interpolate(Error.ShouldBeBut, [`match ${this}`, `"${input}"`])
     ).build(),
 );
-
-function lazy<Args extends readonly unknown[], R>(
-  ctor: { new (...args: Args): R },
-): (...args: Args) => R {
-  return (...args) => new ctor(...args);
-}
