@@ -12,6 +12,7 @@ export { isNonPositiveNumber } from "https://deno.land/x/isx@1.3.1/number/is_non
 export { isNonNegativeNumber } from "https://deno.land/x/isx@1.3.1/number/is_non_negative_number.ts";
 export { isValidDate } from "https://deno.land/x/isx@1.3.1/date/is_valid_date.ts";
 export { filterKeys } from "https://deno.land/std@0.187.0/collections/filter_keys.ts";
+export { maxBy } from "https://deno.land/std@0.187.0/collections/max_by.ts";
 export { default as escapeStringRegex } from "https://esm.sh/escape-string-regexp@5.0.0?pin=v122";
 
 // deno-lint-ignore no-explicit-any
