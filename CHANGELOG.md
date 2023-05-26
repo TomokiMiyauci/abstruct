@@ -1,3 +1,43 @@
+# [1.0.0-beta.3](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.2...1.0.0-beta.3) (2023-05-26)
+
+
+### Bug Fixes
+
+* **nullish:** fix to wrong logic ([014737e](https://github.com/TomokiMiyauci/abstruct/commit/014737e4cc4d3a0d613f1a711e0af92d773905c5))
+* **utils:** fix to proxy logic ([cbc38ef](https://github.com/TomokiMiyauci/abstruct/commit/cbc38ef9cf9a1767d75b2ff94506df668df72ffd))
+
+
+### Features
+
+* add default error message ([d6926b2](https://github.com/TomokiMiyauci/abstruct/commit/d6926b2d7c07f80b5b5e78b4e32f47aadba54d83))
+* **and:** implement reporter interface to logical AND validator ([e3c6e52](https://github.com/TomokiMiyauci/abstruct/commit/e3c6e52b6037ade790f5a98f1c6dffedcde18795))
+* **and:** improve represenation ([92fa79f](https://github.com/TomokiMiyauci/abstruct/commit/92fa79fc159f08b9cdd6810695a19cdfe9aec03d))
+* **instanceof:** improve type infer ([6678943](https://github.com/TomokiMiyauci/abstruct/commit/66789438fd676b29de2beed3f2a920216f205e0f))
+* **key:** rename property key to key ([dcc3d4d](https://github.com/TomokiMiyauci/abstruct/commit/dcc3d4d228d59f6e8ed43e7b78097137fff6faa4))
+* **mod:** add validator for signed and unsigned integer ([1c3b569](https://github.com/TomokiMiyauci/abstruct/commit/1c3b569c1b1ee5057a7bf0ab859afe45d2051420))
+* **mod:** export enume validator ([596f790](https://github.com/TomokiMiyauci/abstruct/commit/596f790fb617c30f95f170c0ba0e091553d701d3))
+* **mod:** export types ([e8eefad](https://github.com/TomokiMiyauci/abstruct/commit/e8eefada9f9cf83646d28c3eb41b185273cd8da8))
+* **mod:** export validator for single item ([2c36e86](https://github.com/TomokiMiyauci/abstruct/commit/2c36e861456956baf4e907566f69c807089c1494))
+* **mod:** export validator for symbol type ([415ac1a](https://github.com/TomokiMiyauci/abstruct/commit/415ac1ac72719c39928086f73e129539ffdfdf54))
+* **negative_number:** add validator for negative number ([3426c99](https://github.com/TomokiMiyauci/abstruct/commit/3426c993da2f91c1061ed7adfd29d91fb3686184))
+* **or:** add passing max length of instance path ([f57e4a6](https://github.com/TomokiMiyauci/abstruct/commit/f57e4a68b7058ec773294410641ffae706f80c55))
+* **property_key:** rename `PropertyValidator` to `PropertyKeyValidator` ([ad06940](https://github.com/TomokiMiyauci/abstruct/commit/ad0694082910c628b8559c9746d447ae201f1101))
+* **prototype:** add validator for prototype ([e031ab5](https://github.com/TomokiMiyauci/abstruct/commit/e031ab5467a3aaf37f74531445fbfe41125bd9fe))
+* **range:** add validator for range ([77e3004](https://github.com/TomokiMiyauci/abstruct/commit/77e3004a1f6126f0c757cbbd7c7a6953fb82a2c3))
+* **single:** add validator for single item ([2bde8c0](https://github.com/TomokiMiyauci/abstruct/commit/2bde8c06cebeac414bbedeeed3cb8545220dc415))
+* **typeof:** improve representation ([a81bd14](https://github.com/TomokiMiyauci/abstruct/commit/a81bd144f0ddbcbf641ce912cb009b17425384d6))
+* **types:** add validation context interface ([c95f89e](https://github.com/TomokiMiyauci/abstruct/commit/c95f89eff81f4cefd722233ba398cf298bbcd95d))
+* **utils:** add lazy function that create validator lazily ([a44d149](https://github.com/TomokiMiyauci/abstruct/commit/a44d1493f421bfa262b0501fa33d6c43db1c3485))
+* **utils:** impl toString method ([9069e2a](https://github.com/TomokiMiyauci/abstruct/commit/9069e2a437917115c4294c08a96e1ba94e9922c8))
+* **validators:** add validator for non-negative number and non-positive number ([597a8ca](https://github.com/TomokiMiyauci/abstruct/commit/597a8caefc691e008f0257e39278d00184c24c1a))
+* **value:** add validator for property value ([cd994e3](https://github.com/TomokiMiyauci/abstruct/commit/cd994e3fae6b402d6cbd8980eeba21ea7ee162b8))
+
+
+### Performance Improvements
+
+* **constants:** remove top-level exported const enum ([c971484](https://github.com/TomokiMiyauci/abstruct/commit/c97148416a74565c84002be1e794c3dcf4915f87))
+* **validators:** remove all decorator ([9cf902a](https://github.com/TomokiMiyauci/abstruct/commit/9cf902ac987b3b27318557d48c387d8a0e881d77))
+
 # [1.0.0-beta.2](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.1...1.0.0-beta.2) (2023-05-24)
 
 
