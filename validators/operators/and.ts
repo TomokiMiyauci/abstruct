@@ -11,24 +11,26 @@ import {
   Validator,
 } from "../../types.ts";
 
-export class AndValidator<In, In_ extends Via, Via extends In = In & In_>
-  extends Reporter<ValidationContext<In>>
-  implements Validator<In, In & In_ & Via> {
-  validators: Validator[] = [];
+export class AndValidator<
+  In,
+  A extends In = In,
+  In2 = unknown,
+  A2 extends In2 = In2,
+> extends Reporter<ValidationContext<In>> implements Validator<In, A & A2> {
+  validators: [Validator<In, A>, Validator<In2, A2>];
 
-  constructor(left: Validator<In, Via>, right: Validator<Via, In_>);
-  constructor(...validators: Validator[]) {
+  constructor(left: Validator<In, A>, right: Validator<In2 | A, A2>) {
     super();
-    this.validators = validators;
+    this.validators = [left, right];
   }
 
-  is(input: In): input is In & In_ & Via {
+  is(input: In): input is A & A2 {
     return isEmpty(this.validate(input));
   }
 
   *validate(input: In): Iterable<ValidationFailure> {
     for (const validator of this.validators) {
-      const iterable = validator.validate(input);
+      const iterable = validator.validate(input as In & In2);
       const iterator = iter(iterable);
       const result = iterator.next();
 
