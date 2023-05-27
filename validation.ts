@@ -95,24 +95,98 @@ export function assert(
   }
 }
 
+/** Validate options. */
 export interface ValidateOptions {
-  /**
-   * @default Infinity
+  /** The maximum number of {@link ValidationFailure}.
+   * It should be positive integer.
+   * @default Number.MAX_SAFE_INTEGER
    */
   maxErrors?: number;
 }
 
-/**
+/** The `validate` executes the {@link Validator} and returns a {@link Result} type. If validation
+ * succeeds, it returns {@link Ok}. If it fails, it returns {@link Err}.
+ *
+ * If {@link Ok}, the value after narrowing of the type is stored.
+ *
+ * @example
+ * ```ts
+ * import {
+ *   fixedArray,
+ *   number,
+ *   string,
+ *   validate,
+ *   type ValidationFailure,
+ *   type Validator,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ * import type {
+ *   Assert,
+ *   Has,
+ *   IsExact,
+ * } from "https://deno.land/std/testing/types.ts";
+ * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+ *
+ * const Tuple = fixedArray(string, number);
+ *
+ * type doTest = Assert<
+ *   Has<typeof Tuple, Validator<[unknown, unknown], [string, number]>>,
+ *   true
+ * >;
+ *
+ * const result = validate(Tuple, [0, ""]);
+ * declare const failure: ValidationFailure;
+ *
+ * if (result.isOk()) {
+ *   type doTest = Assert<IsExact<typeof result.value, [string, number]>, true>;
+ * } else {
+ *   assertEquals(result.value, [failure, failure]);
+ * }
+ *
+ * ```
+ *
+ * ## maxErrors
+ * The maximum number of {@link ValidationFailure}. It should be positive integer.
+ * The default is `Number.MAX_SAFE_INTEGER`.
+ *
+ * Example of fail fast:
+ * ```ts
+ * import {
+ *   fixedArray,
+ *   number,
+ *   string,
+ *   validate,
+ *   type ValidationFailure,
+ *   type Validator,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ * import type {
+ *   Assert,
+ *   Has,
+ *   IsExact,
+ * } from "https://deno.land/std/testing/types.ts";
+ * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+ *
+ * const Tuple = fixedArray(string, number);
+ * const result = validate(Tuple, [0, ""], { maxErrors: 1 });
+ * declare const failure: ValidationFailure;
+ *
+ * if (result.isErr()) {
+ *   assertEquals(result.value, [failure]);
+ * }
+ * ```
+ *
+ * Because the validator performs lazy evaluation, limiting the number of errors
+ * improves performance.
+ *
  * @throws {RangeError} If the {@link ValidateOptions.maxErrors} is not positive integer.
  */
-export function validate<In = unknown, In_ extends In = In>(
-  validator: Validator<In, In_>,
+export function validate<In = unknown, A extends In = In>(
+  validator: Validator<In, A>,
   input: In,
   options: ValidateOptions = {},
-): Result<In_, ValidationFailure[]> {
+): Result<A, ValidationFailure[]> {
   const failures = [...take(validator.validate(input), options.maxErrors)];
 
-  if (!failures.length) return new Ok(input as In_);
+  if (!failures.length) return new Ok(input as A);
 
   return new Err(failures);
 }

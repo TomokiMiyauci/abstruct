@@ -94,6 +94,90 @@ assertThrows(() =>
 );
 ```
 
+## validate
+
+The `validate` executes the validator and returns a `Result` type. If validation
+succeeds, it returns `Ok(T)`. If it fails, it returns `Err(E)`.
+
+If `Ok`, the value after narrowing of the type is stored.
+
+```ts
+import {
+  fixedArray,
+  number,
+  string,
+  validate,
+  type ValidationFailure,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import type {
+  Assert,
+  Has,
+  IsExact,
+} from "https://deno.land/std/testing/types.ts";
+import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+
+const Tuple = fixedArray(string, number);
+
+type doTest = Assert<
+  Has<typeof Tuple, Validator<[unknown, unknown], [string, number]>>,
+  true
+>;
+
+const result = validate(Tuple, [0, ""]);
+declare const failure: ValidationFailure;
+
+if (result.isOk()) {
+  type doTest = Assert<IsExact<typeof result.value, [string, number]>, true>;
+} else {
+  assertEquals(result.value, [failure, failure]);
+}
+```
+
+By default, validate collects as many errors as possible.
+
+### maxErrors
+
+The maximum number of `ValidationFailure`. It should be positive integer.
+
+The default is `Number.MAX_SAFE_INTEGER`.
+
+Example of fail fast:
+
+```ts
+import {
+  fixedArray,
+  number,
+  string,
+  validate,
+  type ValidationFailure,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import type {
+  Assert,
+  Has,
+  IsExact,
+} from "https://deno.land/std/testing/types.ts";
+import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+
+const Tuple = fixedArray(string, number);
+const result = validate(Tuple, [0, ""], { maxErrors: 1 });
+declare const failure: ValidationFailure;
+
+if (result.isErr()) {
+  assertEquals(result.value, [failure]);
+}
+```
+
+Because the validator performs lazy evaluation, limiting the number of errors
+improves performance.
+
+### Throwing error
+
+Throws an error in the following cases:
+
+- `RangeError`: If [maxErrors](#maxerrors) is not positive integer.
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).
