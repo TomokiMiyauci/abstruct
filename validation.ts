@@ -12,11 +12,6 @@ export interface AssertOptions extends ErrorOptions {
   /** Error message. */
   message?: string;
 
-  /** Whether capture internal stack trace or not.
-   * @default false
-   */
-  captureStackTrace?: boolean;
-
   /** Whether to perform the assertion fail fast or not.
    * @default false
    */
@@ -49,7 +44,6 @@ export function assert<In = unknown, A extends In = In>(
   const {
     message,
     cause,
-    captureStackTrace = false,
     failFast,
     error,
   } = options;
@@ -60,11 +54,8 @@ export function assert<In = unknown, A extends In = In>(
 
   if (failFast) {
     const failure = result.value[0]!;
-    const { instancePath } = failure;
-    const e = new (error ?? ValidationError)(message ?? makeMsg(failure), {
-      cause,
-      instancePath,
-    });
+    const ErrorCtor = error ?? ValidationError;
+    const e = new ErrorCtor(message ?? makeMsg(failure), { cause });
 
     throw captured(e);
   }
@@ -81,8 +72,6 @@ export function assert<In = unknown, A extends In = In>(
 
   // deno-lint-ignore ban-types
   function captured<T extends Object>(error: T): T {
-    if (captureStackTrace) return error;
-
     Error.captureStackTrace(error, assert);
 
     return error;
