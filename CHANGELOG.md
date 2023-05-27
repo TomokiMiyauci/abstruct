@@ -1,3 +1,16 @@
+# [1.0.0-beta.4](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.3...1.0.0-beta.4) (2023-05-27)
+
+
+### Features
+
+* **and:** improve type inference of and function ([aaf2a35](https://github.com/TomokiMiyauci/abstruct/commit/aaf2a3595099635ba3f49852e0c562a50e8a63fb))
+* **and:** improve type inference of And validator ([85e34b5](https://github.com/TomokiMiyauci/abstruct/commit/85e34b5f4290ef190eb8551a9e37ff24d51def19))
+* **float:** add validator for float ([a66e0ba](https://github.com/TomokiMiyauci/abstruct/commit/a66e0ba909cd1da2aa0dc4d546a45c2f5f67196c))
+* **validation:** improve return type to tuple ([a10094e](https://github.com/TomokiMiyauci/abstruct/commit/a10094e8c75ddbe97cbf271c08e4c58201a85251))
+* **validation:** improve to accept a wider range of types ([0c004f5](https://github.com/TomokiMiyauci/abstruct/commit/0c004f5013b12f32193f0797a87cef23f19cf6f0))
+* **validation:** remove `captureStackTrace` field ([3114bb5](https://github.com/TomokiMiyauci/abstruct/commit/3114bb5929a6efe37546d4782c5af1400efc3f11))
+* **validation:** rename interface name ([dca6895](https://github.com/TomokiMiyauci/abstruct/commit/dca689521e1c2285ee57ff1d20ce3b2c63002e94))
+
 # [1.0.0-beta.3](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.2...1.0.0-beta.3) (2023-05-26)
 
 
