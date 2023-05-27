@@ -1,15 +1,193 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { Err, Ok, validate, ValidationError } from "./validation.ts";
+import { assert, Err, Ok, validate, ValidationError } from "./validation.ts";
 import type { ValidationFailure, Validator } from "./types.ts";
-import { assertEquals, assertThrows, describe, it } from "./_dev_deps.ts";
+import {
+  assertEquals,
+  assertFalse,
+  assertIsError,
+  assertThrows,
+  describe,
+  it,
+} from "./_dev_deps.ts";
+
+const v: Validator = {
+  validate: () => [],
+  is: (_: unknown): _ is unknown => true,
+};
+
+describe("assert", () => {
+  it("should return void if there are not validation errors", () => {
+    assertFalse(assert(v, ""));
+    assertFalse(assert(v, "", { failFast: true }));
+    assertFalse(assert(v, "", { maxErrors: 1 }));
+    assertFalse(assert(v, "", { message: "test" }));
+  });
+
+  it("should throw AggregateError by default", () => {
+    const v1: Validator = {
+      ...v,
+      validate: () => [{ message: "test1", instancePath: [] }, {
+        message: "test2",
+        instancePath: ["a", "b", "c"],
+      }],
+    };
+
+    let err;
+
+    try {
+      assertFalse(assert(v1, ""));
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, AggregateError, "");
+      assertEquals(err.errors, [
+        new ValidationError(`test1`),
+        new ValidationError(`test2\ninstance path: a.b.c`, {
+          instancePath: ["a", "b", "c"],
+        }),
+      ]);
+    }
+  });
+
+  it("should override AggregateError if pass error", () => {
+    const v1: Validator = {
+      ...v,
+      validate: () => [{ message: "test1", instancePath: [] }, {
+        message: "test2",
+        instancePath: ["a", "b", "c"],
+      }],
+    };
+
+    let err;
+
+    class CustomError extends AggregateError {
+      override name = "CustomError";
+    }
+
+    try {
+      assertFalse(assert(v1, "", { error: CustomError }));
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, CustomError);
+    }
+  });
+
+  it("should pass message", () => {
+    const v1: Validator = {
+      ...v,
+      validate: () => [{ message: "test1", instancePath: [] }, {
+        message: "test2",
+        instancePath: ["a", "b", "c"],
+      }],
+    };
+
+    let err;
+
+    try {
+      assertFalse(assert(v1, "", { message: "test" }));
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, AggregateError, "test");
+    }
+  });
+
+  it("should be limit number of error", () => {
+    const v1: Validator = {
+      ...v,
+      validate: () => [{ message: "test1", instancePath: [] }, {
+        message: "test2",
+        instancePath: ["a", "b", "c"],
+      }],
+    };
+
+    let err;
+
+    try {
+      assertFalse(assert(v1, "", { maxErrors: 1 }));
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, AggregateError);
+      assertEquals(err.errors.length, 1);
+      assertEquals(err.errors[0].message, "test1");
+    }
+  });
+
+  it("should throw ValidationError if failFast is true", () => {
+    const v1: Validator = {
+      ...v,
+      validate: () => [{
+        message: "test2",
+        instancePath: ["a", "b", "c"],
+      }, { message: "test1", instancePath: [] }],
+    };
+
+    let err;
+
+    try {
+      assertFalse(assert(v1, "", { failFast: true }));
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, ValidationError, "test2\ninstance path: a.b.c");
+      assertEquals(
+        err,
+        new ValidationError("test2\ninstance path: a.b.c", {
+          instancePath: ["a", "b", "c"],
+        }),
+      );
+    }
+  });
+
+  it("should override Error if error is ctor", () => {
+    const v1: Validator = {
+      ...v,
+      validate: () => [{
+        message: "test2",
+        instancePath: ["a", "b", "c"],
+      }, { message: "test1", instancePath: [] }],
+    };
+
+    let err;
+
+    try {
+      assertFalse(assert(v1, "", { failFast: true, error: Error }));
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, Error, "test2\ninstance path: a.b.c");
+      assertEquals(
+        err,
+        new Error("test2\ninstance path: a.b.c"),
+      );
+    }
+  });
+
+  it("should override message", () => {
+    const v1: Validator = {
+      ...v,
+      validate: () => [{
+        message: "test2",
+        instancePath: ["a", "b", "c"],
+      }, { message: "test1", instancePath: [] }],
+    };
+
+    let err;
+
+    try {
+      assertFalse(assert(v1, "", { failFast: true, message: "test!!!" }));
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, ValidationError, "test!!!");
+    }
+  });
+});
 
 describe("validate", () => {
-  const v: Validator = {
-    validate: () => [],
-    is: (_: unknown): _ is unknown => true,
-  };
-
   it("should return ok", () => {
     assertEquals(validate(v, ""), new Ok(""));
   });

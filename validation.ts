@@ -69,7 +69,10 @@ export function assert<In = unknown, A extends In = In>(
   if (failFast) {
     const failure = result.value[0];
     const ErrorCtor = error ?? ValidationError;
-    const e = new ErrorCtor(message ?? makeMsg(failure), { cause });
+    const e = new ErrorCtor(message ?? makeMsg(failure), {
+      cause,
+      instancePath: failure.instancePath,
+    });
 
     throw captured(e);
   }
