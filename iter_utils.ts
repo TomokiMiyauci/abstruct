@@ -20,20 +20,20 @@ export function iter<T>(iterable: Iterable<T>): Iterator<T> {
 
 /** Take element from iterable.
  *
- * @throws {RangeError} If the {@link size} is not positive integer.
+ * @throws {RangeError} If the {@link limit} is not positive integer.
  */
 export function* take<T>(
   iterable: Iterable<T>,
-  size = Number.MAX_SAFE_INTEGER,
+  limit = Number.MAX_SAFE_INTEGER,
 ): Iterable<T> {
-  if (!Number.isInteger(size) || !isPositiveNumber(size)) {
-    throw new RangeError("size must be an positive integer");
+  if (!isPositiveInteger(limit)) {
+    throw new RangeError("limit must be an positive integer");
   }
 
   for (const [i, value] of enumerate(iterable)) {
     yield value;
 
-    if (size <= i + 1) break;
+    if (limit <= i + 1) break;
   }
 }
 
@@ -50,4 +50,9 @@ export function* enumerate<T>(
 /** Return item count. */
 export function getCount(input: Iterable<unknown>): number {
   return [...input].length;
+}
+
+/** Whether the input is positive integer or not. */
+export function isPositiveInteger(input: number): boolean {
+  return Number.isInteger(input) && isPositiveNumber(input);
 }
