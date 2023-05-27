@@ -16,6 +16,10 @@ export {
   type Has,
   type IsExact,
 } from "https://deno.land/std@0.186.0/testing/types.ts";
+export {
+  assertSpyCalls,
+  spy,
+} from "https://deno.land/std@0.186.0/testing/mock.ts";
 
 export type InferValidator<T> = T extends Validator<infer In, infer Out>
   ? Validator<In, Out>

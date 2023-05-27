@@ -5,8 +5,12 @@
 
 import { isPositiveNumber } from "./deps.ts";
 
+/**
+ * Returns an iterator that computes the given mapper function using arguments
+ * from each of the iterables.
+ */
 export function* map<T, V>(
-  iterable: Iterable<T>,
+  iterable: Readonly<Iterable<T>>,
   mapper: (item: T) => V,
 ): Iterable<V> {
   for (const value of iterable) {
@@ -14,7 +18,8 @@ export function* map<T, V>(
   }
 }
 
-export function iter<T>(iterable: Iterable<T>): Iterator<T> {
+/** Returns an iterator object for the given iterable. */
+export function iter<T>(iterable: Readonly<Iterable<T>>): Iterator<T> {
   return iterable[Symbol.iterator]();
 }
 
@@ -23,7 +28,7 @@ export function iter<T>(iterable: Iterable<T>): Iterator<T> {
  * @throws {RangeError} If the {@link limit} is not positive integer.
  */
 export function* take<T>(
-  iterable: Iterable<T>,
+  iterable: Readonly<Iterable<T>>,
   limit = Number.MAX_SAFE_INTEGER,
 ): Iterable<T> {
   if (!isPositiveInteger(limit)) {
@@ -39,7 +44,7 @@ export function* take<T>(
 
 /** Entries for iterable. */
 export function* enumerate<T>(
-  iterable: Iterable<T>,
+  iterable: Readonly<Iterable<T>>,
   start = 0,
 ): Iterable<[index: number, item: T]> {
   for (const item of iterable) {
@@ -48,7 +53,7 @@ export function* enumerate<T>(
 }
 
 /** Return item count. */
-export function getCount(input: Iterable<unknown>): number {
+export function getCount(input: Readonly<Iterable<unknown>>): number {
   return [...input].length;
 }
 

@@ -1,13 +1,15 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { isPositiveInteger, take } from "./iter_utils.ts";
+import { isPositiveInteger, iter, map, take } from "./iter_utils.ts";
 import {
   assert,
   assertEquals,
   assertFalse,
+  assertSpyCalls,
   assertThrows,
   describe,
   it,
+  spy,
 } from "./_dev_deps.ts";
 
 describe("isPositiveInteger", () => {
@@ -62,5 +64,32 @@ describe("take", () => {
     assertThrows(() => [...take([], 0)]);
     assertThrows(() => [...take([], 1.1)]);
     assertThrows(() => [...take([], NaN)]);
+  });
+});
+
+describe("map", () => {
+  it("should return mapped iterable", () => {
+    assertEquals([...map([1, 2, 3], (number) => number ** number)], [1, 4, 27]);
+  });
+
+  it("should not call map until yield", () => {
+    const mapper = spy(() => 1);
+    const iterable = map([1, 2, 3], mapper);
+
+    assertSpyCalls(mapper, 0);
+
+    [...iterable];
+
+    assertSpyCalls(mapper, 3);
+  });
+});
+
+describe("iter", () => {
+  it("should return iterator", () => {
+    function* gen() {
+      yield 1;
+    }
+    const iterable = gen();
+    assertEquals(iter(iterable), iterable[Symbol.iterator]());
   });
 });
