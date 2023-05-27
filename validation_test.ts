@@ -48,3 +48,27 @@ describe("validate", () => {
     assertThrows(() => validate(v, "", { maxErrors: 0 }));
   });
 });
+
+describe("Ok", () => {
+  it("should return Ok container", () => {
+    const value = "test";
+    const ok = new Ok(value);
+
+    assertEquals(ok.type, "ok");
+    assertEquals(ok.value, value);
+    assertEquals(ok.isOk(), true);
+    assertEquals(ok.isErr(), false);
+  });
+});
+
+describe("Err", () => {
+  it("should return Err container", () => {
+    const value = "test";
+    const err = new Err(value);
+
+    assertEquals(err.type, "error");
+    assertEquals(err.value, value);
+    assertEquals(err.isOk(), false);
+    assertEquals(err.isErr(), true);
+  });
+});
