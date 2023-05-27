@@ -5,32 +5,24 @@ import { isNotEmpty } from "./deps.ts";
 import { type ValidationFailure, Validator } from "./types.ts";
 import { take } from "./iter_utils.ts";
 
-/** Assert options. */
-export interface AssertOptions extends ErrorOptions {
+interface ErrorConfigs extends ErrorOptions {
   /** Error constructor. */
   error?: NewableFunction;
 
-  /** Error message. */
+  /** Error message.  */
   message?: string;
-
-  /** Whether to perform the assertion fail fast or not.
-   * @default false
-   */
-  failFast?: boolean;
 }
 
-/** Eager assert options. */
-export interface EagerAssertOptions extends AssertOptions {
-  /**
+/** Validation error configs. */
+interface ValidationConfigs extends ErrorConfigs {
+  /** Validation error constructor.
    * @default ValidationError
    */
   error?: { new (message?: string, options?: ErrorOptions): Error };
-  failFast: true;
 }
 
-/** Lazy assert options. */
-export interface LazyAssertOptions extends AssertOptions, ValidateOptions {
-  /**
+interface AggregationConfigs extends ErrorConfigs {
+  /** Aggregation error constructor.
    * @default AggregateError
    */
   error?: {
@@ -41,6 +33,31 @@ export interface LazyAssertOptions extends AssertOptions, ValidateOptions {
       options?: ErrorOptions,
     ): Error;
   };
+}
+
+/** Assert options. */
+export interface AssertOptions {
+  /** Validation error configs. */
+  validation?: ValidationConfigs;
+
+  /** Whether to perform the assertion fail fast or not.
+   * @default false
+   */
+  failFast?: boolean;
+}
+
+/** Lazy assert options. */
+export interface LazyAssertOptions extends AssertOptions {
+  failFast: true;
+}
+
+/** Aggregation error configs. */
+
+/** Greedy assert options. */
+export interface GreedyAssertOptions extends AssertOptions, ValidateOptions {
+  /** Aggregation error configs. */
+  aggregation?: AggregationConfigs;
+
   failFast?: false;
 }
 
@@ -52,40 +69,44 @@ export interface LazyAssertOptions extends AssertOptions, ValidateOptions {
  */
 export function assert<In = unknown, A extends In = In>(
   validator: Readonly<Validator<In, A>>,
-  input: Readonly<In>,
-  options: Readonly<EagerAssertOptions | LazyAssertOptions> = {},
+  input: In,
+  options: Readonly<LazyAssertOptions | GreedyAssertOptions> = {},
 ): asserts input is A {
   const {
-    message,
-    cause,
     failFast,
-    error,
+    validation = {},
   } = options;
   const maxErrors = failFast ? 1 : options.maxErrors;
   const result = validate(validator, input, { maxErrors });
 
   if (result.isOk()) return;
 
+  const ErrorCtor = validation.error ?? ValidationError;
+
   if (failFast) {
     const failure = result.value[0];
-    const ErrorCtor = error ?? ValidationError;
-    const e = new ErrorCtor(message ?? makeMsg(failure), {
-      cause,
-      instancePath: failure.instancePath,
-    });
+    const e = failure2Error(failure);
 
     throw captured(e);
   }
 
-  const errors = result.value
-    .map((failure) =>
-      new ValidationError(makeMsg(failure), {
-        instancePath: failure.instancePath,
-      })
-    ).map(captured);
-  const ErrorCtor = error ?? AggregateError;
+  const errors = result.value.map(failure2Error).map(captured);
+  const { aggregation = {} } = options;
+  const ErrorsCtor = aggregation.error ?? AggregateError;
+  const e = new ErrorsCtor(errors, aggregation.message, {
+    cause: aggregation.cause,
+  });
 
-  throw captured(new ErrorCtor(errors, message, { cause }));
+  throw captured(e);
+
+  function failure2Error(
+    { message, instancePath }: Readonly<ValidationFailure>,
+  ): Error {
+    message = message || (validation.message ?? "");
+    const msg = makeMsg({ message, instancePath });
+
+    return new ErrorCtor(msg, { cause: validation.cause, instancePath });
+  }
 
   // deno-lint-ignore ban-types
   function captured<T extends Object>(error: T): T {
@@ -181,7 +202,7 @@ export interface ValidateOptions {
  */
 export function validate<In = unknown, A extends In = In>(
   validator: Readonly<Validator<In, A>>,
-  input: Readonly<In>,
+  input: In,
   options: Readonly<ValidateOptions> = {},
 ): Result<A, [ValidationFailure, ...ValidationFailure[]]> {
   const failures = [...take(validator.validate(input), options.maxErrors)];

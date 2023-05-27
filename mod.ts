@@ -4,8 +4,8 @@
 export {
   assert,
   type AssertOptions,
-  type EagerAssertOptions,
   Err,
+  type GreedyAssertOptions,
   type LazyAssertOptions,
   Ok,
   type Result,

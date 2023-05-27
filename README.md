@@ -178,6 +178,224 @@ Throws an error in the following cases:
 
 - `RangeError`: If [maxErrors](#maxerrors) is not positive integer.
 
+## assert
+
+```ts
+import {
+  assert,
+  number,
+  object,
+  string,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import {
+  assertEquals,
+  assertIsError,
+} from "https://deno.land/std/testing/asserts.ts";
+
+const Profile = object({ name: string, age: number });
+
+try {
+  assert(Profile, { name: null, age: null });
+} catch (e) {
+  assertIsError(e, AggregateError);
+  assertEquals(e.errors.length, 2);
+}
+```
+
+### validation
+
+Validation error configs.
+
+#### error
+
+Error constructor.
+
+The default is `ValidationError`.
+
+The example of specify validation error as:
+
+```ts
+import { assert, between } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+
+assert(between(0, 255), 256, {
+  failFast: true,
+  validation: { error: RangeError },
+});
+```
+
+#### message
+
+Error message.
+
+```ts
+import {
+  assert,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+
+declare const validator: Validator<unknown>;
+declare const input: unknown;
+declare const message: string;
+
+try {
+  assert(validator, input, { failFast: true, validation: { message } });
+} catch (e) {
+  assertEquals(e.message, message);
+}
+```
+
+#### cause
+
+Original cause of the error.
+
+```ts
+import {
+  assert,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+
+declare const validator: Validator<unknown>;
+declare const input: unknown;
+declare const cause: ErrorConstructor;
+
+try {
+  assert(validator, input, { failFast: true, validation: { cause } });
+} catch (e) {
+  assertEquals(e.cause, cause);
+}
+```
+
+### Lazy vs Greedy
+
+Validation by assert works with lazy or greedy.
+
+Lazy terminates the evaluation as soon as it finds a validation error and
+reports only one validation error.
+
+In contrast, greedy continues validation until the specified number of
+validation errors is reached or all validations are completed.
+
+Also, validator has a lazy evaluation mechanism, so only as many validations are
+performed as needed.
+
+By default, it operates as greedy.
+
+### failFast
+
+If `failFast` is true, it works as lazy.
+
+```ts
+import {
+  assert,
+  ValidationError,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import {
+  assertEquals,
+  assertIsError,
+} from "https://deno.land/std/testing/asserts.ts";
+
+declare const Profile: Validator<
+  { name: unknown; age: unknown },
+  { name: string; age: string }
+>;
+
+try {
+  assert(Profile, { name: null, age: null }, { failFast: true });
+} catch (e) {
+  assertIsError(e, ValidationError);
+}
+```
+
+The following fields can only be specified in greedy mode.
+
+### maxErrors option
+
+The number of validation errors can be changed with `maxErrors`. For details,
+see [maxErrors](#maxerrors)
+
+### aggregation
+
+Aggregation error configs.
+
+#### error
+
+Specify custom `AggregationErrorConstructor`.
+
+The default is `AggregationError`.
+
+```ts
+import {
+  assert,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertIsError } from "https://deno.land/std/testing/asserts.ts";
+
+declare const validator: Validator<unknown>;
+declare const input: unknown;
+declare const error: AggregateErrorConstructor;
+
+try {
+  assert(validator, input, { aggregation: { error } });
+} catch (e) {
+  assertIsError(e, error);
+}
+```
+
+#### message
+
+Customize `AggregationError` message.
+
+```ts
+import {
+  assert,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+
+declare const validator: Validator<unknown>;
+declare const input: unknown;
+declare const message: string;
+
+try {
+  assert(validator, input, { aggregation: { message } });
+} catch (e) {
+  assertEquals(e.message, message);
+}
+```
+
+#### cause
+
+You can specify `cause` to express the cause of the `AggregationError`.
+
+```ts
+import {
+  assert,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+
+declare const validator: Validator<unknown>;
+declare const input: unknown;
+declare const cause: Error;
+
+try {
+  assert(validator, input, { aggregation: { cause } });
+} catch (e) {
+  assertEquals(e.cause, cause);
+}
+```
+
+### Throwing error
+
+Throws an error in the following cases:
+
+- `AggregateError`: If assertion is fail.
+- `ValidationError`: If assertion is fail and [failFast](#failfast) is true.
+- Same as [validate](#throwing-error).
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).

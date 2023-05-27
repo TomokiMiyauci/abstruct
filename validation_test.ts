@@ -21,7 +21,6 @@ describe("assert", () => {
     assertFalse(assert(v, ""));
     assertFalse(assert(v, "", { failFast: true }));
     assertFalse(assert(v, "", { maxErrors: 1 }));
-    assertFalse(assert(v, "", { message: "test" }));
   });
 
   it("should throw AggregateError by default", () => {
@@ -66,7 +65,7 @@ describe("assert", () => {
     }
 
     try {
-      assertFalse(assert(v1, "", { error: CustomError }));
+      assertFalse(assert(v1, "", { aggregation: { error: CustomError } }));
     } catch (e) {
       err = e;
     } finally {
@@ -86,7 +85,7 @@ describe("assert", () => {
     let err;
 
     try {
-      assertFalse(assert(v1, "", { message: "test" }));
+      assertFalse(assert(v1, "", { aggregation: { message: "test" } }));
     } catch (e) {
       err = e;
     } finally {
@@ -154,7 +153,9 @@ describe("assert", () => {
     let err;
 
     try {
-      assertFalse(assert(v1, "", { failFast: true, error: Error }));
+      assertFalse(
+        assert(v1, "", { failFast: true, validation: { error: Error } }),
+      );
     } catch (e) {
       err = e;
     } finally {
@@ -170,7 +171,7 @@ describe("assert", () => {
     const v1: Validator = {
       ...v,
       validate: () => [{
-        message: "test2",
+        message: "",
         instancePath: ["a", "b", "c"],
       }, { message: "test1", instancePath: [] }],
     };
@@ -178,11 +179,13 @@ describe("assert", () => {
     let err;
 
     try {
-      assertFalse(assert(v1, "", { failFast: true, message: "test!!!" }));
+      assertFalse(
+        assert(v1, "", { failFast: true, validation: { message: "test!!!" } }),
+      );
     } catch (e) {
       err = e;
     } finally {
-      assertIsError(err, ValidationError, "test!!!");
+      assertIsError(err, ValidationError, "test!!!\ninstance path: a.b.c");
     }
   });
 });
