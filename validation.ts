@@ -175,11 +175,22 @@ export function validate<In = unknown, A extends In = In>(
   return new Ok(input as A);
 }
 
-/** Validation error. */
+/** Validation error.
+ *
+ * @example
+ * ```ts
+ * import { ValidationError } from "https://deno.land/x/abstruct@$VERSION/validation.ts";
+ *
+ * const error = new ValidationError("<message>", {
+ *   instancePath: ["a", "b", "c"],
+ * });
+ * ```
+ */
 export class ValidationError extends Error {
   /** The path to a part of the instance. */
   instancePath: string[];
 
+  /** Error name. */
   override name = "ValidationError";
 
   constructor(

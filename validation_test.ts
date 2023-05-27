@@ -1,6 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { Err, Ok, validate } from "./validation.ts";
+import { Err, Ok, validate, ValidationError } from "./validation.ts";
 import type { ValidationFailure, Validator } from "./types.ts";
 import { assertEquals, assertThrows, describe, it } from "./_dev_deps.ts";
 
@@ -46,6 +46,21 @@ describe("validate", () => {
 
   it("should throw error is maxError is not positive integer", () => {
     assertThrows(() => validate(v, "", { maxErrors: 0 }));
+  });
+});
+
+describe("ValidationError", () => {
+  it("should has fields", () => {
+    const options = {
+      cause: {},
+      instancePath: [],
+    };
+    const error = new ValidationError("test", options);
+
+    assertEquals(error.instancePath, options.instancePath);
+    assertEquals(error.message, "test");
+    assertEquals(error.cause, options.cause);
+    assertEquals(error.name, "ValidationError");
   });
 });
 
