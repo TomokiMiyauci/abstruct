@@ -20,7 +20,7 @@ describe("validate", () => {
         ...v,
         validate: () => [{ message: "error", instancePath: ["a", "b", "c"] }],
       }, ""),
-      new Err<ValidationFailure[]>([{
+      new Err<[ValidationFailure]>([{
         message: "error",
         instancePath: ["a", "b", "c"],
       }]),
@@ -40,7 +40,7 @@ describe("validate", () => {
         "",
         { maxErrors: 1 },
       ),
-      new Err<ValidationFailure[]>([{ message: "error", instancePath: [] }]),
+      new Err<[ValidationFailure]>([{ message: "error", instancePath: [] }]),
     );
   });
 

@@ -1,6 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { isNotEmpty } from "./deps.ts";
 import { type ValidationFailure, Validator } from "./types.ts";
 import { take } from "./iter_utils.ts";
 
@@ -53,7 +54,7 @@ export function assert<In = unknown, A extends In = In>(
   if (result.isOk()) return;
 
   if (failFast) {
-    const failure = result.value[0]!;
+    const failure = result.value[0];
     const ErrorCtor = error ?? ValidationError;
     const e = new ErrorCtor(message ?? makeMsg(failure), { cause });
 
@@ -166,12 +167,12 @@ export function validate<In = unknown, A extends In = In>(
   validator: Readonly<Validator<In, A>>,
   input: Readonly<In>,
   options: Readonly<ValidateOptions> = {},
-): Result<A, ValidationFailure[]> {
+): Result<A, [ValidationFailure, ...ValidationFailure[]]> {
   const failures = [...take(validator.validate(input), options.maxErrors)];
 
-  if (!failures.length) return new Ok(input as A);
+  if (isNotEmpty(failures)) return new Err(failures);
 
-  return new Err(failures);
+  return new Ok(input as A);
 }
 
 /** Validation error. */
