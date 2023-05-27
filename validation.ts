@@ -8,7 +8,7 @@ import { take } from "./iter_utils.ts";
 /** Assert options. */
 export interface AssertOptions extends ErrorOptions {
   /** Error constructor. */
-  error?: CallableFunction;
+  error?: NewableFunction;
 
   /** Error message. */
   message?: string;
@@ -21,13 +21,26 @@ export interface AssertOptions extends ErrorOptions {
 
 /** Eager assert options. */
 export interface EagerAssertOptions extends AssertOptions {
-  error?: ErrorConstructor;
+  /**
+   * @default ValidationError
+   */
+  error?: { new (message?: string, options?: ErrorOptions): Error };
   failFast: true;
 }
 
 /** Lazy assert options. */
 export interface LazyAssertOptions extends AssertOptions, ValidateOptions {
-  error?: AggregateErrorConstructor;
+  /**
+   * @default AggregateError
+   */
+  error?: {
+    new (
+      // deno-lint-ignore no-explicit-any
+      errors: Iterable<any>,
+      message?: string,
+      options?: ErrorOptions,
+    ): Error;
+  };
   failFast?: false;
 }
 
