@@ -69,5 +69,5 @@ export {
   unique,
   validDate,
   value,
-} from "./combinator.ts";
+} from "./bindings.ts";
 export { lazy } from "./utils.ts";
