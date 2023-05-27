@@ -47,7 +47,7 @@ export function assert<In = unknown, In_ extends In = In>(
 
 export function assert(
   validator: Validator,
-  input: unknown,
+  input: Readonly<unknown>,
   options: SingleAssertOptions | MultipleAssertOptions = {},
 ): asserts input {
   const {
@@ -180,9 +180,9 @@ export interface ValidateOptions {
  * @throws {RangeError} If the {@link ValidateOptions.maxErrors} is not positive integer.
  */
 export function validate<In = unknown, A extends In = In>(
-  validator: Validator<In, A>,
-  input: In,
-  options: ValidateOptions = {},
+  validator: Readonly<Validator<In, A>>,
+  input: Readonly<In>,
+  options: Readonly<ValidateOptions> = {},
 ): Result<A, ValidationFailure[]> {
   const failures = [...take(validator.validate(input), options.maxErrors)];
 
