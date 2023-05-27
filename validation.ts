@@ -4,90 +4,84 @@
 import { type ValidationFailure, Validator } from "./types.ts";
 import { take } from "./iter_utils.ts";
 
+/** Assert options. */
 export interface AssertOptions extends ErrorOptions {
+  /** Error constructor. */
+  error?: CallableFunction;
+
+  /** Error message. */
   message?: string;
 
-  /**
-   * @default "input"
-   */
-  objectName?: string;
-
-  /** Whether release internal stack trace or not.
+  /** Whether capture internal stack trace or not.
    * @default false
    */
-  releaseStackTrace?: boolean;
+  captureStackTrace?: boolean;
+
+  /** Whether to perform the assertion fail fast or not.
+   * @default false
+   */
+  failFast?: boolean;
 }
 
-export interface SingleAssertOptions extends AssertOptions {
-  once: true;
+/** Eager assert options. */
+export interface EagerAssertOptions extends AssertOptions {
   error?: ErrorConstructor;
+  failFast: true;
 }
 
-export interface MultipleAssertOptions extends AssertOptions {
+/** Lazy assert options. */
+export interface LazyAssertOptions extends AssertOptions, ValidateOptions {
   error?: AggregateErrorConstructor;
+  failFast?: false;
 }
 
-/** Assert schema.
- * @throws {ValidationError}
+/** Assert with validator.
+ *
+ * @throws {AggregateError} If assertion is fail.
+ * @throws {ValidationError} If assertion is fail and {@link options.failFast} is true.
+ * @throws {RangeError} If options.maxErrors is not positive integer.
  */
-export function assert<In = unknown, In_ extends In = In>(
-  validator: Validator<In, In_>,
-  input: In,
-  options?: SingleAssertOptions,
-): asserts input is In_;
-
-/**
- * @throws {AggregateError}
- */
-export function assert<In = unknown, In_ extends In = In>(
-  validator: Validator<In, In_>,
-  input: In,
-  options?: MultipleAssertOptions,
-): asserts input is In_;
-
-export function assert(
-  validator: Validator,
-  input: Readonly<unknown>,
-  options: SingleAssertOptions | MultipleAssertOptions = {},
-): asserts input {
+export function assert<In = unknown, A extends In = In>(
+  validator: Readonly<Validator<In, A>>,
+  input: Readonly<In>,
+  options: Readonly<EagerAssertOptions | LazyAssertOptions> = {},
+): asserts input is A {
   const {
     message,
     cause,
-    objectName: rootName = "input",
-    releaseStackTrace = false,
+    captureStackTrace = false,
+    failFast,
+    error,
   } = options;
-  const hasOnce = "once" in options;
-  const maxErrors = hasOnce ? 1 : undefined;
+  const maxErrors = failFast ? 1 : options.maxErrors;
   const result = validate(validator, input, { maxErrors });
 
   if (result.isOk()) return;
 
-  if (hasOnce) {
+  if (failFast) {
     const failure = result.value[0]!;
-    const {
-      error = ValidationError,
-      message = makeMsg(failure, { rootName }),
+    const { instancePath } = failure;
+    const e = new (error ?? ValidationError)(message ?? makeMsg(failure), {
       cause,
-    } = options;
-    const e = new error(message, { cause, instancePath: failure.instancePath });
+      instancePath,
+    });
 
     throw captured(e);
   }
 
-  options.error ??= AggregateError;
-
   const errors = result.value
     .map((failure) =>
-      new ValidationError(makeMsg(failure, { rootName }), {
+      new ValidationError(makeMsg(failure), {
         instancePath: failure.instancePath,
       })
     ).map(captured);
+  const ErrorCtor = error ?? AggregateError;
 
-  throw captured(new options.error(errors, message, { cause }));
+  throw captured(new ErrorCtor(errors, message, { cause }));
 
   // deno-lint-ignore ban-types
   function captured<T extends Object>(error: T): T {
-    if (releaseStackTrace) return error;
+    if (captureStackTrace) return error;
 
     Error.captureStackTrace(error, assert);
 

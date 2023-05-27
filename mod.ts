@@ -4,11 +4,11 @@
 export {
   assert,
   type AssertOptions,
+  type EagerAssertOptions,
   Err,
-  type MultipleAssertOptions,
+  type LazyAssertOptions,
   Ok,
   type Result,
-  type SingleAssertOptions,
   validate,
   type ValidateOptions,
   ValidationError,
