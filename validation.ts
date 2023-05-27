@@ -190,17 +190,19 @@ export class ValidationError extends Error {
   }
 }
 
-/** Result of OK API. */
-export class Ok<T> {
-  /** Node type. */
-  type: "ok" = "ok";
-
-  /** Actual data. */
+class Container<const T> {
+  /** Actual value. */
   value: T;
 
   constructor(value: T) {
     this.value = value;
   }
+}
+
+/** Result of OK API. */
+export class Ok<const T> extends Container<T> {
+  /** Node type. */
+  type: "ok" = "ok";
 
   /** Whether the {@link Result} is {@link Ok} or not. */
   isOk(): this is Ok<T> {
@@ -214,16 +216,9 @@ export class Ok<T> {
 }
 
 /** Result of Error API. */
-export class Err<E> {
+export class Err<const E> extends Container<E> {
   /** Node type. */
   type: "error" = "error";
-
-  /** Actual error. */
-  value: E;
-
-  constructor(value: E) {
-    this.value = value;
-  }
 
   /** Whether the {@link Result} is {@link Ok} or not. */
   isOk(): this is Ok<never> {
@@ -236,7 +231,7 @@ export class Err<E> {
   }
 }
 
-/** Represent {@link Ok} or {@link Err}.  */
+/** Represent either success({@link Ok}) or failure({@link Err}).  */
 export type Result<T, E> = Ok<T> | Err<E>;
 
 /** Validation error options. */
