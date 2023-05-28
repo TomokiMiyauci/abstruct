@@ -1,32 +1,33 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import {
-  Reporter,
-  type ValidationContext,
-  ValidationFailure,
-  type Validator,
-} from "../../types.ts";
+import { type Validator } from "../../types.ts";
+import { inspect, ScalarValidator } from "../../utils.ts";
 
-export class NotValidator<in In = unknown, In_ extends In = In>
-  extends Reporter<ValidationContext<In>>
-  implements Validator<In, In_> {
-  validator: Validator<In, In_>;
+/** Validator for inversion.
+ *
+ * @example
+ * ```ts
+ * import { NotValidator } from "https://deno.land/x/abstruct@$VERSION/validators/operators/not.ts";
+ * import { type Validator } from "https://deno.land/x/abstruct@$VERSION/types.ts";
+ * declare const validator: Validator;
+ * const notValidator = new NotValidator(validator);
+ * ```
+ */
+export class NotValidator<In, A extends In = In>
+  extends ScalarValidator<In, Exclude<In, A>> {
+  validator: Validator<In, A>;
 
-  constructor(validator: Validator<In, In_>) {
+  constructor(validator: Validator<In, A>) {
     super();
     this.validator = validator;
   }
 
-  is(input: In): input is In_ {
+  is(input: In): input is Exclude<In, A> {
     return !this.validator.is(input);
   }
 
-  *validate(input: In): Iterable<ValidationFailure> {
-    if (!this.is(input)) yield new ValidationFailure(this.report({ input }));
-  }
-
   override toString(): string {
-    return `not ${this.validator}`;
+    return `not ${inspect(this.validator)}`;
   }
 }

@@ -162,9 +162,26 @@ export function gte<T>(base: T): GreaterThanOrEqualValidator<T> {
 export function ne(value: unknown): InequalityValidator {
   return new InequalityValidator(value).expect(shouldBeBut);
 }
-export const not = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(NotValidator).expect(shouldBeBut).build(),
-);
+
+/** Factory for validator inversion.
+ *
+ * @example
+ * ```ts
+ * import {
+ *   not,
+ *   type Validator,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ *
+ * declare const validator: Validator;
+ * const inversionValidator = not(validator);
+ * ```
+ */
+export function not<In, A extends In = In>(
+  validator: Validator<In, A>,
+): NotValidator<In, A> {
+  return new NotValidator(validator).expect(shouldBeBut);
+}
+
 export const or = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(OrValidator).expect(shouldBe).build(),
 );

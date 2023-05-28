@@ -473,6 +473,20 @@ import { lte } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = lte(255);
 ```
 
+### not
+
+Factory for validator inversion.
+
+```ts
+import {
+  not,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+
+declare const validator: Validator;
+const inversionValidator = not(validator);
+```
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).

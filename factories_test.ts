@@ -1,6 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { eq, gt, gte, instance, lt, lte, ne, type } from "./factories.ts";
+import { eq, gt, gte, instance, lt, lte, ne, not, type } from "./factories.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
 
 describe("default error message", () => {
@@ -23,6 +23,10 @@ describe("default error message", () => {
       ],
       [lt(0).report({ input: 0 }), "should be less than 0, but 0"],
       [lte(1).report({ input: 0 }), "should be less than or equal to 1, but 0"],
+      [
+        not(eq(0)).report({ input: 0 }),
+        "should be not 0, but 0",
+      ],
     ];
 
     table.forEach(([message, expected]) => {
