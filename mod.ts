@@ -72,3 +72,4 @@ export {
 } from "./factories.ts";
 export { lazy } from "./utils.ts";
 export { type TypeStr, TypeValidator } from "./validators/operators/typeof.ts";
+export { type Constructor } from "./deps.ts";
