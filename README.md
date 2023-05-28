@@ -487,6 +487,15 @@ declare const validator: Validator;
 const inversionValidator = not(validator);
 ```
 
+### pattern
+
+Factory for regex pattern validator.
+
+```ts
+import { pattern } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+const validator = pattern(/^\d*$/);
+```
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).

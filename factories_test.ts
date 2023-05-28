@@ -1,6 +1,17 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { eq, gt, gte, instance, lt, lte, ne, not, type } from "./factories.ts";
+import {
+  eq,
+  gt,
+  gte,
+  instance,
+  lt,
+  lte,
+  ne,
+  not,
+  pattern,
+  type,
+} from "./factories.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
 
 describe("default error message", () => {
@@ -26,6 +37,10 @@ describe("default error message", () => {
       [
         not(eq(0)).report({ input: 0 }),
         "should be not 0, but 0",
+      ],
+      [
+        pattern(/^\d*$/).report({ input: "" }),
+        `should be match pattern of \`/^\\d*$/\`, but ""`,
       ],
     ];
 

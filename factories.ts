@@ -3,7 +3,14 @@
 
 import { type Display, type Validator } from "./types.ts";
 import { getCount } from "./iter_utils.ts";
-import { bind, ctorFn, interpolate, shouldBe, shouldBeBut } from "./utils.ts";
+import {
+  bind,
+  ctorFn,
+  inspect,
+  interpolate,
+  shouldBe,
+  shouldBeBut,
+} from "./utils.ts";
 import { EnumValidator } from "./validators/enum.ts";
 import { KeyValidator } from "./validators/key.ts";
 import { ValueValidator } from "./validators/value.ts";
@@ -323,9 +330,19 @@ export const positive = /* @__PURE__ */ new PositiveNumberValidator()
   .expect(shouldBeBut);
 
 // string
-export const pattern = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(PatternValidator)
-    .expect(({ input }) =>
-      interpolate(Error.ShouldBeBut, [`match ${this}`, `"${input}"`])
-    ).build(),
-);
+
+/** Factory for regex pattern validator.
+ *
+ * @example
+ * ```ts
+ * import { pattern } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const validator = pattern(/^\d*$/);
+ * ```
+ */
+export function pattern(pattern: RegExp): PatternValidator {
+  const validator = new PatternValidator(pattern);
+
+  return validator.expect(({ input }) =>
+    interpolate(Error.ShouldBeBut, [`match ${validator}`, inspect(input)])
+  );
+}

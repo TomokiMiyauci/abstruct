@@ -3,8 +3,16 @@
 
 import { ScalarValidator } from "../../utils.ts";
 
+/** Validator for regex pattern.
+ *
+ * @example
+ * ```ts
+ * import { PatternValidator } from "https://deno.land/x/abstruct@$VERSION/validators/string/pattern.ts";
+ * const validator = new PatternValidator(/^\d+$/);
+ * ```
+ */
 export class PatternValidator extends ScalarValidator<string> {
-  constructor(public readonly pattern: RegExp) {
+  constructor(public pattern: RegExp) {
     super();
   }
 
