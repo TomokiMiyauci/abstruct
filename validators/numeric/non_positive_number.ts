@@ -4,7 +4,8 @@
 import { ScalarValidator } from "../../utils.ts";
 import { isNonPositiveNumber, ToPredicate } from "../../deps.ts";
 
-export class NonPositiveNumberValidator extends ScalarValidator<number> {
+export class NonPositiveNumberValidator
+  extends ScalarValidator<number | bigint> {
   is = isNonPositiveNumber as ToPredicate<typeof isNonPositiveNumber>;
 
   override toString() {
