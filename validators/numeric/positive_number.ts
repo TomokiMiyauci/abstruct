@@ -12,7 +12,7 @@ import { isPositiveNumber, ToPredicate } from "../../deps.ts";
  * const validator = new PositiveNumberValidator();
  * ```
  */
-export class PositiveNumberValidator extends ScalarValidator<number> {
+export class PositiveNumberValidator extends ScalarValidator<number | bigint> {
   is = isPositiveNumber as ToPredicate<typeof isPositiveNumber>;
 
   override toString(): string {
