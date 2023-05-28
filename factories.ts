@@ -122,9 +122,17 @@ export function gt<T>(base: T): GreaterThanValidator<T> {
   return new GreaterThanValidator(base).expect(shouldBeBut);
 }
 
-export const gte = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(GreaterThanOrEqualValidator).expect(shouldBeBut).build(),
-);
+/** Factory for validator equivalent to greater than or equal(`<=`) operator.
+ *
+ * @example
+ * ```ts
+ * import { gte } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const validator = gte(8);
+ * ```
+ */
+export function gte<T>(base: T): GreaterThanOrEqualValidator<T> {
+  return new GreaterThanOrEqualValidator(base).expect(shouldBeBut);
+}
 
 /** Factory for validator equivalent to strict inequality(`!==`) operator.
  *

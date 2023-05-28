@@ -446,6 +446,15 @@ import { gt } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = gt(8);
 ```
 
+### gte
+
+Factory for validator equivalent to greater than or equal(`<=`) operator.
+
+```ts
+import { gte } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+const validator = gte(8);
+```
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).
