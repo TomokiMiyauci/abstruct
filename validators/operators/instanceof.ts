@@ -8,7 +8,7 @@ import { ScalarValidator } from "../../utils.ts";
  *
  * @example
  * ```ts
- * import { InstanceValidator } from "https://deno.land/x/abstruct@$VERSION/validators/operators/typeof.ts";
+ * import { InstanceValidator } from "https://deno.land/x/abstruct@$VERSION/validators/operators/instanceof.ts";
  * const validator = new InstanceValidator(Array);
  * ```
  */
