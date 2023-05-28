@@ -428,6 +428,15 @@ import { eq } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = eq(0);
 ```
 
+### ne
+
+Factory for validator equivalent to strict inequality(`!==`) operator.
+
+```ts
+import { ne } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+const validator = ne(0);
+```
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).

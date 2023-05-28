@@ -1,6 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { eq, instance, type } from "./factories.ts";
+import { eq, instance, ne, type } from "./factories.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
 
 describe("default error message", () => {
@@ -15,6 +15,7 @@ describe("default error message", () => {
         eq(0).report({ input: "abc" }),
         `should be 0, but "abc"`,
       ],
+      [ne(0).report({ input: 0 }), "should be not 0, but 0"],
     ];
 
     table.forEach(([message, expected]) => {

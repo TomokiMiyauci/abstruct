@@ -115,9 +115,18 @@ export const gt = /* @__PURE__ */ ctorFn(
 export const gte = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(GreaterThenOrEqualValidator).expect(shouldBeBut).build(),
 );
-export const ne = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(InequalityValidator).expect(shouldBeBut).build(),
-);
+
+/** Factory for validator equivalent to strict inequality(`!==`) operator.
+ *
+ * @example
+ * ```ts
+ * import { ne } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const validator = ne(0);
+ * ```
+ */
+export function ne(value: unknown): InequalityValidator {
+  return new InequalityValidator(value).expect(shouldBeBut);
+}
 export const not = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(NotValidator).expect(shouldBeBut).build(),
 );
