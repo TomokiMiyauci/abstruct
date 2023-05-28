@@ -104,14 +104,28 @@ export function eq<const A = unknown>(value: A): EqualityValidator<A> {
 }
 
 /** Factory for validator equivalent to less than(`>`) operator.
+ *
+ * @example
+ * ```ts
+ * import { lt } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const validator = lt(256);
+ * ```
  */
 export function lt<T>(base: T): LessThanValidator<T> {
   return new LessThanValidator(base).expect(shouldBeBut);
 }
 
-export const lte = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(LessThanOrEqualValidator).expect(shouldBeBut).build(),
-);
+/** Factory for validator equivalent to less than or equal to (`>=`) operator.
+ *
+ * @example
+ * ```ts
+ * import { lte } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const validator = lte(255);
+ * ```
+ */
+export function lte<T>(base: T): LessThanOrEqualValidator<T> {
+  return new LessThanOrEqualValidator(base).expect(shouldBeBut);
+}
 
 /** Factory for validator equivalent to greater than(`<`) operator.
  *
