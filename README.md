@@ -496,6 +496,10 @@ import { pattern } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = pattern(/^\d*$/);
 ```
 
+### int
+
+Integer validator.
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).

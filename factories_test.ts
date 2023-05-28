@@ -5,6 +5,7 @@ import {
   gt,
   gte,
   instance,
+  int,
   lt,
   lte,
   ne,
@@ -42,6 +43,7 @@ describe("default error message", () => {
         pattern(/^\d*$/).report({ input: "" }),
         `should be match pattern of \`/^\\d*$/\`, but ""`,
       ],
+      [int.report({ input: 1.1 }), "should be integer, but 1.1"],
     ];
 
     table.forEach(([message, expected]) => {

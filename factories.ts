@@ -294,6 +294,8 @@ export const unique = /* @__PURE__ */ new UniqueValidator().expect(({ item }) =>
 
 // number
 export const float = /* @__PURE__ */ new FloatValidator().expect(shouldBeBut);
+
+/** Integer validator. */
 export const int = /* @__PURE__ */ new IntegerValidator().expect(shouldBeBut);
 export const int8 = /* @__PURE__ */ and(
   int,
