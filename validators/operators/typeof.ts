@@ -26,7 +26,7 @@ export interface TypeMap extends LegacyTypeMap {
 /** String representation of JavaScript data type. */
 export type TypeStr = keyof TypeMap;
 
-/** Validator for JavaScript data type. It executes typeof like operator.
+/** Validator for JavaScript data type. It executes `typeof` like operator.
  * The difference with `typeof` operator is that `"object"` does not match `null`.
  *
  * @example

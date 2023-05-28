@@ -4,7 +4,7 @@
 import { ToPredicate } from "../../deps.ts";
 import { ScalarValidator } from "../../utils.ts";
 
-/** Validator for integer.
+/** Integer validator.
  *
  * @example
  * ```ts
