@@ -69,6 +69,6 @@ export {
   unique,
   validDate,
   value,
-} from "./bindings.ts";
+} from "./factories.ts";
 export { lazy } from "./utils.ts";
 export { type TypeStr, TypeValidator } from "./validators/operators/typeof.ts";

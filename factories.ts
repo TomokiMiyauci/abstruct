@@ -53,9 +53,10 @@ export function message1(this: Display, { input }: { input: {} }): string {
 
 /** Validator factory for JavaScript data type.
  * The difference with `typeof` operator is that `"object"` does not match `null`.
+ *
  * @example
  * ```ts
- * import { type } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
+ * import { type } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
  * const validator = type("object")
  * ```
  */
