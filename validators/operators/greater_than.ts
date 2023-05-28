@@ -1,9 +1,9 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../../utils.ts";
+import { inspect, ScalarValidator } from "../../utils.ts";
 
-export class GreaterThenValidator<In> extends ScalarValidator<In> {
+export class GreaterThanValidator<In> extends ScalarValidator<In> {
   constructor(public base: In) {
     super();
   }
@@ -13,6 +13,6 @@ export class GreaterThenValidator<In> extends ScalarValidator<In> {
   }
 
   override toString(): string {
-    return `greater then ${this.base}`;
+    return `greater than ${inspect(this.base)}`;
   }
 }

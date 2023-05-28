@@ -29,7 +29,7 @@ import { SingleValidator } from "./validators/iterable/single.ts";
 import { EqualityValidator } from "./validators/operators/equality.ts";
 import { LessThenValidator } from "./validators/operators/less_than.ts";
 import { LessThenOrEqualValidator } from "./validators/operators/less_than_or_equal.ts";
-import { GreaterThenValidator } from "./validators/operators/greater_than.ts";
+import { GreaterThanValidator } from "./validators/operators/greater_than.ts";
 import { GreaterThenOrEqualValidator } from "./validators/operators/greater_than_or_equal.ts";
 import { InequalityValidator } from "./validators/operators/inequality.ts";
 import { InstanceValidator } from "./validators/operators/instanceof.ts";
@@ -110,7 +110,7 @@ export const lte = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(LessThenOrEqualValidator).expect(shouldBeBut).build(),
 );
 export const gt = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(GreaterThenValidator).expect(shouldBeBut).build(),
+  /* @__PURE__ */ bind(GreaterThanValidator).expect(shouldBeBut).build(),
 );
 export const gte = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(GreaterThenOrEqualValidator).expect(shouldBeBut).build(),
