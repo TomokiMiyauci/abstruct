@@ -90,9 +90,19 @@ export const prototype = /* @__PURE__ */ ctorFn(
 export const object = /* @__PURE__ */ ctorFn(DictionaryValidator);
 export const optional = /* @__PURE__ */ ctorFn(OptionalValidator);
 export const nullish = /* @__PURE__ */ new NullishValidator();
-export const eq = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(EqualityValidator).expect(shouldBeBut).build(),
-);
+
+/** Validator factory equivalent to strict equality(`===`) operator.
+ *
+ * @example
+ * ```ts
+ * import { eq } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const validator = eq(0);
+ * ```
+ */
+export function eq<const A = unknown>(value: A): EqualityValidator<A> {
+  return new EqualityValidator(value).expect(shouldBeBut);
+}
+
 export const lt = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(LessThenValidator).expect(shouldBeBut).build(),
 );

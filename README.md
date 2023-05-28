@@ -419,6 +419,15 @@ import { instance } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = instance(Array);
 ```
 
+### eq
+
+Validator factory equivalent to strict equality(`===`) operator.
+
+```ts
+import { eq } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+const validator = eq(0);
+```
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).

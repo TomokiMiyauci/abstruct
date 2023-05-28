@@ -1,8 +1,16 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../../utils.ts";
+import { inspect, ScalarValidator } from "../../utils.ts";
 
+/** Validator equivalent to strict equality(`===`) operator.
+ *
+ * @example
+ * ```ts
+ * import { EqualityValidator } from "https://deno.land/x/abstruct@$VERSION/validators/operators/equality.ts";
+ * const validator = new EqualityValidator(0);
+ * ```
+ */
 export class EqualityValidator<const A = unknown>
   extends ScalarValidator<unknown, A> {
   constructor(public value: A) {
@@ -14,6 +22,6 @@ export class EqualityValidator<const A = unknown>
   }
 
   override toString(): string {
-    return `${this.value}`;
+    return inspect(this.value);
   }
 }

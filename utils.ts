@@ -105,14 +105,14 @@ export type ParsePlaceholder<
 export function shouldBe(
   this: Display,
 ): string {
-  return interpolate(Error.ShouldBe, [this]);
+  return interpolate(Error.ShouldBe, [inspect(this)]);
 }
 
 export function shouldBeBut(
   this: Display,
   { input }: { input: unknown },
 ): string {
-  return interpolate(Error.ShouldBeBut, [this, input]);
+  return interpolate(Error.ShouldBeBut, [inspect(this), inspect(input)]);
 }
 
 export function bind<
@@ -201,4 +201,10 @@ export function lazy<In, A extends In = In>(
   };
 
   return validator;
+}
+
+export function inspect(input: unknown): string {
+  if (isString(input)) return `"${input}"`;
+
+  return `${input}`;
 }
