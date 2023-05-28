@@ -410,6 +410,15 @@ import { type } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = type("object");
 ```
 
+### instance
+
+Validator factory equivalent to the `instanceof` operator.
+
+```ts
+import { instance } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+const validator = instance(Array);
+```
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).

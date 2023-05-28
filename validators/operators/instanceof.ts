@@ -4,6 +4,14 @@
 import { type Constructor } from "../../deps.ts";
 import { ScalarValidator } from "../../utils.ts";
 
+/** Validator for instance. It executes `instanceof` operator.
+ *
+ * @example
+ * ```ts
+ * import { InstanceValidator } from "https://deno.land/x/abstruct@$VERSION/validators/operators/typeof.ts";
+ * const validator = new InstanceValidator(Array);
+ * ```
+ */
 export class InstanceValidator<T extends Constructor>
   extends ScalarValidator<unknown, InstanceType<T>> {
   constructor(public of: T) {

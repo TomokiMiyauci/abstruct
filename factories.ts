@@ -72,6 +72,15 @@ export const symbol = /* @__PURE__ */ type("symbol");
 export const enumerate = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(EnumValidator).expect(shouldBeBut).build(),
 );
+
+/** Validator factory equivalent to the `instanceof` operator.
+ *
+ * @example
+ * ```ts
+ * import { instance } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const validator = instance(Array);
+ * ```
+ */
 export const instance = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(InstanceValidator).expect(message1).build(),
 );

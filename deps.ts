@@ -15,6 +15,7 @@ export { filterKeys } from "https://deno.land/std@0.187.0/collections/filter_key
 export { maxBy } from "https://deno.land/std@0.187.0/collections/max_by.ts";
 export { default as escapeStringRegex } from "https://esm.sh/escape-string-regexp@5.0.0?pin=v122";
 
+/** Constructor type. */
 // deno-lint-ignore no-explicit-any
 export type Constructor = abstract new (...args: any) => any;
 
