@@ -27,10 +27,10 @@ import { MinCountValidator } from "./validators/iterable/min_count.ts";
 import { NonEmptyValidator } from "./validators/iterable/non_empty.ts";
 import { SingleValidator } from "./validators/iterable/single.ts";
 import { EqualityValidator } from "./validators/operators/equality.ts";
-import { LessThenValidator } from "./validators/operators/less_than.ts";
-import { LessThenOrEqualValidator } from "./validators/operators/less_than_or_equal.ts";
+import { LessThanValidator } from "./validators/operators/less_than.ts";
+import { LessThanOrEqualValidator } from "./validators/operators/less_than_or_equal.ts";
 import { GreaterThanValidator } from "./validators/operators/greater_than.ts";
-import { GreaterThenOrEqualValidator } from "./validators/operators/greater_than_or_equal.ts";
+import { GreaterThanOrEqualValidator } from "./validators/operators/greater_than_or_equal.ts";
 import { InequalityValidator } from "./validators/operators/inequality.ts";
 import { InstanceValidator } from "./validators/operators/instanceof.ts";
 import { AndValidator } from "./validators/operators/and.ts";
@@ -104,10 +104,10 @@ export function eq<const A = unknown>(value: A): EqualityValidator<A> {
 }
 
 export const lt = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(LessThenValidator).expect(shouldBeBut).build(),
+  /* @__PURE__ */ bind(LessThanValidator).expect(shouldBeBut).build(),
 );
 export const lte = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(LessThenOrEqualValidator).expect(shouldBeBut).build(),
+  /* @__PURE__ */ bind(LessThanOrEqualValidator).expect(shouldBeBut).build(),
 );
 
 /** Factory for validator equivalent to greater than(`<`) operator.
@@ -123,7 +123,7 @@ export function gt<T>(base: T): GreaterThanValidator<T> {
 }
 
 export const gte = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(GreaterThenOrEqualValidator).expect(shouldBeBut).build(),
+  /* @__PURE__ */ bind(GreaterThanOrEqualValidator).expect(shouldBeBut).build(),
 );
 
 /** Factory for validator equivalent to strict inequality(`!==`) operator.

@@ -3,7 +3,7 @@
 
 import { ScalarValidator } from "../../utils.ts";
 
-export class LessThenValidator<In> extends ScalarValidator<In> {
+export class LessThanValidator<In> extends ScalarValidator<In> {
   constructor(public base: In) {
     super();
   }
