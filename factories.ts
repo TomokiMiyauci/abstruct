@@ -6,8 +6,8 @@ import { getCount } from "./iter_utils.ts";
 import {
   bind,
   ctorFn,
-  inspect,
   interpolate,
+  print,
   shouldBe,
   shouldBeBut,
 } from "./utils.ts";
@@ -349,6 +349,6 @@ export function pattern(pattern: RegExp): PatternValidator {
   const validator = new PatternValidator(pattern);
 
   return validator.expect(({ input }) =>
-    interpolate(Error.ShouldBeBut, [`match ${validator}`, inspect(input)])
+    interpolate(Error.ShouldBeBut, [`match ${validator}`, print(input)])
   );
 }

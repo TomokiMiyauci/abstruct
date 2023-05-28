@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { inspect, ScalarValidator } from "../../utils.ts";
+import { print, ScalarValidator } from "../../utils.ts";
 
 /** Validator equivalent to less than or equal to(`>=`) operator.
  *
@@ -21,6 +21,6 @@ export class LessThanOrEqualValidator<In> extends ScalarValidator<In> {
   }
 
   override toString(): string {
-    return `less than or equal to ${inspect(this.base)}`;
+    return `less than or equal to ${print(this.base)}`;
   }
 }

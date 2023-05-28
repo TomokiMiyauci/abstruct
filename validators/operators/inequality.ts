@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { inspect, ScalarValidator } from "../../utils.ts";
+import { print, ScalarValidator } from "../../utils.ts";
 
 /** Validator equivalent to strict inequality(`!==`) operator.
  *
@@ -21,6 +21,6 @@ export class InequalityValidator extends ScalarValidator {
   }
 
   override toString(): string {
-    return `not ${inspect(this.value)}`;
+    return `not ${print(this.value)}`;
   }
 }

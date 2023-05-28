@@ -1,9 +1,9 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { inspect } from "./utils.ts";
+import { print } from "./utils.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
 
-describe("inspect", () => {
+describe("print", () => {
   it("should display as", () => {
     const table: [unknown, string][] = [
       ["", `""`],
@@ -19,7 +19,7 @@ describe("inspect", () => {
     ];
 
     table.forEach(([input, expected]) => {
-      assertEquals(inspect(input), expected);
+      assertEquals(print(input), expected);
     });
   });
 });

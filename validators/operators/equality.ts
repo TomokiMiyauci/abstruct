@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { inspect, ScalarValidator } from "../../utils.ts";
+import { print, ScalarValidator } from "../../utils.ts";
 
 /** Validator equivalent to strict equality(`===`) operator.
  *
@@ -22,6 +22,6 @@ export class EqualityValidator<const A = unknown>
   }
 
   override toString(): string {
-    return inspect(this.value);
+    return print(this.value);
   }
 }

@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { type Validator } from "../../types.ts";
-import { inspect, ScalarValidator } from "../../utils.ts";
+import { print, ScalarValidator } from "../../utils.ts";
 
 /** Validator for inversion.
  *
@@ -28,6 +28,6 @@ export class NotValidator<In, A extends In = In>
   }
 
   override toString(): string {
-    return `not ${inspect(this.validator)}`;
+    return `not ${print(this.validator)}`;
   }
 }
