@@ -396,6 +396,20 @@ Throws an error in the following cases:
 - `ValidationError`: If assertion is fail and [failFast](#failfast) is true.
 - Same as [validate](#throwing-error).
 
+## Factories
+
+It provides validator factories.
+
+### type
+
+Validator factory for JavaScript data type. The difference with `typeof`
+operator is that `"object"` does not match `null`.
+
+```ts
+import { type } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
+const validator = type("object");
+```
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).
