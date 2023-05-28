@@ -9,7 +9,7 @@ import {
   ValidationFailure,
   Validator,
 } from "./types.ts";
-import { escapeStringRegex, isString } from "./deps.ts";
+import { escapeStringRegex, isBigint, isString } from "./deps.ts";
 
 /** Validator constructor for scalar value. */
 export abstract class ScalarValidator<In = unknown, A extends In = In>
@@ -204,7 +204,9 @@ export function lazy<In, A extends In = In>(
 }
 
 export function inspect(input: unknown): string {
-  if (isString(input)) return `"${input}"`;
+  const str = String(input);
+  if (isString(input)) return `"${str}"`;
+  if (isBigint(input)) return `${str}n`;
 
-  return `${input}`;
+  return str;
 }
