@@ -8,7 +8,7 @@ import { isPositiveNumber, ToPredicate } from "../../deps.ts";
  *
  * @example
  * ```ts
- * import { PositiveNumberValidator } from "https://deno.land/x/abstruct@$VERSION/validators/number/positive_number.ts";
+ * import { PositiveNumberValidator } from "https://deno.land/x/abstruct@$VERSION/validators/numeric/positive_number.ts";
  * const validator = new PositiveNumberValidator();
  * ```
  */

@@ -22,8 +22,10 @@ import { NullishValidator } from "./validators/nullish.ts";
 import { PrototypeValidator } from "./validators/prototype.ts";
 import { FloatValidator } from "./validators/number/float.ts";
 import { IntegerValidator } from "./validators/number/integer.ts";
-import { PositiveNumberValidator } from "./validators/number/positive_number.ts";
-import { NegativeNumberValidator } from "./validators/number/negative_number.ts";
+import { PositiveNumberValidator } from "./validators/numeric/positive_number.ts";
+import { NegativeNumberValidator } from "./validators/numeric/negative_number.ts";
+import { NonNegativeNumberValidator } from "./validators/numeric/non_negative_number.ts";
+import { NonPositiveNumberValidator } from "./validators/numeric/non_positive_number.ts";
 import { PatternValidator } from "./validators/string/pattern.ts";
 import { CountValidator } from "./validators/iterable/count.ts";
 import { EmptyValidator } from "./validators/iterable/empty.ts";
@@ -46,8 +48,6 @@ import { OrValidator } from "./validators/operators/or.ts";
 import { type TypeStr, TypeValidator } from "./validators/operators/typeof.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
 import { Error } from "./constants.ts";
-import { NonNegativeNumberValidator } from "./validators/number/non_negative_number.ts";
-import { NonPositiveNumberValidator } from "./validators/number/non_positive_number.ts";
 
 export function message(this: Display, { input }: { input: unknown }): string {
   return interpolate(Error.ShouldBeBut, [this, typeof input]);
