@@ -1,19 +1,26 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../../utils.ts";
+import { inspect, ScalarValidator } from "../../utils.ts";
 
-export class InequalityValidator<const A = unknown>
-  extends ScalarValidator<unknown, A> {
-  constructor(public value: A) {
+/** Validator equivalent to strict inequality(`!==`) operator.
+ *
+ * @example
+ * ```ts
+ * import { InequalityValidator } from "https://deno.land/x/abstruct@$VERSION/validators/operators/inequality.ts";
+ * const validator = new InequalityValidator(0);
+ * ```
+ */
+export class InequalityValidator extends ScalarValidator {
+  constructor(public value: unknown) {
     super();
   }
 
-  override is(input: unknown): input is A {
+  override is(input: unknown): input is unknown {
     return input !== this.value;
   }
 
   override toString(): string {
-    return `!== ${this.value}`;
+    return `not ${inspect(this.value)}`;
   }
 }
