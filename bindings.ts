@@ -36,7 +36,7 @@ import { InstanceValidator } from "./validators/operators/instanceof.ts";
 import { AndValidator } from "./validators/operators/and.ts";
 import { NotValidator } from "./validators/operators/not.ts";
 import { OrValidator } from "./validators/operators/or.ts";
-import { type Type, TypeValidator } from "./validators/operators/typeof.ts";
+import { type TypeStr, TypeValidator } from "./validators/operators/typeof.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
 import { Error } from "./constants.ts";
 import { NonNegativeNumberValidator } from "./validators/number/non_negative_number.ts";
@@ -51,7 +51,15 @@ export function message1(this: Display, { input }: { input: {} }): string {
   return interpolate(Error.ShouldBeBut, [this, input.constructor.name]);
 }
 
-export function type<T extends Type>(of: T): TypeValidator<T> {
+/** Validator factory for JavaScript data type.
+ * The difference with `typeof` operator is that `"object"` does not match `null`.
+ * @example
+ * ```ts
+ * import { type } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
+ * const validator = type("object")
+ * ```
+ */
+export function type<T extends TypeStr>(of: T): TypeValidator<T> {
   return new TypeValidator(of).expect(message);
 }
 

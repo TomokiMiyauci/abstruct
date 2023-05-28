@@ -16,15 +16,26 @@ interface LegacyTypeMap {
   undefined: undefined;
 }
 
+/** Map for key and JavaScript data type. */
 export interface TypeMap extends LegacyTypeMap {
   // deno-lint-ignore ban-types
   object: object;
   null: null;
 }
 
-export type Type = keyof TypeMap;
+/** String representation of JavaScript data type. */
+export type TypeStr = keyof TypeMap;
 
-export class TypeValidator<T extends Type>
+/** Validator for JavaScript data type. It executes typeof like operator.
+ * The difference with `typeof` operator is that `"object"` does not match `null`.
+ *
+ * @example
+ * ```ts
+ * import { TypeValidator } from "https://deno.land/x/abstruct@$VERSION/validators/operators/typeof.ts";
+ * const iterable =new TypeValidator("string").validate(0);
+ * ```
+ */
+export class TypeValidator<T extends TypeStr>
   extends ScalarValidator<unknown, TypeMap[T]> {
   constructor(public of: T) {
     super();
@@ -40,10 +51,10 @@ export class TypeValidator<T extends Type>
 }
 
 /** Strict {@link typeof} operation. */
-export function typeOf(input: unknown): Type {
-  const of = typeof input;
+export function typeOf(operand: unknown): TypeStr {
+  const of = typeof operand;
 
-  if (of === "object" && input === null) return "null";
+  if (of === "object" && operand === null) return "null";
 
   return of;
 }
