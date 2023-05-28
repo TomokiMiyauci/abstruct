@@ -12,6 +12,7 @@
     "https://deno.land/std@0.187.0/collections/filter_keys.ts": "3b99bd98d347f23b8fe8183b108077ae6e467707e80798e768c11eb86fff49c9",
     "https://deno.land/std@0.187.0/collections/max_by.ts": "2adb39effb8df0e1c99c7c7745a994c3bac0f3405474766cd262d7eba8b0ec6f",
     "https://deno.land/x/isx@1.3.1/date/is_valid_date.ts": "125c0517104cda31599114a86bb21270624a81d28ffd032ecbc385ff559fb083",
+    "https://deno.land/x/isx@1.3.1/is_bigint.ts": "fa89dc037f8dc20a24104489ccc35728e1d5c4eae033de1c79efc96dad7451ca",
     "https://deno.land/x/isx@1.3.1/is_non_nullable.ts": "92c57421e709c2ddbef00cd4513333cc5c3f2da7bb515beafb25ae8c9048eacd",
     "https://deno.land/x/isx@1.3.1/is_null.ts": "02b30255073843d001e715a04382f1d6aebd77ed5506ffbb44bf77b9e20ebf7d",
     "https://deno.land/x/isx@1.3.1/is_nullable.ts": "4d1b95dd93aad6c4740f19eb00b9caccd977c52ea170d0e5c3130eeabf6e5292",

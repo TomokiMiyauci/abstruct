@@ -62,15 +62,15 @@ export const makeOptions = (version: string): BuildOptions => ({
       version: "1.3.1",
       subPath: "is_string.js",
     },
+    "https://deno.land/x/isx@1.3.1/is_bigint.ts": {
+      name: "@miyauci/isx",
+      version: "1.3.1",
+      subPath: "is_bigint.js",
+    },
     "https://deno.land/x/isx@1.3.1/is_nullable.ts": {
       name: "@miyauci/isx",
       version: "1.3.1",
       subPath: "is_nullable.js",
-    },
-    "https://deno.land/x/isx@1.3.1/number/is_positive_number.ts": {
-      name: "@miyauci/isx",
-      version: "1.3.1",
-      subPath: "number/is_positive_number.js",
     },
     "https://deno.land/x/isx@1.3.1/number/is_non_positive_number.ts": {
       name: "@miyauci/isx",
