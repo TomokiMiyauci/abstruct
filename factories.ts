@@ -103,9 +103,12 @@ export function eq<const A = unknown>(value: A): EqualityValidator<A> {
   return new EqualityValidator(value).expect(shouldBeBut);
 }
 
-export const lt = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(LessThanValidator).expect(shouldBeBut).build(),
-);
+/** Factory for validator equivalent to less than(`>`) operator.
+ */
+export function lt<T>(base: T): LessThanValidator<T> {
+  return new LessThanValidator(base).expect(shouldBeBut);
+}
+
 export const lte = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(LessThanOrEqualValidator).expect(shouldBeBut).build(),
 );
