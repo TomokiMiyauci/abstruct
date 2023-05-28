@@ -330,6 +330,8 @@ export const nonNegative = /* @__PURE__ */ new NonNegativeNumberValidator()
   .expect(shouldBeBut);
 export const nonPositive = /* @__PURE__ */ new NonPositiveNumberValidator()
   .expect(shouldBeBut);
+
+/** Positive number validator. */
 export const positive = /* @__PURE__ */ new PositiveNumberValidator()
   .expect(shouldBeBut);
 

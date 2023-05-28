@@ -4,10 +4,18 @@
 import { ScalarValidator } from "../../utils.ts";
 import { isPositiveNumber, ToPredicate } from "../../deps.ts";
 
+/** Positive number validator.
+ *
+ * @example
+ * ```ts
+ * import { PositiveNumberValidator } from "https://deno.land/x/abstruct@$VERSION/validators/number/positive_number.ts";
+ * const validator = new PositiveNumberValidator();
+ * ```
+ */
 export class PositiveNumberValidator extends ScalarValidator<number> {
   is = isPositiveNumber as ToPredicate<typeof isPositiveNumber>;
 
-  override toString() {
+  override toString(): string {
     return "positive number";
   }
 }

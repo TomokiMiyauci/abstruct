@@ -12,6 +12,7 @@ import {
   ne,
   not,
   pattern,
+  positive,
   type,
 } from "./factories.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
@@ -46,6 +47,7 @@ describe("default error message", () => {
       ],
       [float.report({ input: 1 }), "should be float, but 1"],
       [int.report({ input: 1.1 }), "should be integer, but 1.1"],
+      [positive.report({ input: 0 }), "should be positive number, but 0"],
     ];
 
     table.forEach(([message, expected]) => {

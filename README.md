@@ -504,6 +504,10 @@ Float validator.
 
 Integer validator.
 
+### positive
+
+Positive number validator.
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).
