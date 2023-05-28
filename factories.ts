@@ -109,9 +109,19 @@ export const lt = /* @__PURE__ */ ctorFn(
 export const lte = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(LessThenOrEqualValidator).expect(shouldBeBut).build(),
 );
-export const gt = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(GreaterThanValidator).expect(shouldBeBut).build(),
-);
+
+/** Factory for validator equivalent to greater than(`<`) operator.
+ *
+ * @example
+ * ```ts
+ * import { gt } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const validator = gt(8);
+ * ```
+ */
+export function gt<T>(base: T): GreaterThanValidator<T> {
+  return new GreaterThanValidator(base).expect(shouldBeBut);
+}
+
 export const gte = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(GreaterThenOrEqualValidator).expect(shouldBeBut).build(),
 );

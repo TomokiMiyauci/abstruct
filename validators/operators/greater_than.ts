@@ -3,6 +3,14 @@
 
 import { inspect, ScalarValidator } from "../../utils.ts";
 
+/** Validator equivalent to greater than(`<`) operator.
+ *
+ * @example
+ * ```ts
+ * import { GreaterThanValidator } from "https://deno.land/x/abstruct@$VERSION/validators/operators/greater_than.ts";
+ * const validator = new GreaterThanValidator(8);
+ * ```
+ */
 export class GreaterThanValidator<In> extends ScalarValidator<In> {
   constructor(public base: In) {
     super();

@@ -437,6 +437,15 @@ import { ne } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = ne(0);
 ```
 
+### gt
+
+Factory for validator equivalent to greater than(`<`) operator.
+
+```ts
+import { gt } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+const validator = gt(8);
+```
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).
