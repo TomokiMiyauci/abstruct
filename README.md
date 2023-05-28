@@ -496,6 +496,10 @@ import { pattern } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = pattern(/^\d*$/);
 ```
 
+### float
+
+Float validator.
+
 ### int
 
 Integer validator.

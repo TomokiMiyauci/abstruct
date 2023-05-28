@@ -293,6 +293,8 @@ export const unique = /* @__PURE__ */ new UniqueValidator().expect(({ item }) =>
 );
 
 // number
+
+/** Float validator. */
 export const float = /* @__PURE__ */ new FloatValidator().expect(shouldBeBut);
 
 /** Integer validator. */

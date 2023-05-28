@@ -2,6 +2,7 @@
 
 import {
   eq,
+  float,
   gt,
   gte,
   instance,
@@ -43,6 +44,7 @@ describe("default error message", () => {
         pattern(/^\d*$/).report({ input: "" }),
         `should be match pattern of \`/^\\d*$/\`, but ""`,
       ],
+      [float.report({ input: 1 }), "should be float, but 1"],
       [int.report({ input: 1.1 }), "should be integer, but 1.1"],
     ];
 

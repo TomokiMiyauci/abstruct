@@ -1,10 +1,17 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ToPredicate } from "../../deps.ts";
+import { type ToPredicate } from "../../deps.ts";
 import { ScalarValidator } from "../../utils.ts";
 
-/** Validator for float. It ensures the number is float. */
+/** Float validator.
+ *
+ * @example
+ * ```ts
+ * import { FloatValidator } from "https://deno.land/x/abstruct@$VERSION/validators/number/float.ts";
+ * const validator = new FloatValidator();
+ * ```
+ */
 export class FloatValidator extends ScalarValidator<number> {
   is = isFloat as ToPredicate<typeof isFloat>;
 
