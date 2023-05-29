@@ -4,11 +4,19 @@
 import { isNullable } from "../deps.ts";
 import { ScalarValidator } from "../utils.ts";
 
+/** Nullish(`null` or `undefined`) validator.
+ *
+ * @example
+ * ```ts
+ * import { NullishValidator } from "https://deno.land/x/abstruct@$VERSION/validators/nullish.ts";
+ * const validator = new NullishValidator();
+ * ```
+ */
 export class NullishValidator
   extends ScalarValidator<unknown, undefined | null> {
   override is = isNullable;
 
-  override toString() {
+  override toString(): string {
     return "nullish";
   }
 }

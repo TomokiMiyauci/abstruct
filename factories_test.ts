@@ -14,6 +14,7 @@ import {
   nonNegative,
   nonPositive,
   not,
+  nullish,
   pattern,
   positive,
   type,
@@ -28,6 +29,7 @@ describe("default error message", () => {
         instance(Array).report({ input: "" }),
         "should be instance of Array, but String",
       ],
+      [nullish.report({ input: "" }), `should be nullish, but ""`],
       [
         eq(0).report({ input: "abc" }),
         `should be 0, but "abc"`,

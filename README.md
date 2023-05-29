@@ -419,6 +419,10 @@ import { instance } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = instance(Array);
 ```
 
+### nullish
+
+Nullish(`null` or `undefined`) validator.
+
 ### eq
 
 Validator factory equivalent to strict equality(`===`) operator.

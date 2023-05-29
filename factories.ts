@@ -93,7 +93,11 @@ export const instance = /* @__PURE__ */ ctorFn(
 
 export const object = /* @__PURE__ */ ctorFn(DictionaryValidator);
 export const optional = /* @__PURE__ */ ctorFn(OptionalValidator);
-export const nullish = /* @__PURE__ */ new NullishValidator();
+
+/** Nullish(`null` or `undefined`) validator. */
+export const nullish = /* @__PURE__ */ new NullishValidator().expect(
+  shouldBeBut,
+);
 
 /** Validator factory equivalent to strict equality(`===`) operator.
  *
