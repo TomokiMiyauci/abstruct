@@ -446,6 +446,19 @@ declare const validator: Validator<string>;
 const keyValidator = key(validator);
 ```
 
+### value
+
+Factory for property value validator.
+
+```ts
+import {
+  type Validator,
+  value,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+declare const validator: Validator;
+const valueValidator = value(validator);
+```
+
 ### eq
 
 Validator factory equivalent to strict equality(`===`) operator.

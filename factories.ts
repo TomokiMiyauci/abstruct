@@ -291,6 +291,19 @@ export function between<T>(min: T, max: T): RangeValidator<T> {
  * ```
  */
 export const key = /* @__PURE__ */ ctorFn(KeyValidator);
+
+/** Factory for property value validator.
+ *
+ * @example
+ * ```ts
+ * import {
+ *   type Validator,
+ *   value,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ * declare const validator: Validator;
+ * const valueValidator = value(validator);
+ * ```
+ */
 export const value = /* @__PURE__ */ ctorFn(ValueValidator);
 
 // Array
