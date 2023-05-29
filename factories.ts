@@ -290,11 +290,23 @@ export const validDate = /* @__PURE__ */ new ValidDateValidator().expect(
 );
 
 // iterable
-export const count = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(CountValidator).expect(({ input }) =>
-    interpolate(Error.ShouldBeBut, [this, getCount(input)])
-  ).build(),
-);
+
+/** Factory for count validator. It checks count(size, length) of items.
+ *
+ * @example
+ * ```ts
+ * import { count } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const validator = count(5);
+ * ```
+ */
+export function count(of: number): CountValidator {
+  const validator = new CountValidator(of);
+
+  return validator.expect(({ input }) =>
+    interpolate(Error.ShouldBeBut, [print(validator), getCount(input)])
+  );
+}
+
 export const empty = /* @__PURE__ */ new EmptyValidator().expect(shouldBe);
 export const item = /* @__PURE__ */ ctorFn(ItemValidator);
 

@@ -520,6 +520,15 @@ import { pattern } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = pattern(/^\d*$/);
 ```
 
+### count
+
+Factory for count validator. It checks count(size, length) of items.
+
+```ts
+import { count } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+const validator = count(5);
+```
+
 ### float
 
 Float validator.
