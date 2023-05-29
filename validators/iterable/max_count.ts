@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { getCount } from "../../iter_utils.ts";
+import { count } from "../../iter_utils.ts";
 import { ScalarValidator } from "../../utils.ts";
 
 export class MaxCountValidator extends ScalarValidator<Iterable<unknown>> {
@@ -10,7 +10,7 @@ export class MaxCountValidator extends ScalarValidator<Iterable<unknown>> {
   }
 
   override is(input: Iterable<unknown>): input is Iterable<unknown> {
-    return getCount(input) <= this.size;
+    return count(input) <= this.size;
   }
 
   override toString(): string {

@@ -53,7 +53,7 @@ export function* enumerate<T>(
 }
 
 /** Return item count. */
-export function getCount(input: Readonly<Iterable<unknown>>): number {
+export function count(input: Readonly<Iterable<unknown>>): number {
   return [...input].length;
 }
 

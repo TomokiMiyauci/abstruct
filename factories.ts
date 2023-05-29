@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { type Display, type Validator } from "./types.ts";
-import { getCount } from "./iter_utils.ts";
+import { count as getCount } from "./iter_utils.ts";
 import {
   bind,
   ctorFn,

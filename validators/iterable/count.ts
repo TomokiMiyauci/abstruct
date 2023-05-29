@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { ScalarValidator } from "../../utils.ts";
-import { getCount } from "../../iter_utils.ts";
+import { count } from "../../iter_utils.ts";
 import plural from "../plural.json" assert { type: "json" };
 
 export class CountValidator extends ScalarValidator<Iterable<unknown>> {
@@ -11,7 +11,7 @@ export class CountValidator extends ScalarValidator<Iterable<unknown>> {
   }
 
   override is(input: Iterable<unknown>): input is Iterable<unknown> {
-    return getCount(input) === this.count;
+    return count(input) === this.count;
   }
 
   override toString(): string {
