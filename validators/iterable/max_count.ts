@@ -4,16 +4,25 @@
 import { count } from "../../iter_utils.ts";
 import { ScalarValidator } from "../../utils.ts";
 
+/** Max count validator. It checks items count is less than or equal to {@link limit}.
+ *
+ * @example
+ * ```ts
+ * import { MaxCountValidator } from "https://deno.land/x/abstruct@$VERSION/validators/iterable/max_count.ts";
+ * declare const limit: number;
+ * const validator = new MaxCountValidator(limit);
+ * ```
+ */
 export class MaxCountValidator extends ScalarValidator<Iterable<unknown>> {
-  constructor(public size: number) {
+  constructor(public limit: number) {
     super();
   }
 
   override is(input: Iterable<unknown>): input is Iterable<unknown> {
-    return count(input) <= this.size;
+    return count(input) <= this.limit;
   }
 
   override toString(): string {
-    return `max item count of ${this.size}`;
+    return `max items(${this.limit})`;
   }
 }

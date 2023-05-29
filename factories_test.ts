@@ -12,6 +12,7 @@ import {
   int,
   lt,
   lte,
+  maxCount,
   ne,
   negative,
   nonNegative,
@@ -72,6 +73,10 @@ describe("default error message", () => {
         "should be valid Date",
       ],
       [count(5).report({ input: "" }), "should be 5 items, but 0"],
+      [
+        maxCount(5).report({ input: "" }),
+        "item count should be less than or equal to 5, but 0",
+      ],
       [empty.report({ input: "a" }), "should be empty"],
     ];
 

@@ -529,6 +529,17 @@ import { count } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = count(5);
 ```
 
+### maxCount
+
+Factory for max count validator. It checks items count is less than or equal to
+`limit`.
+
+```ts
+import { maxCount } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+declare const limit: number;
+const validator = maxCount(limit);
+```
+
 ### item
 
 Factory for item validator. It checks each item of items.
