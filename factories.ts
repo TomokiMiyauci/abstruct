@@ -281,6 +281,19 @@ export const key = /* @__PURE__ */ ctorFn(KeyValidator);
 export const value = /* @__PURE__ */ ctorFn(ValueValidator);
 
 // Array
+/** Factory for fixed array validator. It checks each item passes each {@link Validator}.
+ *
+ * @example
+ * ```ts
+ * import {
+ *  fixedArray,
+ *  type Validator,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ * declare const v1: Validator;
+ * declare const v2: Validator;
+ * const validator = fixedArray(v1, v2);
+ * ```
+ */
 export const fixedArray = /* @__PURE__ */ ctorFn(FixedArrayValidator);
 
 // Date

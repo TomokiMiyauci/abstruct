@@ -580,6 +580,20 @@ Non-Empty validator. It checks items is non-empty.
 
 Unique validator. It checks the each item is unique.
 
+### fixedArray
+
+Factory for fixed array validator. It checks each item passes each `Validator`.
+
+```ts
+import {
+  fixedArray,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+declare const v1: Validator;
+declare const v2: Validator;
+const validator = fixedArray(v1, v2);
+```
+
 ### float
 
 Float validator.
