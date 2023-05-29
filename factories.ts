@@ -75,9 +75,15 @@ export const number = /* @__PURE__ */ type("number");
 export const bigint = /* @__PURE__ */ type("bigint");
 export const boolean = /* @__PURE__ */ type("boolean");
 export const symbol = /* @__PURE__ */ type("symbol");
-export const enumerate = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(EnumValidator).expect(shouldBeBut).build(),
-);
+
+/** Factory for enumerator validator. */
+export function enumerator<const T>(
+  v1: T,
+  v2: T,
+  ...values: readonly T[]
+): EnumValidator<T> {
+  return new EnumValidator(v1, v2, ...values).expect(shouldBeBut);
+}
 
 /** Validator factory equivalent to the `instanceof` operator.
  *

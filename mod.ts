@@ -28,7 +28,7 @@ export {
   boolean,
   count,
   empty,
-  enumerate,
+  enumerator,
   eq,
   fixedArray,
   float,
