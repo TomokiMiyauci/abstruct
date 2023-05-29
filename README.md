@@ -508,6 +508,10 @@ Integer validator.
 
 Positive number validator.
 
+### negative
+
+Negative number validator.
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).
