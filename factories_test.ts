@@ -16,6 +16,7 @@ import {
   minCount,
   ne,
   negative,
+  nonEmpty,
   nonNegative,
   nonPositive,
   not,
@@ -90,6 +91,7 @@ describe("default error message", () => {
         unique.report({ input: "aaa", item: "a", index: 1 }),
         "should be unique",
       ],
+      [nonEmpty.report({ input: "" }), "should be non-empty"],
     ];
 
     table.forEach(([message, expected]) => {

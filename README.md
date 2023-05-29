@@ -572,6 +572,10 @@ Single validator. It checks items is single.
 
 Empty validator. It checks the items is empty.
 
+### nonEmpty
+
+Non-Empty validator. It checks items is non-empty.
+
 ### unique
 
 Unique validator. It checks the each item is unique.

@@ -362,6 +362,7 @@ export function minCount(limit: number): MinCountValidator {
   );
 }
 
+/** Non-Empty validator. It checks items is non-empty. */
 export const nonEmpty = /* @__PURE__ */ new NonEmptyValidator()
   .expect(shouldBe);
 
