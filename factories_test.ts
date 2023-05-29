@@ -1,6 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
 import {
+  between,
   eq,
   float,
   gt,
@@ -42,6 +43,7 @@ describe("default error message", () => {
       ],
       [lt(0).report({ input: 0 }), "should be less than 0, but 0"],
       [lte(1).report({ input: 0 }), "should be less than or equal to 1, but 0"],
+      [between(4, 8).report({ input: 0 }), "should be between 4 and 8, but 0"],
       [
         not(eq(0)).report({ input: 0 }),
         "should be not 0, but 0",

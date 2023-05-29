@@ -487,6 +487,16 @@ import { lte } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = lte(255);
 ```
 
+### between
+
+Factory for range validator.
+
+```ts
+import { between } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+const numberRangeValidator = between(0, 255);
+const dateRangeValidator = between(new Date("1970/1/1"), new Date("2038/1/19"));
+```
+
 ### not
 
 Factory for validator inversion.

@@ -2,12 +2,29 @@
 // This module is browser compatible.
 
 import { isInRange } from "./utils.ts";
-import { ScalarValidator } from "../utils.ts";
+import { print, ScalarValidator } from "../utils.ts";
 
+/** Range validator.
+ *
+ * @example
+ * ```ts
+ * import { RangeValidator } from "https://deno.land/x/abstruct@$VERSION/validators/range.ts";
+ * const validator = new RangeValidator(4, 8);
+ * ```
+ */
 export class RangeValidator<In> extends ScalarValidator<In> {
-  #range!: [In, In];
+  #range!: readonly [In, In];
 
-  get range(): [In, In] {
+  /**
+   * @throws {RangeError} If {@link max} less than or equal to {@link min}.
+   */
+  constructor(min: In, max: In) {
+    super();
+
+    this.range = [min, max];
+  }
+
+  get range(): readonly [In, In] {
     return this.#range;
   }
 
@@ -19,20 +36,11 @@ export class RangeValidator<In> extends ScalarValidator<In> {
     this.#range = range;
   }
 
-  /**
-   * @throws {RangeError} If {@link max} less than or equal to {@link min}.
-   */
-  constructor(min: In, max: In) {
-    super();
-
-    this.range = [min, max];
-  }
-
   override is(input: In): input is In {
     return isInRange(input, this.range);
   }
 
   override toString(): string {
-    return `between ${this.range[0]} and ${this.range[1]}`;
+    return `between ${print(this.range[0])} and ${print(this.range[1])}`;
   }
 }

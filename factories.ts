@@ -263,9 +263,18 @@ export function and(...validators: readonly Validator[]): AndValidator {
   return AndValidator.create(...validators);
 }
 
-export const between = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(RangeValidator).expect(shouldBeBut).build(),
-);
+/** Factory for range validator.
+ *
+ * @example
+ * ```ts
+ * import { between } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const numberRangeValidator = between(0, 255);
+ * const dateRangeValidator = between(new Date("1970/1/1"), new Date("2038/1/19"));
+ * ```
+ */
+export function between<T>(min: T, max: T): RangeValidator<T> {
+  return new RangeValidator(min, max).expect(shouldBeBut);
+}
 
 // known
 export const key = /* @__PURE__ */ ctorFn(KeyValidator);
