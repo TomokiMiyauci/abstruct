@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { filterKeys, isEmpty } from "../../deps.ts";
-import { DictionaryValidator } from "./dictionary.ts";
+import { DictionaryValidator } from "../dictionary.ts";
 import { ValidationFailure, Validator } from "../../types.ts";
 
 export class OptionalValidator<

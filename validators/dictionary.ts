@@ -1,10 +1,10 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isEmpty } from "../../deps.ts";
-import { map } from "../../iter_utils.ts";
-import { curryR, fromPath } from "../../utils.ts";
-import { ValidationFailure, Validator } from "../../types.ts";
+import { isEmpty } from "../deps.ts";
+import { map } from "../iter_utils.ts";
+import { curryR, fromPath } from "../utils.ts";
+import { ValidationFailure, Validator } from "../types.ts";
 
 export class DictionaryValidator<
   const In extends Record<string, unknown>,

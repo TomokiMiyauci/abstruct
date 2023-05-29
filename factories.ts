@@ -16,7 +16,7 @@ import { KeyValidator } from "./validators/key.ts";
 import { ValueValidator } from "./validators/value.ts";
 import { RangeValidator } from "./validators/range.ts";
 import { FixedArrayValidator } from "./validators/array/fixed_array.ts";
-import { DictionaryValidator } from "./validators/object/dictionary.ts";
+import { DictionaryValidator } from "./validators/dictionary.ts";
 import { OptionalValidator } from "./validators/object/optional.ts";
 import { NullishValidator } from "./validators/nullish.ts";
 import { FloatValidator } from "./validators/number/float.ts";
