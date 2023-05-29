@@ -10,7 +10,7 @@ import {
 } from "../_dev_deps.ts";
 
 describe("EnumValidator", () => {
-  it("is should be return true if pattern matched", () => {
+  it("is should be return true if input contains enumerator", () => {
     assert(new EnumValidator(1, 2, 3, 4).is(3));
 
     assertFalse(new EnumValidator<"" | 0 | false>("", 0, false).is(1));

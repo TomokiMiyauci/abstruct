@@ -10,7 +10,7 @@ import {
 } from "../_dev_deps.ts";
 
 describe("NullishValidator", () => {
-  it("is should be return true if pattern matched", () => {
+  it("is should be return true if input matches nullish", () => {
     assert(new NullishValidator().is(null));
     assert(new NullishValidator().is(undefined));
 
