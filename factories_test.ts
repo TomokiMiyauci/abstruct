@@ -12,6 +12,7 @@ import {
   ne,
   negative,
   nonNegative,
+  nonPositive,
   not,
   pattern,
   positive,
@@ -55,6 +56,10 @@ describe("default error message", () => {
         "should be non-negative number, but -1",
       ],
       [negative.report({ input: 1 }), "should be negative number, but 1"],
+      [
+        nonPositive.report({ input: 1 }),
+        "should be non-positive number, but 1",
+      ],
     ];
 
     table.forEach(([message, expected]) => {

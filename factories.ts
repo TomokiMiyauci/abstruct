@@ -331,6 +331,8 @@ export const negative = /* @__PURE__ */ new NegativeNumberValidator()
 /** Non-negative number validator. */
 export const nonNegative = /* @__PURE__ */ new NonNegativeNumberValidator()
   .expect(shouldBeBut);
+
+/** Non-positive number validator. */
 export const nonPositive = /* @__PURE__ */ new NonPositiveNumberValidator()
   .expect(shouldBeBut);
 
