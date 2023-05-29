@@ -419,6 +419,16 @@ import { instance } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = instance(Array);
 ```
 
+### enumerator
+
+Factory for enumerator validator.
+
+```ts
+import { enumerator } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+const validator = enumerator(0, 1, 2, 3);
+const validator2 = enumerator("Red", "Yellow", "Green");
+```
+
 ### nullish
 
 Nullish(`null` or `undefined`) validator.

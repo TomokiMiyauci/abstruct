@@ -76,7 +76,15 @@ export const bigint = /* @__PURE__ */ type("bigint");
 export const boolean = /* @__PURE__ */ type("boolean");
 export const symbol = /* @__PURE__ */ type("symbol");
 
-/** Factory for enumerator validator. */
+/** Factory for enumerator validator.
+ *
+ * @example
+ * ```ts
+ * import { enumerator } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const validator = enumerator(0, 1, 2, 3);
+ * const validator2 = enumerator("Red", "Yellow", "Green");
+ * ```
+ */
 export function enumerator<const T>(
   v1: T,
   v2: T,

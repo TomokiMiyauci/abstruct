@@ -3,14 +3,22 @@
 
 import { ScalarValidator } from "../utils.ts";
 
-export class EnumValidator<const T> extends ScalarValidator<unknown, T> {
-  values: [T, T, ...T[]];
-  constructor(v1: T, v2: T, ...values: readonly T[]) {
+/** Enumerator validator.
+ *
+ * @example
+ * ```ts
+ * import { EnumValidator } from "https://deno.land/x/abstruct@$VERSION/validators/enum.ts";
+ * const validator = new EnumValidator(1, 2, 3);
+ * ```
+ */
+export class EnumValidator<const A> extends ScalarValidator<unknown, A> {
+  values: [A, A, ...A[]];
+  constructor(v1: A, v2: A, ...values: readonly A[]) {
     super();
     this.values = [v1, v2, ...values];
   }
 
-  is(input: unknown): input is T {
+  is(input: unknown): input is A {
     return (this.values as unknown[]).includes(input);
   }
 
