@@ -364,6 +364,8 @@ export function minCount(limit: number): MinCountValidator {
 
 export const nonEmpty = /* @__PURE__ */ new NonEmptyValidator()
   .expect(shouldBe);
+
+/** Single validator. It checks items is single. */
 export const single = /* @__PURE__ */ new SingleValidator().expect(shouldBe);
 export const unique = /* @__PURE__ */ new UniqueValidator().expect(({ item }) =>
   interpolate(Error.Unique, [item])

@@ -520,6 +520,19 @@ import { pattern } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = pattern(/^\d*$/);
 ```
 
+### item
+
+Factory for item validator. It checks each item of items.
+
+```ts
+import {
+  item,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+declare const validator: Validator;
+const itemValidator = item(validator);
+```
+
 ### count
 
 Factory for count validator. It checks count(size, length) of items.
@@ -551,18 +564,9 @@ declare const limit: number;
 const validator = minCount(limit);
 ```
 
-### item
+### single
 
-Factory for item validator. It checks each item of items.
-
-```ts
-import {
-  item,
-  type Validator,
-} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
-declare const validator: Validator;
-const itemValidator = item(validator);
-```
+Single validator. It checks items is single.
 
 ### empty
 

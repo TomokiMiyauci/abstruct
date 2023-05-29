@@ -22,6 +22,7 @@ import {
   nullish,
   pattern,
   positive,
+  single,
   type,
   validDate,
 } from "./factories.ts";
@@ -82,6 +83,7 @@ describe("default error message", () => {
         minCount(5).report({ input: "a" }),
         "item count should be greater than or equal to 5, but 1",
       ],
+      [single.report({ input: "" }), "should be single"],
       [empty.report({ input: "a" }), "should be empty"],
     ];
 
