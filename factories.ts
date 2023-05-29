@@ -308,7 +308,25 @@ export function count(of: number): CountValidator {
 }
 
 export const empty = /* @__PURE__ */ new EmptyValidator().expect(shouldBe);
-export const item = /* @__PURE__ */ ctorFn(ItemValidator);
+
+/** Factory for item validator.
+ * It checks each item of items.
+ *
+ * @example
+ * ```ts
+ * import {
+ *  item,
+ *  type Validator,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ * declare const validator: Validator;
+ * const itemValidator = item(validator);
+ * ```
+ */
+export function item<In = unknown, A extends In = In>(
+  validator: Validator<In, A>,
+): ItemValidator<In, A> {
+  return new ItemValidator(validator);
+}
 
 export function maxCount(limit: number): MaxCountValidator {
   return new MaxCountValidator(limit).expect(({ input }) =>

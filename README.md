@@ -529,6 +529,19 @@ import { count } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = count(5);
 ```
 
+### item
+
+Factory for item validator. It checks each item of items.
+
+```ts
+import {
+  item,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+declare const validator: Validator;
+const itemValidator = item(validator);
+```
+
 ### float
 
 Float validator.
