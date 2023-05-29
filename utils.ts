@@ -211,3 +211,17 @@ export function print(input: unknown): string {
 
   return str;
 }
+
+/** Whether the input is in range. It is inclusive.
+ * @throws {RangeError} If max less than or equal to min.
+ */
+export function isInRange<T>(
+  input: T,
+  range: readonly [mix: T, max: T],
+): boolean {
+  const [min, max] = range;
+
+  if (max <= min) throw new RangeError("max should be greater then min");
+
+  return min <= input && input <= max;
+}
