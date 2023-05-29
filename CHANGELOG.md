@@ -1,3 +1,12 @@
+# [1.0.0-beta.6](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.5...1.0.0-beta.6) (2023-05-29)
+
+
+### Features
+
+* **factories:** rename factory to `enumerator` from `enumerate` ([08eb036](https://github.com/TomokiMiyauci/abstruct/commit/08eb0360a9077cbf5486f0f28329bfc1b47e6ddf))
+* **has:** add validator equivalent to in operator ([ef1313e](https://github.com/TomokiMiyauci/abstruct/commit/ef1313e0fa9d206c52989e43d013165c09216a1f))
+* **mod:** remove prototype validator ([26b5f6c](https://github.com/TomokiMiyauci/abstruct/commit/26b5f6c94366c8ccfbe32c6c5d8398059f3d96e5))
+
 # [1.0.0-beta.5](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.4...1.0.0-beta.5) (2023-05-28)
 
 
