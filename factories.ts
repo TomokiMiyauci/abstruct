@@ -106,6 +106,18 @@ export const instance = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(InstanceValidator).expect(message1).build(),
 );
 
+/** Factory for object validator.
+ *
+ * @example
+ * ```ts
+ * import {
+ *  number,
+ *  object,
+ *  string,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ * const User = object({ name: string, age: number });
+ * ```
+ */
 export const object = /* @__PURE__ */ ctorFn(ObjectValidator);
 export const optional = /* @__PURE__ */ ctorFn(OptionalValidator);
 

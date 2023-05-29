@@ -419,6 +419,19 @@ import { instance } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
 const validator = instance(Array);
 ```
 
+### object
+
+Factory for object validator.
+
+```ts
+import {
+  number,
+  object,
+  string,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+const User = object({ name: string, age: number });
+```
+
 ### enumerator
 
 Factory for enumerator validator.
