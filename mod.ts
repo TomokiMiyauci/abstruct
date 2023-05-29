@@ -58,7 +58,6 @@ export {
   or,
   pattern,
   positive,
-  prototype,
   single,
   string,
   symbol,

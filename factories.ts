@@ -19,7 +19,6 @@ import { FixedArrayValidator } from "./validators/array/fixed_array.ts";
 import { DictionaryValidator } from "./validators/object/dictionary.ts";
 import { OptionalValidator } from "./validators/object/optional.ts";
 import { NullishValidator } from "./validators/nullish.ts";
-import { PrototypeValidator } from "./validators/prototype.ts";
 import { FloatValidator } from "./validators/number/float.ts";
 import { IntegerValidator } from "./validators/number/integer.ts";
 import { PositiveNumberValidator } from "./validators/numeric/positive_number.ts";
@@ -91,9 +90,7 @@ export const enumerate = /* @__PURE__ */ ctorFn(
 export const instance = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(InstanceValidator).expect(message1).build(),
 );
-export const prototype = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(PrototypeValidator).expect(shouldBeBut).build(),
-);
+
 export const object = /* @__PURE__ */ ctorFn(DictionaryValidator);
 export const optional = /* @__PURE__ */ ctorFn(OptionalValidator);
 export const nullish = /* @__PURE__ */ new NullishValidator();
