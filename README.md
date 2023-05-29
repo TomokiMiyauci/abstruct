@@ -544,6 +544,10 @@ Non-negative number validator.
 
 Non-positive number validator.
 
+### validDate
+
+Valid `Date` validator.
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).

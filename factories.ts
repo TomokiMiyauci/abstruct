@@ -284,6 +284,7 @@ export const value = /* @__PURE__ */ ctorFn(ValueValidator);
 export const fixedArray = /* @__PURE__ */ ctorFn(FixedArrayValidator);
 
 // Date
+/** Valid `Date` validator. */
 export const validDate = /* @__PURE__ */ new ValidDateValidator().expect(
   shouldBe,
 );

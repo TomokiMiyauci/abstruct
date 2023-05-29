@@ -4,10 +4,18 @@
 import { isValidDate, type ToPredicate } from "../../deps.ts";
 import { ScalarValidator } from "../../utils.ts";
 
+/** Valid `Date` validator.
+ *
+ * @example
+ * ```ts
+ * import { ValidDateValidator } from "https://deno.land/x/abstruct@$VERSION/validators/date/valid_date.ts";
+ * const validator = new ValidDateValidator();
+ * ```
+ */
 export class ValidDateValidator extends ScalarValidator<Date> {
   override is = isValidDate as ToPredicate<typeof isValidDate>;
 
-  override toString() {
+  override toString(): string {
     return "valid Date";
   }
 }

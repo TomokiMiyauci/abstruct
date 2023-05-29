@@ -19,6 +19,7 @@ import {
   pattern,
   positive,
   type,
+  validDate,
 } from "./factories.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
 
@@ -63,6 +64,10 @@ describe("default error message", () => {
       [
         nonPositive.report({ input: 1 }),
         "should be non-positive number, but 1",
+      ],
+      [
+        validDate.report({ input: new Date("invalid") }),
+        "should be valid Date",
       ],
     ];
 
