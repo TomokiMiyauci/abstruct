@@ -13,6 +13,7 @@ import {
   lt,
   lte,
   maxCount,
+  minCount,
   ne,
   negative,
   nonNegative,
@@ -74,8 +75,12 @@ describe("default error message", () => {
       ],
       [count(5).report({ input: "" }), "should be 5 items, but 0"],
       [
-        maxCount(5).report({ input: "" }),
-        "item count should be less than or equal to 5, but 0",
+        maxCount(5).report({ input: "abcdef" }),
+        "item count should be less than or equal to 5, but 6",
+      ],
+      [
+        minCount(5).report({ input: "a" }),
+        "item count should be greater than or equal to 5, but 1",
       ],
       [empty.report({ input: "a" }), "should be empty"],
     ];

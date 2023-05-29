@@ -347,6 +347,15 @@ export function maxCount(limit: number): MaxCountValidator {
   );
 }
 
+/** Factory for min count validator. It checks items count is greater than or equal to {@link limit}.
+ *
+ * @example
+ * ```ts
+ * import { minCount } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * declare const limit: number;
+ * const validator = minCount(limit);
+ * ```
+ */
 export function minCount(limit: number): MinCountValidator {
   return new MinCountValidator(limit).expect(({ input }) =>
     interpolate(Error.MinCount, [limit, getCount(input)])

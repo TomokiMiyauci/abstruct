@@ -540,6 +540,17 @@ declare const limit: number;
 const validator = maxCount(limit);
 ```
 
+### minCount
+
+Factory for min count validator. It checks items count is greater than or equal
+to `limit`.
+
+```ts
+import { minCount } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+declare const limit: number;
+const validator = minCount(limit);
+```
+
 ### item
 
 Factory for item validator. It checks each item of items.
