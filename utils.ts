@@ -192,6 +192,32 @@ export function print(input: unknown): string {
   return str;
 }
 
+/** Return printable properties.
+ */
+// deno-lint-ignore ban-types
+export function printProps(input: {}): string {
+  const properties = entriesAll(input)
+    .map(([key, value]) => `${key.toString()}: ${print(value)}`)
+    .join(", ");
+
+  return `{${properties}}`;
+}
+
+/** Returns an array of key/values of the all owned properties of an object
+ * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
+ */
+export function entriesAll<T>(
+  obj: { [k: PropertyKey]: T },
+): [string | symbol, T][] {
+  const keys = Object.keys(obj);
+  const symbols = Object.getOwnPropertySymbols(obj);
+  const result = (keys as (string | symbol)[])
+    .concat(symbols)
+    .map((key) => [key, obj[key]] as [string | symbol, T]);
+
+  return result;
+}
+
 /** Whether the input is in range. It is inclusive.
  * @throws {RangeError} If max less than or equal to min.
  */

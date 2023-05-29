@@ -1,6 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { isInRange, print } from "./utils.ts";
+import { entriesAll, isInRange, print, printProps } from "./utils.ts";
 import {
   assert,
   assertEquals,
@@ -26,6 +26,54 @@ describe("print", () => {
 
     table.forEach(([input, expected]) => {
       assertEquals(print(input), expected);
+    });
+  });
+});
+
+describe("printProps", () => {
+  it("should display as", () => {
+    // deno-lint-ignore ban-types
+    const table: [{}, string][] = [
+      ["", `{}`],
+      [0, `{}`],
+      [{ a: "" }, `{a: ""}`],
+      [{ a: "", b: " ", c: "  " }, `{a: "", b: " ", c: "  "}`],
+      [{ c: "  ", a: "", b: " " }, `{c: "  ", a: "", b: " "}`],
+      [
+        { [Symbol.iterator]: "", a: 0n },
+        `{a: 0n, Symbol(Symbol.iterator): ""}`,
+      ],
+      [
+        { [Symbol.iterator]: "", a: 0n, [Symbol.hasInstance]: "a" },
+        `{a: 0n, Symbol(Symbol.iterator): "", Symbol(Symbol.hasInstance): "a"}`,
+      ],
+    ];
+
+    table.forEach(([input, expected]) => {
+      assertEquals(printProps(input), expected);
+    });
+  });
+});
+
+describe("entriesAll", () => {
+  it("should return entries includes symbol entry", () => {
+    const table: [
+      Record<PropertyKey, unknown>,
+      [string | symbol, unknown][],
+    ][] = [
+      [{}, []],
+      [{ a: "" }, [["a", ""]]],
+      [{ a: "", b: "" }, [["a", ""], ["b", ""]]],
+      [{ b: "", a: "" }, [["b", ""], ["a", ""]]],
+      [{ [Symbol.asyncIterator]: "", a: "", [Symbol.iterator]: "" }, [
+        ["a", ""],
+        [Symbol.asyncIterator, ""],
+        [Symbol.iterator, ""],
+      ]],
+    ];
+
+    table.forEach(([obj, expected]) => {
+      assertEquals(entriesAll(obj), expected);
     });
   });
 });
