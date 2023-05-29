@@ -542,6 +542,10 @@ declare const validator: Validator;
 const itemValidator = item(validator);
 ```
 
+### empty
+
+Empty validator. It checks the items is empty.
+
 ### float
 
 Float validator.

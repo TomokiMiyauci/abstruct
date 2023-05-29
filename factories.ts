@@ -307,6 +307,10 @@ export function count(of: number): CountValidator {
   );
 }
 
+/** Empty validator. It checks the items is empty.
+ *
+ * @example
+ */
 export const empty = /* @__PURE__ */ new EmptyValidator().expect(shouldBe);
 
 /** Factory for item validator.

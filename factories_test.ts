@@ -3,6 +3,7 @@
 import {
   between,
   count,
+  empty,
   eq,
   float,
   gt,
@@ -71,6 +72,7 @@ describe("default error message", () => {
         "should be valid Date",
       ],
       [count(5).report({ input: "" }), "should be 5 items, but 0"],
+      [empty.report({ input: "a" }), "should be empty"],
     ];
 
     table.forEach(([message, expected]) => {
