@@ -34,6 +34,7 @@ export {
   float,
   gt,
   gte,
+  has,
   instance,
   int,
   int16,

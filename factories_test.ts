@@ -8,6 +8,7 @@ import {
   float,
   gt,
   gte,
+  has,
   instance,
   int,
   lt,
@@ -56,6 +57,7 @@ describe("default error message", () => {
         not(eq(0)).report({ input: 0 }),
         "should be not 0, but 0",
       ],
+      [has("").report({ input: {} }), `should has ""`],
       [
         pattern(/^\d*$/).report({ input: "" }),
         `should be match pattern of \`/^\\d*$/\`, but ""`,

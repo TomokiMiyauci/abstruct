@@ -537,6 +537,15 @@ declare const validator: Validator;
 const inversionValidator = not(validator);
 ```
 
+### has
+
+Factory for existence of property validator.
+
+```ts
+import { has } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+const validator = has("prop");
+```
+
 ### pattern
 
 Factory for regex pattern validator.

@@ -45,6 +45,7 @@ import { AndValidator } from "./validators/operators/and.ts";
 import { NotValidator } from "./validators/operators/not.ts";
 import { OrValidator } from "./validators/operators/or.ts";
 import { type TypeStr, TypeValidator } from "./validators/operators/typeof.ts";
+import { InValidator } from "./validators/operators/in.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
 import { Error } from "./constants.ts";
 
@@ -261,6 +262,18 @@ export function and<
 ): AndValidator<In, A & A2 & A3 & A4 & A5>;
 export function and(...validators: readonly Validator[]): AndValidator {
   return AndValidator.create(...validators);
+}
+
+/** Factory for existence of property validator.
+ *
+ * @example
+ * ```ts
+ * import { has } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * const validator = has("prop");
+ * ```
+ */
+export function has<const K extends PropertyKey>(key: K): InValidator<K> {
+  return new InValidator(key).expect(() => `should has ${print(key)}`);
 }
 
 /** Factory for range validator.
