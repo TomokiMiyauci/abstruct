@@ -10,11 +10,20 @@ import {
   Validator,
 } from "../../types.ts";
 
-interface Context extends ValidationContext<Iterable<unknown>> {
+export interface Context extends ValidationContext<Iterable<unknown>> {
+  /** Item index. */
   index: number;
   item: unknown;
 }
 
+/** Unique validator. It checks the each item is unique.
+ *
+ * @example
+ * ```ts
+ * import { UniqueValidator } from "https://deno.land/x/abstruct@$VERSION/validators/iterable/unique.ts";
+ * const validator = new UniqueValidator();
+ * ```
+ */
 export class UniqueValidator extends Reporter<Context>
   implements Validator<Iterable<unknown>> {
   is(input: Iterable<unknown>): input is Iterable<unknown> {
@@ -25,19 +34,18 @@ export class UniqueValidator extends Reporter<Context>
     for (const [index, item] of duplicates(input)) {
       yield new ValidationFailure(
         this.report({ input, item, index }),
-        {
-          instancePath: [index.toString()],
-        },
+        { instancePath: [index.toString()] },
       );
     }
   }
 
-  override toString() {
+  override toString(): string {
     return "unique";
   }
 }
 
-function* duplicates<T>(
+/** Yield duplicated items. */
+export function* duplicates<T>(
   iterable: Iterable<T>,
 ): Iterable<[index: number, item: T]> {
   const seen = new Set<T>();

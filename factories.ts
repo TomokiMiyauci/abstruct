@@ -367,9 +367,9 @@ export const nonEmpty = /* @__PURE__ */ new NonEmptyValidator()
 
 /** Single validator. It checks items is single. */
 export const single = /* @__PURE__ */ new SingleValidator().expect(shouldBe);
-export const unique = /* @__PURE__ */ new UniqueValidator().expect(({ item }) =>
-  interpolate(Error.Unique, [item])
-);
+
+/** Unique validator. It checks the each item is unique. */
+export const unique = /* @__PURE__ */ new UniqueValidator().expect(shouldBe);
 
 // number
 

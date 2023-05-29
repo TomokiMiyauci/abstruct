@@ -572,6 +572,10 @@ Single validator. It checks items is single.
 
 Empty validator. It checks the items is empty.
 
+### unique
+
+Unique validator. It checks the each item is unique.
+
 ### float
 
 Float validator.

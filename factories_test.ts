@@ -24,6 +24,7 @@ import {
   positive,
   single,
   type,
+  unique,
   validDate,
 } from "./factories.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
@@ -85,6 +86,10 @@ describe("default error message", () => {
       ],
       [single.report({ input: "" }), "should be single"],
       [empty.report({ input: "a" }), "should be empty"],
+      [
+        unique.report({ input: "aaa", item: "a", index: 1 }),
+        "should be unique",
+      ],
     ];
 
     table.forEach(([message, expected]) => {
