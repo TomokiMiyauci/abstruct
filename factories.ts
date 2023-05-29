@@ -324,9 +324,11 @@ export const uint32 = /* @__PURE__ */ and(
   /* @__PURE__ */ between(0, 4294967295),
 );
 
-/** Factory for negative number validator. */
+/** Negative number validator. */
 export const negative = /* @__PURE__ */ new NegativeNumberValidator()
   .expect(shouldBeBut);
+
+/** Non-negative number validator. */
 export const nonNegative = /* @__PURE__ */ new NonNegativeNumberValidator()
   .expect(shouldBeBut);
 export const nonPositive = /* @__PURE__ */ new NonPositiveNumberValidator()

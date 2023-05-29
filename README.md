@@ -512,6 +512,10 @@ Positive number validator.
 
 Negative number validator.
 
+### nonNegative
+
+Non-negative number validator.
+
 ## License
 
 Copyright © 2023-present [Tomoki Miyauci](https://github.com/TomokiMiyauci).
