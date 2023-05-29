@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { filterKeys, isEmpty } from "../../deps.ts";
-import { DictionaryValidator } from "../object.ts";
+import { ObjectValidator } from "../object.ts";
 import { ValidationFailure, Validator } from "../../types.ts";
 
 export class OptionalValidator<
@@ -29,6 +29,6 @@ export class OptionalValidator<
       return key in input;
     }
 
-    yield* new DictionaryValidator<In, In_>(validators).validate(input as In);
+    yield* new ObjectValidator<In, In_>(validators).validate(input as In);
   }
 }

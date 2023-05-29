@@ -16,7 +16,7 @@ import { KeyValidator } from "./validators/key.ts";
 import { ValueValidator } from "./validators/value.ts";
 import { RangeValidator } from "./validators/range.ts";
 import { FixedArrayValidator } from "./validators/array/fixed_array.ts";
-import { DictionaryValidator } from "./validators/object.ts";
+import { ObjectValidator } from "./validators/object.ts";
 import { OptionalValidator } from "./validators/object/optional.ts";
 import { NullishValidator } from "./validators/nullish.ts";
 import { FloatValidator } from "./validators/number/float.ts";
@@ -105,7 +105,7 @@ export const instance = /* @__PURE__ */ ctorFn(
   /* @__PURE__ */ bind(InstanceValidator).expect(message1).build(),
 );
 
-export const object = /* @__PURE__ */ ctorFn(DictionaryValidator);
+export const object = /* @__PURE__ */ ctorFn(ObjectValidator);
 export const optional = /* @__PURE__ */ ctorFn(OptionalValidator);
 
 /** Nullish(`null` or `undefined`) validator. */

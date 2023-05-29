@@ -6,7 +6,7 @@ import { map } from "../iter_utils.ts";
 import { curryR, fromPath } from "../utils.ts";
 import { ValidationFailure, Validator } from "../types.ts";
 
-export class DictionaryValidator<
+export class ObjectValidator<
   const In extends Record<string, unknown>,
   const In_ extends In = In,
 > implements Validator<In, In_> {
