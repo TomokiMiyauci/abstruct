@@ -1,6 +1,13 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { isPositiveInteger, iter, map, take } from "./iter_utils.ts";
+import {
+  count,
+  enumerate,
+  isPositiveInteger,
+  iter,
+  map,
+  take,
+} from "./iter_utils.ts";
 import {
   assert,
   assertEquals,
@@ -91,5 +98,26 @@ describe("iter", () => {
     }
     const iterable = gen();
     assertEquals(iter(iterable), iterable[Symbol.iterator]());
+  });
+});
+
+describe("count", () => {
+  it("should return number of yielded", () => {
+    assertEquals(count([1, 2, 3]), 3);
+
+    function* gen() {
+      yield 1;
+      yield 2;
+      yield 3;
+    }
+
+    assertEquals(count(gen()), 3);
+  });
+});
+
+describe("enumerate", () => {
+  it("should return entries", () => {
+    assertEquals([...enumerate([1, 2, 3])], [[0, 1], [1, 2], [2, 3]]);
+    assertEquals([...enumerate([1, 2, 3], 4)], [[4, 1], [5, 2], [6, 3]]);
   });
 });
