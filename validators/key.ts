@@ -3,19 +3,29 @@
 // This module is browser compatible.
 
 import { isEmpty } from "../deps.ts";
-import { curryR, fromPath } from "../utils.ts";
+import { curryR, fromPath, print } from "../utils.ts";
 import { map } from "../iter_utils.ts";
 import { type ValidationFailure, Validator } from "../types.ts";
 
-export class KeyValidator<In_ extends string = string>
-  implements Validator<{}, Record<In_, unknown>> {
-  validator: Validator<string>;
+/** Property key validator. It checks to pass all property key.
+ *
+ * @example
+ * ```ts
+ * import { KeyValidator } from "https://deno.land/x/abstruct@$VERSION/validators/key.ts";
+ * import { type Validator } from "https://deno.land/x/abstruct@$VERSION/types.ts";
+ * declare const validator: Validator<string>;
+ * const keyValidator = new KeyValidator(validator);
+ * ```
+ */
+export class KeyValidator<T extends string = string>
+  implements Validator<{}, Record<T, unknown>> {
+  validator: Validator<string, T>;
 
-  constructor(validator: Validator<string, In_>) {
-    this.validator = validator as Validator<string>;
+  constructor(validator: Validator<string, T>) {
+    this.validator = validator;
   }
 
-  is(input: {}): input is Record<In_, unknown> {
+  is(input: {}): input is Record<T, unknown> {
     return isEmpty(this.validate(input));
   }
 
@@ -28,6 +38,6 @@ export class KeyValidator<In_ extends string = string>
   }
 
   toString(): string {
-    return `key of ${this.validator}`;
+    return `key of ${print(this.validator)}`;
   }
 }

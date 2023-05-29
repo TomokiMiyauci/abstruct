@@ -276,7 +276,20 @@ export function between<T>(min: T, max: T): RangeValidator<T> {
   return new RangeValidator(min, max).expect(shouldBeBut);
 }
 
-// known
+// Non-nullish
+
+/** Factory for property key validator.
+ *
+ * @example
+ * ```ts
+ * import {
+ *  key,
+ *  type Validator,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ * declare const validator: Validator<string>;
+ * const keyValidator = key(validator);
+ * ```
+ */
 export const key = /* @__PURE__ */ ctorFn(KeyValidator);
 export const value = /* @__PURE__ */ ctorFn(ValueValidator);
 

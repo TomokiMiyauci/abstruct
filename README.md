@@ -433,6 +433,19 @@ const validator2 = enumerator("Red", "Yellow", "Green");
 
 Nullish(`null` or `undefined`) validator.
 
+### key
+
+Factory for property key validator.
+
+```ts
+import {
+  key,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+declare const validator: Validator<string>;
+const keyValidator = key(validator);
+```
+
 ### eq
 
 Validator factory equivalent to strict equality(`===`) operator.
