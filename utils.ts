@@ -183,26 +183,6 @@ export function ctorFn<Args extends readonly unknown[], R>(
   return (...args) => new ctor(...args);
 }
 
-/** Crate validator lazily.  */
-export function lazy<In, A extends In = In>(
-  fn: () => Validator<In, A>,
-): Validator<In, A> {
-  const $fn = memoize(fn);
-  const validator = {
-    is: (input: In): input is A => {
-      return $fn().is(input);
-    },
-    *validate(input: In): Iterable<ValidationFailure> {
-      yield* $fn().validate(input);
-    },
-    toString(): string {
-      return `${$fn()}`;
-    },
-  };
-
-  return validator;
-}
-
 /** Return printable JavaScript data. */
 export function print(input: unknown): string {
   const str = String(input);
