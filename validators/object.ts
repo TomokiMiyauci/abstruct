@@ -3,7 +3,7 @@
 
 import { isEmpty } from "../deps.ts";
 import { map } from "../iter_utils.ts";
-import { curryR, entriesAll, fromPath, printObject } from "../utils.ts";
+import { curryR, entriesAll, fromPath, printProps } from "../utils.ts";
 import { ValidationFailure, Validator } from "../types.ts";
 
 /** Object validator.
@@ -44,6 +44,6 @@ export class ObjectValidator<
   }
 
   toString(): string {
-    return printObject(this.validators);
+    return printProps(this.validators);
   }
 }
