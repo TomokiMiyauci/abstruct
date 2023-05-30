@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { type Constructor } from "./deps.ts";
-import { type Display, type Validator } from "./types.ts";
+import { type Validator } from "./types.ts";
 import { count as getCount } from "./iter_utils.ts";
 import { ctorFn, interpolate, print, shouldBe, shouldBeBut } from "./utils.ts";
 import { EnumValidator } from "./validators/enum.ts";
@@ -43,15 +43,6 @@ import { InValidator } from "./validators/operators/in.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
 import { Error } from "./constants.ts";
 
-export function message(this: Display, { input }: { input: unknown }): string {
-  return interpolate(Error.ShouldBeBut, [this, typeof input]);
-}
-
-// deno-lint-ignore ban-types
-export function message1(this: Display, { input }: { input: {} }): string {
-  return interpolate(Error.ShouldBeBut, [this, input.constructor.name]);
-}
-
 /** Validator factory for JavaScript data type.
  * The difference with `typeof` operator is that `"object"` does not match `null`.
  *
@@ -62,7 +53,11 @@ export function message1(this: Display, { input }: { input: {} }): string {
  * ```
  */
 export function type<T extends TypeStr>(of: T): TypeValidator<T> {
-  return new TypeValidator(of).expect(message);
+  const validator = new TypeValidator(of);
+
+  return validator.expect(({ input }) =>
+    interpolate(Error.ShouldBeBut, [print(validator), typeof input])
+  );
 }
 
 export const string = /* @__PURE__ */ type("string");
@@ -97,7 +92,14 @@ export function enumerator<const T>(
  * ```
  */
 export function instance<T extends Constructor>(of: T): InstanceValidator<T> {
-  return new InstanceValidator(of).expect(message1);
+  const validator = new InstanceValidator(of);
+
+  return validator.expect(({ input }) =>
+    interpolate(Error.ShouldBeBut, [
+      print(validator),
+      input?.constructor.name ?? input,
+    ])
+  );
 }
 
 /** Factory for object validator.

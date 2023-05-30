@@ -12,10 +12,6 @@ export interface Validator<in In = unknown, out A extends In = In> {
   is: (input: In) => input is A;
 }
 
-export interface Display {
-  toString(): string;
-}
-
 /** Validation failure. */
 export class ValidationFailure {
   /** The validation failure message. */
@@ -41,10 +37,6 @@ export interface ValidationFailureOptions {
 export interface ValidationContext<In = unknown> {
   /** The actual input. */
   input: In;
-}
-
-export interface Transformer<in In = unknown, out Out = In> {
-  transform: (input: In) => Out;
 }
 
 export interface Reporter<T = unknown> {

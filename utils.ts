@@ -3,7 +3,6 @@
 
 import { Error } from "./constants.ts";
 import {
-  Display,
   Reporter,
   ValidationContext,
   ValidationFailure,
@@ -102,14 +101,12 @@ export type ParsePlaceholder<
   ? P | ParsePlaceholder<R, U>
   : never;
 
-export function shouldBe(
-  this: Display,
-): string {
+export function shouldBe(this: void): string {
   return interpolate(Error.ShouldBe, [print(this)]);
 }
 
 export function shouldBeBut(
-  this: Display,
+  this: void,
   { input }: { input: unknown },
 ): string {
   return interpolate(Error.ShouldBeBut, [print(this), print(input)]);
