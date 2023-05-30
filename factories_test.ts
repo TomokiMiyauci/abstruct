@@ -5,6 +5,7 @@ import {
   between,
   count,
   empty,
+  enumerator,
   eq,
   float,
   gt,
@@ -43,6 +44,7 @@ describe("default error message", () => {
         "should be instance of Array, but String",
       ],
       [nullish.report({ input: "" }), `should be nullish, but ""`],
+      [enumerator(1, 2).report({ input: 3 }), "should be 1 or 2, but 3"],
       [
         eq(0).report({ input: "abc" }),
         `should be 0, but "abc"`,

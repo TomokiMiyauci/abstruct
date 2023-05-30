@@ -486,11 +486,7 @@ export const empty = /* @__PURE__ */ new EmptyValidator().expect(shouldBe);
  * const itemValidator = item(validator);
  * ```
  */
-export function item<In = unknown, A extends In = In>(
-  validator: Validator<In, A>,
-): ItemValidator<In, A> {
-  return new ItemValidator(validator);
-}
+export const item = /* @__PURE__ */ ctorFn(ItemValidator);
 
 /** Factory for max count validator. It checks items count is less than or equal to {@link limit}.
  *
