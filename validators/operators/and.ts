@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { isEmpty } from "../../deps.ts";
-import { iter, map } from "../../iter_utils.ts";
+import { iterIter, map } from "../../iter_utils.ts";
 import { curryR, fromMessage } from "../../utils.ts";
 import {
   Reporter,
@@ -11,12 +11,22 @@ import {
   Validator,
 } from "../../types.ts";
 
+/** And validator composer. It composes validators like Logical AND operator.
+ *
+ * @example
+ * ```ts
+ * import { KeyValidator } from "https://deno.land/x/abstruct@$VERSION/validators/key.ts";
+ * import { type Validator } from "https://deno.land/x/abstruct@$VERSION/types.ts";
+ * declare const validator: Validator<string>;
+ * const keyValidator = new KeyValidator(validator);
+ * ```
+ */
 export class AndValidator<In = unknown, A extends In = In>
   extends Reporter<ValidationContext<In>>
   implements Validator<In, A> {
   validators: Validator<In, A>[];
 
-  private constructor(validators: readonly Validator<In, A>[]) {
+  private constructor(validators: readonly Readonly<Validator<In, A>>[]) {
     super();
     this.validators = [...validators];
   }
@@ -28,7 +38,7 @@ export class AndValidator<In = unknown, A extends In = In>
   *validate(input: In): Iterable<ValidationFailure> {
     for (const validator of this.validators) {
       const iterable = validator.validate(input);
-      const iterator = iter(iterable);
+      const iterator = iterIter(iterable);
       const result = iterator.next();
 
       if (result.done) continue;
@@ -36,7 +46,7 @@ export class AndValidator<In = unknown, A extends In = In>
       const message = this.report({ input });
 
       yield fromMessage(result.value, message);
-      yield* map(iterable, curryR(fromMessage, message));
+      yield* map(iterator, curryR(fromMessage, message));
       return;
     }
   }
@@ -90,7 +100,6 @@ export class AndValidator<In = unknown, A extends In = In>
     v4: Validator<In4 | A & A2 & A3, A4>,
     v5: Validator<In5 | A & A2 & A3 & A4, A5>,
   ): AndValidator<In, A & A2 & A3 & A4 & A5>;
-  static create(...validators: readonly Validator[]): AndValidator;
   static create(...validators: readonly Validator[]) {
     return new AndValidator(validators);
   }

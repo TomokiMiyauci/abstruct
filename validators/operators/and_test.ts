@@ -1,14 +1,92 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
 import { AndValidator } from "./and.ts";
-import { Validator } from "../../types.ts";
+import { TypeValidator } from "./typeof.ts";
+import { ValidationFailure, Validator } from "../../types.ts";
+import { PatternValidator } from "../string/pattern.ts";
 import {
+  assertEquals,
+  assertSpyCalls,
   assertType,
   describe,
   InferValidator,
   IsExact,
   it,
+  spy,
+  stub,
 } from "../../_dev_deps.ts";
+
+describe("AndValidator", () => {
+  it("should compose 2 validators", () => {
+    const v1 = new TypeValidator("string");
+    const v2 = new PatternValidator(/^abc/);
+    const validator = AndValidator.create(v1, v2);
+
+    assertEquals([...validator.validate("abcd")], []);
+  });
+
+  it("should compose 3 validators", () => {
+    const v1 = new TypeValidator("string");
+    const validator = AndValidator.create(v1, v1, v1);
+
+    assertEquals(validator.validators, [v1, v1, v1]);
+  });
+
+  it("should compose 4 validators", () => {
+    const v1 = new TypeValidator("string");
+    const validator = AndValidator.create(v1, v1, v1, v1);
+
+    assertEquals(validator.validators, [v1, v1, v1, v1]);
+  });
+
+  it("should compose 5 validators", () => {
+    const v1 = new TypeValidator("string");
+    const validator = AndValidator.create(v1, v1, v1, v1, v1);
+
+    assertEquals(validator.validators, [v1, v1, v1, v1, v1]);
+  });
+
+  it("should pass failure from child validator", () => {
+    const v1 = new TypeValidator("string");
+    const validator = AndValidator.create(v1, {
+      validate: () => [failure],
+      is(_: unknown): _ is unknown {
+        return true;
+      },
+    });
+    const failure = new ValidationFailure("test", { instancePath: ["a"] });
+
+    assertEquals([...validator.validate("")], [failure]);
+  });
+
+  it("should not call when previous validation is fail", () => {
+    const v1 = new TypeValidator("string");
+    const v2 = new PatternValidator(/^abc/);
+    const validator = AndValidator.create(v1, v2);
+    const validate = spy(() => []);
+    const stored = stub(v2, "validate", validate);
+
+    assertEquals([...validator.validate(0)], [
+      new ValidationFailure("", { instancePath: [] }),
+    ]);
+    assertSpyCalls(validate, 0);
+    stored.restore();
+  });
+
+  it("should represent of", () => {
+    const v1 = new TypeValidator("string");
+    const v2 = new PatternValidator(/^abc/);
+
+    assertEquals(
+      AndValidator.create(v1, v2).toString(),
+      `string and pattern of \`\/^abc\/\``,
+    );
+    assertEquals(
+      AndValidator.create(v1, v1, v2).toString(),
+      `string, string, and pattern of \`\/^abc\/\``,
+    );
+  });
+});
 
 // @ts-ignore it is for type only
 // deno-lint-ignore no-explicit-any
@@ -26,7 +104,7 @@ const s10: Validator<"b"> = anyVal;
 const s11: Validator<string, "a" | "b"> = anyVal;
 const s12: Validator<string, "b" | "c"> = anyVal;
 
-describe("AndValidator", () => {
+describe("AndValidator type suites", () => {
   it("should accept same top-in sub-out", () => {
     const validator = AndValidator.create(s1, s1);
 

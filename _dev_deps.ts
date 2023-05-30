@@ -19,6 +19,7 @@ export {
 export {
   assertSpyCalls,
   spy,
+  stub,
 } from "https://deno.land/std@0.186.0/testing/mock.ts";
 
 export type InferValidator<T> = T extends Validator<infer In, infer Out>

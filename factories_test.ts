@@ -1,6 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
 import {
+  and,
   between,
   count,
   empty,
@@ -25,6 +26,7 @@ import {
   pattern,
   positive,
   single,
+  string,
   type,
   unique,
   validDate,
@@ -58,6 +60,7 @@ describe("default error message", () => {
         "should be not 0, but 0",
       ],
       [has("").report({ input: {} }), `should has ""`],
+      [and(string, string).expect("").report({ input: "" }), ""],
       [
         pattern(/^\d*$/).report({ input: "" }),
         `should be match pattern of \`/^\\d*$/\`, but ""`,

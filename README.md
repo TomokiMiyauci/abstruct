@@ -485,6 +485,90 @@ declare const validator: Validator;
 const valueValidator = value(validator);
 ```
 
+### and
+
+Factory for validator composer like Logical AND.
+
+`and` composes multiple validators and creates a new validator. The composed
+validator executes the validator from left to right, just like the Logical AND
+operator. If the validation fails en route, the evaluation stops there.
+
+```ts
+import {
+  and,
+  between,
+  gte,
+  int,
+  lte,
+} from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+const _int8 = and(int, lte(128), gte(-127));
+const __int8 = and(int, between(-127, 128));
+```
+
+note: [int8](#int8) provides.
+
+#### Type-narrowing
+
+Composition of `and` is type-safe.
+
+Each validator is corrected to satisfy the narrowed type from the previous
+validators.
+
+```ts
+import {
+  and,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertType, type Has } from "https://deno.land/std/testing/types.ts";
+declare const v1: Validator<unknown, string>;
+declare const v2: Validator<string, "a" | "b">;
+declare const v3: Validator<"a" | "b" | "c", "a">;
+const validator = and(v1, v2, v3);
+
+assertType<Has<typeof validator, Validator<unknown, "a">>>(true);
+```
+
+The following example shows type error because it is insufficient narrowing.
+
+```ts
+import {
+  and,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertType, type Has } from "https://deno.land/std/testing/types.ts";
+declare const v1: Validator<number, -1 | 0 | 1>;
+declare const v2: Validator<0 | 1, 0>;
+
+// @ts-expect-error v2 should type-compatible with `Validator<-1 | 0 | 1>`.
+const validator = and(v1, v2);
+```
+
+The following example is correct because it is faithful to Logical AND
+narrowing.
+
+```ts
+import {
+  and,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertType, type Has } from "https://deno.land/std/testing/types.ts";
+declare const v1: Validator<unknown, string>;
+declare const v2: Validator<unknown, number>;
+const validator = and(v1, v2);
+
+assertType<Has<typeof validator, Validator<unknown, never>>>(true);
+```
+
+#### Limit the number of arguments
+
+The number of arguments is limited by overloading to achieve this.
+
+Currently it accepts up to 5 arguments.
+
+This limit is based on the strict `Function.bind` type signature.
+
+If more than that is needed, you must nest `and`.
+
 ### eq
 
 Validator factory equivalent to strict equality(`===`) operator.
