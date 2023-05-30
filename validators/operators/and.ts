@@ -15,10 +15,10 @@ import {
  *
  * @example
  * ```ts
- * import { KeyValidator } from "https://deno.land/x/abstruct@$VERSION/validators/key.ts";
+ * import { AndValidator } from "https://deno.land/x/abstruct@$VERSION/validators/operators/and.ts";
  * import { type Validator } from "https://deno.land/x/abstruct@$VERSION/types.ts";
- * declare const validator: Validator<string>;
- * const keyValidator = new KeyValidator(validator);
+ * declare const v: Validator;
+ * const validator = AndValidator.create(v, v, v)
  * ```
  */
 export class AndValidator<In = unknown, A extends In = In>
