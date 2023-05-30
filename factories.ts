@@ -4,7 +4,13 @@
 import { type Constructor } from "./deps.ts";
 import { type Validator } from "./types.ts";
 import { count as getCount } from "./iter_utils.ts";
-import { ctorFn, interpolate, print, shouldBe, shouldBeBut } from "./utils.ts";
+import {
+  createInst,
+  interpolate,
+  print,
+  shouldBe,
+  shouldBeBut,
+} from "./utils.ts";
 import { EnumValidator } from "./validators/enum.ts";
 import { KeyValidator } from "./validators/key.ts";
 import { ValueValidator } from "./validators/value.ts";
@@ -114,7 +120,7 @@ export function instance<T extends Constructor>(of: T): InstanceValidator<T> {
  * const User = object({ name: string, age: number });
  * ```
  */
-export const object = /* @__PURE__ */ ctorFn(ObjectValidator);
+export const object = /* @__PURE__ */ createInst(ObjectValidator);
 
 /** Factory for optional properties validator.
  *
@@ -128,7 +134,7 @@ export const object = /* @__PURE__ */ ctorFn(ObjectValidator);
  * const Profile = optional({ greeting: string, hobby: string });
  * ```
  */
-export const optional = /* @__PURE__ */ ctorFn(OptionalValidator);
+export const optional = /* @__PURE__ */ createInst(OptionalValidator);
 
 /** Nullish(`null` or `undefined`) validator. */
 export const nullish = /* @__PURE__ */ new NullishValidator().expect(
@@ -413,7 +419,7 @@ export function between<T>(min: T, max: T): RangeValidator<T> {
  * const keyValidator = key(validator);
  * ```
  */
-export const key = /* @__PURE__ */ ctorFn(KeyValidator);
+export const key = /* @__PURE__ */ createInst(KeyValidator);
 
 /** Factory for property value validator.
  *
@@ -427,7 +433,7 @@ export const key = /* @__PURE__ */ ctorFn(KeyValidator);
  * const valueValidator = value(validator);
  * ```
  */
-export const value = /* @__PURE__ */ ctorFn(ValueValidator);
+export const value = /* @__PURE__ */ createInst(ValueValidator);
 
 // Array
 /** Factory for fixed array validator. It checks each item passes each {@link Validator}.
@@ -443,7 +449,7 @@ export const value = /* @__PURE__ */ ctorFn(ValueValidator);
  * const validator = fixedArray(v1, v2);
  * ```
  */
-export const fixedArray = /* @__PURE__ */ ctorFn(FixedArrayValidator);
+export const fixedArray = /* @__PURE__ */ createInst(FixedArrayValidator);
 
 // Date
 /** Valid `Date` validator. */
@@ -488,7 +494,7 @@ export const empty = /* @__PURE__ */ new EmptyValidator().expect(shouldBe);
  * const itemValidator = item(validator);
  * ```
  */
-export const item = /* @__PURE__ */ ctorFn(ItemValidator);
+export const item = /* @__PURE__ */ createInst(ItemValidator);
 
 /** Factory for max count validator. It checks items count is less than or equal to {@link limit}.
  *

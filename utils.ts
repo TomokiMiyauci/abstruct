@@ -130,8 +130,8 @@ export function memoize<A extends readonly unknown[], R>(
   };
 }
 
-/** Convert constructor to function. */
-export function ctorFn<Args extends readonly unknown[], R>(
+/** Create instance */
+export function createInst<Args extends readonly unknown[], R>(
   ctor: { new (...args: Args): R },
 ): (...args: Args) => R {
   return (...args) => new ctor(...args);

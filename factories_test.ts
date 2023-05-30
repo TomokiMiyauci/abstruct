@@ -43,6 +43,10 @@ describe("default error message", () => {
         instance(Array).report({ input: "" }),
         "should be instance of Array, but String",
       ],
+      [
+        instance(Array).report({ input: undefined }),
+        "should be instance of Array, but undefined",
+      ],
       [nullish.report({ input: "" }), `should be nullish, but ""`],
       [enumerator(1, 2).report({ input: 3 }), "should be 1 or 2, but 3"],
       [

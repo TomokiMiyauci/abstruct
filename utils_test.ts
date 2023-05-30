@@ -1,6 +1,12 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { entriesAll, isInRange, print, printProps } from "./utils.ts";
+import {
+  createInst,
+  entriesAll,
+  isInRange,
+  print,
+  printProps,
+} from "./utils.ts";
 import {
   assert,
   assertEquals,
@@ -94,5 +100,17 @@ describe("isInRange", () => {
 
   it("should throw error if range is invalid", () => {
     assertThrows(() => isInRange(0, [0, 0]));
+  });
+});
+
+describe("createInst", () => {
+  it("should pass args to constructor", () => {
+    class A {
+      constructor(...args: unknown[]) {
+        assertEquals(args, []);
+      }
+    }
+
+    createInst(A)();
   });
 });
