@@ -23,6 +23,22 @@ export function iter<T>(iterable: Readonly<Iterable<T>>): Iterator<T> {
   return iterable[Symbol.iterator]();
 }
 
+/** Create iterable iterable. */
+export function iterIter<T>(
+  iterable: Readonly<Iterable<T>>,
+): IterableIterator<T> {
+  const iterator = iter(iterable);
+
+  return {
+    [Symbol.iterator]() {
+      return this;
+    },
+    next() {
+      return iterator.next();
+    },
+  };
+}
+
 /** Take element from iterable.
  *
  * @throws {RangeError} If the {@link limit} is not positive integer.

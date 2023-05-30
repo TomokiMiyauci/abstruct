@@ -5,6 +5,7 @@ import {
   enumerate,
   isPositiveInteger,
   iter,
+  iterIter,
   map,
   take,
 } from "./iter_utils.ts";
@@ -98,6 +99,23 @@ describe("iter", () => {
     }
     const iterable = gen();
     assertEquals(iter(iterable), iterable[Symbol.iterator]());
+  });
+});
+
+describe("iterIter", () => {
+  it("should return iterable iterator", () => {
+    function* gen() {
+      yield 1;
+      yield 2;
+      yield 3;
+      yield 4;
+    }
+
+    const iterable = iterIter(gen());
+
+    assertEquals(iterable.next().value, 1);
+    assertEquals(iterable.next().value, 2);
+    assertEquals([...iterable], [3, 4]);
   });
 });
 
