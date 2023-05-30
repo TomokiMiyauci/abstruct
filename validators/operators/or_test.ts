@@ -15,6 +15,14 @@ describe("OrValidator", () => {
   it("validate should yield one failure", () => {
     const v1 = new TypeValidator("string");
     const v2 = new TypeValidator("number");
+    const validator = new OrValidator<unknown, string | number>(v1, v2);
+
+    assertEquals([...validator.validate("a")].length, 0);
+  });
+
+  it("validate should yield one failure", () => {
+    const v1 = new TypeValidator("string");
+    const v2 = new TypeValidator("number");
 
     const v1_ = spy(v1, "validate");
     const v2_ = spy(v2, "validate");

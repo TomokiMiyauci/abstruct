@@ -51,10 +51,8 @@ export class OrValidator<in In = unknown, A extends In = In>
       failures.push(result.value);
     }
 
-    const instancePath = maxBy(
-      failures,
-      (failure) => failure.instancePath.length,
-    )?.instancePath ?? [];
+    const instancePath = maxBy(failures, instancePathLength)
+      ?.instancePath ?? [];
     const message = this.report({ input });
 
     yield new ValidationFailure(message, { instancePath });
@@ -65,4 +63,8 @@ export class OrValidator<in In = unknown, A extends In = In>
 
     return intl.format(this.validators.map(String));
   }
+}
+
+function instancePathLength(failure: ValidationFailure): number {
+  return failure.instancePath.length;
 }
