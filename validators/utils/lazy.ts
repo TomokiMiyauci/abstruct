@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { memoize } from "../../utils.ts";
+import { memoize } from "../../deps.ts";
 import { type ValidationFailure, type Validator } from "../../types.ts";
 
 /** Crate validator lazily.

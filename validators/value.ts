@@ -1,8 +1,8 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isEmpty } from "../deps.ts";
-import { curryR, fromPath, print } from "../utils.ts";
+import { curryR, isEmpty } from "../deps.ts";
+import { fromPath, print } from "../utils.ts";
 import { map } from "../iter_utils.ts";
 import { type ValidationFailure, Validator } from "../types.ts";
 

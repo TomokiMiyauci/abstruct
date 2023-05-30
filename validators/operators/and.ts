@@ -1,9 +1,9 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isEmpty } from "../../deps.ts";
+import { curryR, isEmpty } from "../../deps.ts";
 import { iterIter, map } from "../../iter_utils.ts";
-import { curryR, fromMessage } from "../../utils.ts";
+import { fromMessage } from "../../utils.ts";
 import {
   Reporter,
   type ValidationContext,

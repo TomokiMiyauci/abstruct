@@ -2,9 +2,9 @@
 // This module is browser compatible.
 
 import { map } from "../../iter_utils.ts";
-import { isEmpty } from "../../deps.ts";
+import { curryR, isEmpty } from "../../deps.ts";
 import { type ValidationFailure, type Validator } from "../../types.ts";
-import { curryR, fromPath } from "../../utils.ts";
+import { fromPath } from "../../utils.ts";
 
 /** Fixed array validator. It checks each item passes each {@link Validator}.
  *

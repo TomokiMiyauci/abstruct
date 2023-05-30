@@ -29,24 +29,6 @@ export abstract class ScalarValidator<In = unknown, A extends In = In>
   }
 }
 
-export function curryR<A0, A extends readonly unknown[], R>(
-  fn: (...args: [...A, A0]) => R,
-  arg0: A0,
-): (...args: A) => R;
-export function curryR<A0, A1, A extends readonly unknown[], R>(
-  fn: (...args: [...A, A1, A0]) => R,
-  arg0: A0,
-  arg1: A1,
-): (...args: A) => R;
-export function curryR<AX, R>(
-  fn: (...args: AX[]) => R,
-  ...args: AX[]
-): (...args: AX[]) => R {
-  return function (...rest) {
-    return fn(...rest, ...args.reverse());
-  };
-}
-
 export function fromPath(
   failure: ValidationFailure,
   path: string,
@@ -73,24 +55,6 @@ export function shouldBeBut(
   { input }: { input: unknown },
 ): string {
   return interpolate(Error.ShouldBeBut, [print(this), print(input)]);
-}
-
-export function memoize<A extends readonly unknown[], R>(
-  fn: (...args: A) => R,
-): (...args: A) => R {
-  const cache = new Map<string, R>();
-
-  return function (...args: A): R {
-    const key = JSON.stringify(args);
-
-    if (cache.has(key)) return cache.get(key)!;
-
-    const value = fn(...args);
-
-    cache.set(key, value);
-
-    return value;
-  };
 }
 
 /** Create instance */
