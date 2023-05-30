@@ -230,9 +230,49 @@ export function not<In, A extends In = In>(
   return new NotValidator(validator).expect(shouldBeBut);
 }
 
-export const or = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(OrValidator).expect(shouldBe).build(),
-);
+/** Factory for validator composer like Logical OR.
+ *
+ * @example
+ * ```ts
+ * import {
+ *   or,
+ *   type Validator,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ * import { assertType, type Has } from "https://deno.land/std/testing/types.ts";
+ * declare const v1: Validator;
+ * declare const v2: Validator;
+ * declare const v3: Validator;
+ *
+ * const validator = or(v1, v2, v3);
+ * ```
+ *
+ * If the validators are not type-compatible with each other, generics must be
+ * specified.
+ *
+ * @example
+ * ```ts
+ * import {
+ *   or,
+ *   type Validator,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ * import { assertType, type Has } from "https://deno.land/std/testing/types.ts";
+ * declare const v1: Validator<unknown, string>;
+ * declare const v2: Validator<unknown, number>;
+ * const validator = or<unknown, string | number>(v1, v2);
+ *
+ * assertType<Has<typeof validator, Validator<unknown, string | number>>>(true);
+ * ```
+ *
+ * For more information, see
+ * [Specifying Type Arguments](https://www.typescriptlang.org/docs/handbook/2/functions.html#specifying-type-arguments).
+ */
+export function or<In = unknown, A extends In = In>(
+  v1: Validator<In, A>,
+  v2: Validator<In, A>,
+  ...validations: Validator<In, A>[]
+): OrValidator<In, A> {
+  return new OrValidator(v1, v2, ...validations).expect(shouldBe);
+}
 
 /** Factory for validator composer like Logical AND.
  * `and` composes multiple validators and creates a new validator. The composed

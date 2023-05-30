@@ -10,21 +10,31 @@ import {
 } from "../../types.ts";
 import { iter } from "../../iter_utils.ts";
 
-export class OrValidator<in In = unknown, In_ extends In = In>
+/** Or validator composer. It composes validators like Logical OR operator.
+ *
+ * @example
+ * ```ts
+ * import { OrValidator } from "https://deno.land/x/abstruct@$VERSION/validators/operators/or.ts";
+ * import { type Validator } from "https://deno.land/x/abstruct@$VERSION/types.ts";
+ * declare const v: Validator;
+ * const validator = new OrValidator(v, v, v);
+ * ```
+ */
+export class OrValidator<in In = unknown, A extends In = In>
   extends Reporter<ValidationContext<In>>
-  implements Validator<In, In_> {
-  validators: [Validator<In, In_>, Validator<In, In_>, ...Validator<In, In_>[]];
+  implements Validator<In, A> {
+  validators: [Validator<In, A>, Validator<In, A>, ...Validator<In, A>[]];
 
   constructor(
-    left: Validator<In, In_>,
-    right: Validator<In, In_>,
-    ...validations: Validator<In, In_>[]
+    v1: Validator<In, A>,
+    v2: Validator<In, A>,
+    ...validations: Validator<In, A>[]
   ) {
     super();
-    this.validators = [left, right, ...validations];
+    this.validators = [v1, v2, ...validations];
   }
 
-  is(input: In): input is In_ {
+  is(input: In): input is A {
     return isEmpty(this.validate(input));
   }
 
@@ -41,12 +51,11 @@ export class OrValidator<in In = unknown, In_ extends In = In>
       failures.push(result.value);
     }
 
-    const context: ValidationContext<In> = { input };
     const instancePath = maxBy(
       failures,
       (failure) => failure.instancePath.length,
     )?.instancePath ?? [];
-    const message = this.report(context);
+    const message = this.report({ input });
 
     yield new ValidationFailure(message, { instancePath });
   }

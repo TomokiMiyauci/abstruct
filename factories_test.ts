@@ -23,6 +23,7 @@ import {
   nonPositive,
   not,
   nullish,
+  or,
   pattern,
   positive,
   single,
@@ -61,6 +62,7 @@ describe("default error message", () => {
       ],
       [has("").report({ input: {} }), `should has ""`],
       [and(string, string).expect("").report({ input: "" }), ""],
+      [or(string, string).report({ input: "" }), "should be string or string"],
       [
         pattern(/^\d*$/).report({ input: "" }),
         `should be match pattern of \`/^\\d*$/\`, but ""`,

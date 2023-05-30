@@ -569,6 +569,42 @@ This limit is based on the strict `Function.bind` type signature.
 
 If more than that is needed, you must nest `and`.
 
+### or
+
+Factory for validator composer like Logical OR.
+
+```ts
+import {
+  or,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertType, type Has } from "https://deno.land/std/testing/types.ts";
+declare const v1: Validator;
+declare const v2: Validator;
+declare const v3: Validator;
+
+const validator = or(v1, v2, v3);
+```
+
+If the validators are not type-compatible with each other, generics must be
+specified.
+
+```ts
+import {
+  or,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertType, type Has } from "https://deno.land/std/testing/types.ts";
+declare const v1: Validator<unknown, string>;
+declare const v2: Validator<unknown, number>;
+const validator = or<unknown, string | number>(v1, v2);
+
+assertType<Has<typeof validator, Validator<unknown, string | number>>>(true);
+```
+
+For more information, see
+[Specifying Type Arguments](https://www.typescriptlang.org/docs/handbook/2/functions.html#specifying-type-arguments).
+
 ### eq
 
 Validator factory equivalent to strict equality(`===`) operator.
