@@ -115,49 +115,6 @@ export function shouldBeBut(
   return interpolate(Error.ShouldBeBut, [print(this), print(input)]);
 }
 
-export function bind<
-  // deno-lint-ignore no-explicit-any
-  C extends { new (...args: any): any },
-  T extends InstanceType<C & { build: () => C }>,
->(
-  ctor: C,
-): T & { build: () => C } {
-  const calls: [method: string | symbol, args: unknown[]][] = [];
-
-  const base = Object.assign(ctor.prototype, {
-    build: () =>
-      class extends ctor {
-        // deno-lint-ignore no-explicit-any
-        constructor(...constructorParams: any) {
-          super(...constructorParams);
-
-          for (const [key, args] of calls) {
-            if (isString(key)) {
-              this[key](...args);
-            }
-          }
-        }
-      },
-  });
-  const proxy = new Proxy(base, {
-    get: (target, prop) => {
-      if (typeof target[prop] === "function") {
-        if (prop === "build") return target[prop];
-
-        return (...args: unknown[]) => {
-          calls.push([prop, args]);
-
-          return proxy;
-        };
-      }
-
-      return target[prop];
-    },
-  });
-
-  return proxy;
-}
-
 export function memoize<A extends readonly unknown[], R>(
   fn: (...args: A) => R,
 ): (...args: A) => R {

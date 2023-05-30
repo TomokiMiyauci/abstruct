@@ -1,16 +1,10 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { type Constructor } from "./deps.ts";
 import { type Display, type Validator } from "./types.ts";
 import { count as getCount } from "./iter_utils.ts";
-import {
-  bind,
-  ctorFn,
-  interpolate,
-  print,
-  shouldBe,
-  shouldBeBut,
-} from "./utils.ts";
+import { ctorFn, interpolate, print, shouldBe, shouldBeBut } from "./utils.ts";
 import { EnumValidator } from "./validators/enum.ts";
 import { KeyValidator } from "./validators/key.ts";
 import { ValueValidator } from "./validators/value.ts";
@@ -102,9 +96,9 @@ export function enumerator<const T>(
  * const validator = instance(Array);
  * ```
  */
-export const instance = /* @__PURE__ */ ctorFn(
-  /* @__PURE__ */ bind(InstanceValidator).expect(message1).build(),
-);
+export function instance<T extends Constructor>(of: T): InstanceValidator<T> {
+  return new InstanceValidator(of).expect(message1);
+}
 
 /** Factory for object validator.
  *
