@@ -1,16 +1,10 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { type Constructor } from "./deps.ts";
+import { type Constructor, interpolate } from "./deps.ts";
 import { type Validator } from "./types.ts";
 import { count as getCount } from "./iter_utils.ts";
-import {
-  createInst,
-  interpolate,
-  print,
-  shouldBe,
-  shouldBeBut,
-} from "./utils.ts";
+import { createInst, print, shouldBe, shouldBeBut } from "./utils.ts";
 import { EnumValidator } from "./validators/enum.ts";
 import { KeyValidator } from "./validators/key.ts";
 import { ValueValidator } from "./validators/value.ts";

@@ -8,7 +8,7 @@ import {
   ValidationFailure,
   Validator,
 } from "./types.ts";
-import { escapeStringRegex, isBigint, isString } from "./deps.ts";
+import { interpolate, isBigint, isString } from "./deps.ts";
 
 /** Validator constructor for scalar value. */
 export abstract class ScalarValidator<In = unknown, A extends In = In>
@@ -64,43 +64,6 @@ export function fromMessage(
     instancePath: failure.instancePath,
   });
 }
-
-export function interpolate<
-  T extends string,
-  const U extends Delimiters = { prefix: "{"; suffix: "}" },
->(
-  template: string,
-  placeholders: { [k in ParsePlaceholder<T, U>]: unknown },
-  options?: U,
-): string {
-  const { prefix = "{", suffix = "}" } = options ?? {};
-
-  return Object
-    .entries(placeholders)
-    .reduce<string>(reducer, template);
-
-  function reducer(prev: string, [key, value]: [string, unknown]): string {
-    const escaped = escapeStringRegex(`${prefix}${key}${suffix}`);
-    const pattern = new RegExp(escaped, "g");
-
-    return prev.replace(pattern, `${value}`);
-  }
-}
-
-interface Delimiters {
-  prefix: Primitive;
-  suffix: Primitive;
-}
-
-type Primitive = string | number | bigint | boolean | null | undefined;
-
-export type ParsePlaceholder<
-  T,
-  U extends Partial<Delimiters>,
-> = T extends `${string}${U["prefix"]}${infer P}${U["suffix"]}${infer R}`
-  ? P | ParsePlaceholder<R, U>
-  : never;
-
 export function shouldBe(this: void): string {
   return interpolate(Error.ShouldBe, [print(this)]);
 }
