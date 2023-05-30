@@ -432,6 +432,19 @@ import {
 const User = object({ name: string, age: number });
 ```
 
+### optional
+
+Factory for optional properties validator.
+
+```ts
+import {
+  number,
+  optional,
+  string,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+const Profile = optional({ greeting: string, hobby: string });
+```
+
 ### enumerator
 
 Factory for enumerator validator.

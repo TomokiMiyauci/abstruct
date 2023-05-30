@@ -2,33 +2,44 @@
 // This module is browser compatible.
 
 import { filterKeys, isEmpty } from "../../deps.ts";
+import { printProps } from "../../utils.ts";
 import { ObjectValidator } from "../object.ts";
 import { ValidationFailure, Validator } from "../../types.ts";
 
+/** Optional object validator. It checks properties, but also passes if the property does not exist.
+ *
+ * @example
+ * ```ts
+ * import { ObjectValidator } from "https://deno.land/x/abstruct@$VERSION/validators/object.ts";
+ * import { type Validator } from "https://deno.land/x/abstruct@$VERSION/types.ts";
+ * declare const validator: Validator<string>;
+ * const objectValidator = new ObjectValidator({ key: validator, [Symbol()]: validator });
+ * ```
+ */
 export class OptionalValidator<
-  In extends Record<string, unknown> = Record<string, unknown>,
-  In_ extends In = In,
-> implements Validator<Partial<In>, Partial<In_>> {
+  In extends Record<PropertyKey, unknown>,
+  A extends In = In,
+> implements Validator<Partial<In>, Partial<A>> {
   constructor(
     public validators:
-      & { [k in keyof In]: Validator<In[k], In_[k]> }
-      & { [k in keyof In_]: Validator<In_[k]> },
+      & { [k in keyof In]: Validator<In[k], A[k]> }
+      & { [k in keyof A]: Validator<A[k]> },
   ) {}
 
-  is(input: Partial<In>): input is Partial<In_> {
+  is(input: Partial<In>): input is Partial<A> {
     return isEmpty(this.validate(input));
   }
 
   *validate(input: Partial<In>): Iterable<ValidationFailure> {
     const validators = filterKeys(
       this.validators,
-      hasInput,
-    ) as typeof this.validators;
+      Reflect.has.bind(this, input),
+    ) as Record<string, Validator>;
 
-    function hasInput(key: string): boolean {
-      return key in input;
-    }
+    yield* new ObjectValidator(validators).validate(input as In);
+  }
 
-    yield* new ObjectValidator<In, In_>(validators).validate(input as In);
+  toString(): string {
+    return `optional ${printProps(this.validators)}`;
   }
 }

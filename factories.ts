@@ -119,6 +119,19 @@ export const instance = /* @__PURE__ */ ctorFn(
  * ```
  */
 export const object = /* @__PURE__ */ ctorFn(ObjectValidator);
+
+/** Factory for optional properties validator.
+ *
+ * @example
+ * ```ts
+ * import {
+ *  number,
+ *  optional,
+ *  string,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ * const Profile = optional({ greeting: string, hobby: string });
+ * ```
+ */
 export const optional = /* @__PURE__ */ ctorFn(OptionalValidator);
 
 /** Nullish(`null` or `undefined`) validator. */
