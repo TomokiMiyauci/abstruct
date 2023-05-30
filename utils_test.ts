@@ -1,19 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import {
-  createInst,
-  entriesAll,
-  isInRange,
-  print,
-  printProps,
-} from "./utils.ts";
-import {
-  assert,
-  assertEquals,
-  assertThrows,
-  describe,
-  it,
-} from "./_dev_deps.ts";
+import { createInst, entriesAll, print, printProps } from "./utils.ts";
+import { assertEquals, describe, it } from "./_dev_deps.ts";
 
 describe("print", () => {
   it("should display as", () => {
@@ -81,25 +69,6 @@ describe("entriesAll", () => {
     table.forEach(([obj, expected]) => {
       assertEquals(entriesAll(obj), expected);
     });
-  });
-});
-
-describe("isInRange", () => {
-  it("should return true if number", () => {
-    assert(isInRange(10, [1, 10]));
-  });
-
-  it("should return true if date", () => {
-    assert(
-      isInRange(new Date("2000/1/1"), [
-        new Date("1999/1/1"),
-        new Date("2001/1/1"),
-      ]),
-    );
-  });
-
-  it("should throw error if range is invalid", () => {
-    assertThrows(() => isInRange(0, [0, 0]));
   });
 });
 

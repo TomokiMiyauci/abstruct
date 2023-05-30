@@ -1,7 +1,8 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isInRange, print, ScalarValidator } from "../utils.ts";
+import { isInRange } from "../deps.ts";
+import { print, ScalarValidator } from "../utils.ts";
 
 /** Range validator.
  *
@@ -15,7 +16,7 @@ export class RangeValidator<In> extends ScalarValidator<In> {
   #range!: readonly [In, In];
 
   /**
-   * @throws {RangeError} If {@link max} less than or equal to {@link min}.
+   * @throws {RangeError} If {@link max} less than {@link min}.
    */
   constructor(min: In, max: In) {
     super();
@@ -28,8 +29,8 @@ export class RangeValidator<In> extends ScalarValidator<In> {
   }
 
   set range(range) {
-    if (range[1] <= range[0]) {
-      throw RangeError("max should be greater than min");
+    if (range[1] < range[0]) {
+      throw RangeError("max should be greater than or equal to min");
     }
 
     this.#range = range;

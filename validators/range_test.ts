@@ -23,11 +23,11 @@ describe("RangeValidator", () => {
   });
 
   it("should be throw if range is invalid", () => {
-    assertThrows(() => new RangeValidator(1, 1));
+    assertThrows(() => new RangeValidator(1, -1));
     assertThrows(() => {
       const validator = new RangeValidator(1, 2);
 
-      validator.range = [1, 1];
+      validator.range = [1, 0];
     });
   });
 });

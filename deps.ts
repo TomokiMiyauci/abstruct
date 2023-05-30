@@ -36,6 +36,22 @@ export function isNonNegativeNumber(input: number | bigint): boolean {
   return isPositiveNumber(input) || !input;
 }
 
+/** Whether the input is in range. It is inclusive.
+ * @throws {RangeError} If max less than to min.
+ */
+export function isInRange<T>(
+  input: T,
+  range: readonly [mix: T, max: T],
+): boolean {
+  const [min, max] = range;
+
+  if (max < min) {
+    throw new RangeError("max should be greater then or equal to min");
+  }
+
+  return min <= input && input <= max;
+}
+
 /** Constructor type. */
 // deno-lint-ignore no-explicit-any
 export type Constructor = abstract new (...args: any) => any;
