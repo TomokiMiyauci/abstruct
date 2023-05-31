@@ -1,15 +1,15 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { lazy } from "./lazy.ts";
-import { TypeValidator } from "../operators/typeof.ts";
-import { ValidationFailure } from "../../types.ts";
+import { lazy } from "./utils.ts";
+import { TypeValidator } from "./operators/typeof.ts";
+import { ValidationFailure } from "../types.ts";
 import {
   assert,
   assertEquals,
   assertFalse,
   describe,
   it,
-} from "../../_dev_deps.ts";
+} from "../_dev_deps.ts";
 
 describe("lazy", () => {
   it("should return almost same validator", () => {
