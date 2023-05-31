@@ -49,14 +49,14 @@ export interface AssertOptions {
 }
 
 /** Lazy assert options. */
-export interface LazyAssertOptions extends AssertOptions {
+export interface SingleAssertOptions extends AssertOptions {
   failSlow?: false;
 }
 
 /** Aggregation error configs. */
 
 /** Greedy assert options. */
-export interface GreedyAssertOptions extends AssertOptions, ValidateOptions {
+export interface MultiAssertOptions extends AssertOptions, ValidateOptions {
   /** Aggregation error configs. */
   aggregation?: AggregationConfigs;
 
@@ -95,7 +95,7 @@ export interface GreedyAssertOptions extends AssertOptions, ValidateOptions {
 export function assert<In = unknown, A extends In = In>(
   validator: Readonly<Validator<In, A>>,
   input: In,
-  options: Readonly<LazyAssertOptions | GreedyAssertOptions> = {},
+  options: Readonly<SingleAssertOptions | MultiAssertOptions> = {},
 ): asserts input is A {
   const {
     failSlow,
