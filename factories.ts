@@ -537,26 +537,38 @@ export const float = /* @__PURE__ */ new FloatValidator().expect(shouldBeBut);
 
 /** Integer validator. */
 export const int = /* @__PURE__ */ new IntegerValidator().expect(shouldBeBut);
+
+/** Integer in the range -127 ~ 128 validator. */
 export const int8 = /* @__PURE__ */ and(
   int,
   /* @__PURE__ */ between(-127, 128),
 );
+
+/** Integer in the range -32768 ~ 32767 validator. */
 export const int16 = /* @__PURE__ */ and(
   int,
   /* @__PURE__ */ between(-32768, 32767),
 );
+
+/** Integer in the range -2147483648 ~ 2147483647 validator. */
 export const int32 = /* @__PURE__ */ and(
   int,
   /* @__PURE__ */ between(-2147483648, 2147483647),
 );
+
+/** Integer in the range 0 ~ 255 validator. */
 export const uint8 = /* @__PURE__ */ and(
   int,
   /* @__PURE__ */ between(0, 255),
 );
+
+/** Integer in the range 0 ~ 65535 validator. */
 export const uint16 = /* @__PURE__ */ and(
   int,
   /* @__PURE__ */ between(0, 65535),
 );
+
+/** Integer in the range 0 ~ 4294967295 validator. */
 export const uint32 = /* @__PURE__ */ and(
   int,
   /* @__PURE__ */ between(0, 4294967295),

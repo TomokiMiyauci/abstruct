@@ -799,6 +799,30 @@ Non-negative number validator.
 
 Non-positive number validator.
 
+### int8
+
+Integer in the range -127 ~ 128 validator.
+
+### int16
+
+Integer in the range -32768 ~ 32767 validator.
+
+### int32
+
+Integer in the range -2147483648 ~ 2147483647 validator.
+
+### uint8
+
+Integer in the range 0 ~ 255 validator.
+
+### uint16
+
+Integer in the range 0 ~ 65535 validator.
+
+### uint32
+
+Integer in the range 0 ~ 4294967295 validator.
+
 ### validDate
 
 Valid `Date` validator.
