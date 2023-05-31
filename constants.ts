@@ -6,5 +6,4 @@ export const enum Error {
   ShouldBe = "should be {0}",
   MaxCount = "item count should be less than or equal to {0}, but {1}",
   MinCount = "item count should be greater than or equal to {0}, but {1}",
-  Unique = "item(0) should be unique",
 }
