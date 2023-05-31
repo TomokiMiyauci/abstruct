@@ -225,7 +225,7 @@ export function validate<In = unknown, A extends In = In>(
  */
 export class ValidationError extends Error {
   /** The path to a part of the instance. */
-  instancePath: string[];
+  instancePath: PropertyKey[];
 
   /** Error name. */
   override name = "ValidationError";
@@ -286,7 +286,7 @@ export type Result<T, E> = Ok<T> | Err<E>;
 /** Validation error options. */
 export interface ValidationErrorOptions extends ErrorOptions {
   /** Path to instance. */
-  instancePath?: string[];
+  instancePath?: PropertyKey[];
 }
 
 function makeMsg(
@@ -321,6 +321,7 @@ class InstancePath {
   toString(): string {
     const str = [this.name, ...this.paths]
       .filter(Boolean)
+      .map(String)
       .join(".");
 
     return `instance path: ${str}`;

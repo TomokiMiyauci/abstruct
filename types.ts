@@ -18,7 +18,7 @@ export class ValidationFailure {
   message: string;
 
   /** The path to a part of the instance. */
-  instancePath: string[];
+  instancePath: PropertyKey[];
 
   constructor(
     message?: string,
@@ -30,7 +30,7 @@ export class ValidationFailure {
 }
 
 export interface ValidationFailureOptions {
-  instancePath?: readonly string[];
+  instancePath?: readonly PropertyKey[];
 }
 
 /** Validation context API. */
