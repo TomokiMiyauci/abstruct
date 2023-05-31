@@ -65,7 +65,7 @@ export interface GreedyAssertOptions extends AssertOptions, ValidateOptions {
  *
  * @throws {AggregateError} If assertion is fail.
  * @throws {ValidationError} If assertion is fail and {@link options.failFast} is true.
- * @throws {RangeError} If options.maxErrors is not positive integer.
+ * @throws {RangeError} If options.maxFailures is not positive integer.
  */
 export function assert<In = unknown, A extends In = In>(
   validator: Readonly<Validator<In, A>>,
@@ -76,8 +76,8 @@ export function assert<In = unknown, A extends In = In>(
     failFast,
     validation = {},
   } = options;
-  const maxErrors = failFast ? 1 : options.maxErrors;
-  const result = validate(validator, input, { maxErrors });
+  const maxFailures = failFast ? 1 : options.maxFailures;
+  const result = validate(validator, input, { maxFailures });
 
   if (result.isOk()) return;
 
@@ -122,7 +122,7 @@ export interface ValidateOptions {
    * It should be positive integer.
    * @default Number.MAX_SAFE_INTEGER
    */
-  maxErrors?: number;
+  maxFailures?: number;
 }
 
 /** The `validate` executes the {@link Validator} and returns a {@link Result} type. If validation
@@ -165,7 +165,7 @@ export interface ValidateOptions {
  *
  * ```
  *
- * ## maxErrors
+ * ## maxFailures
  * The maximum number of {@link ValidationFailure}. It should be positive integer.
  * The default is `Number.MAX_SAFE_INTEGER`.
  *
@@ -187,7 +187,7 @@ export interface ValidateOptions {
  * import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
  *
  * const Tuple = fixedArray(string, number);
- * const result = validate(Tuple, [0, ""], { maxErrors: 1 });
+ * const result = validate(Tuple, [0, ""], { maxFailures: 1 });
  * declare const failure: ValidationFailure;
  *
  * if (result.isErr()) {
@@ -198,14 +198,14 @@ export interface ValidateOptions {
  * Because the validator performs lazy evaluation, limiting the number of errors
  * improves performance.
  *
- * @throws {RangeError} If the {@link ValidateOptions.maxErrors} is not positive integer.
+ * @throws {RangeError} If the {@link ValidateOptions.maxFailures} is not positive integer.
  */
 export function validate<In = unknown, A extends In = In>(
   validator: Readonly<Validator<In, A>>,
   input: In,
   options: Readonly<ValidateOptions> = {},
 ): Result<A, [ValidationFailure, ...ValidationFailure[]]> {
-  const failures = [...take(validator.validate(input), options.maxErrors)];
+  const failures = [...take(validator.validate(input), options.maxFailures)];
 
   if (isNotEmpty(failures)) return new Err(failures);
 

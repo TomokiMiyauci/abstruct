@@ -136,7 +136,7 @@ if (result.isOk()) {
 
 By default, validate collects as many errors as possible.
 
-### maxErrors
+### maxFailures
 
 The maximum number of `ValidationFailure`. It should be positive integer.
 
@@ -161,7 +161,7 @@ import type {
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 
 const Tuple = fixedArray(string, number);
-const result = validate(Tuple, [0, ""], { maxErrors: 1 });
+const result = validate(Tuple, [0, ""], { maxFailures: 1 });
 declare const failure: ValidationFailure;
 
 if (result.isErr()) {
@@ -176,7 +176,7 @@ improves performance.
 
 Throws an error in the following cases:
 
-- `RangeError`: If [maxErrors](#maxerrors) is not positive integer.
+- `RangeError`: If [maxFailures](#maxfailures) is not positive integer.
 
 ## assert
 
@@ -311,10 +311,10 @@ try {
 
 The following fields can only be specified in greedy mode.
 
-### maxErrors option
+### maxFailures option
 
-The number of validation errors can be changed with `maxErrors`. For details,
-see [maxErrors](#maxerrors)
+The number of validation failures can be changed with `maxFailures`. For
+details, see [maxFailures](#maxfailures)
 
 ### aggregation
 

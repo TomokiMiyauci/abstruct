@@ -20,7 +20,7 @@ describe("assert", () => {
   it("should return void if there are not validation errors", () => {
     assertFalse(assert(v, ""));
     assertFalse(assert(v, "", { failFast: true }));
-    assertFalse(assert(v, "", { maxErrors: 1 }));
+    assertFalse(assert(v, "", { maxFailures: 1 }));
   });
 
   it("should throw AggregateError by default", () => {
@@ -105,7 +105,7 @@ describe("assert", () => {
     let err;
 
     try {
-      assertFalse(assert(v1, "", { maxErrors: 1 }));
+      assertFalse(assert(v1, "", { maxFailures: 1 }));
     } catch (e) {
       err = e;
     } finally {
@@ -219,14 +219,14 @@ describe("validate", () => {
           ],
         },
         "",
-        { maxErrors: 1 },
+        { maxFailures: 1 },
       ),
       new Err<[ValidationFailure]>([{ message: "error", instancePath: [] }]),
     );
   });
 
-  it("should throw error is maxError is not positive integer", () => {
-    assertThrows(() => validate(v, "", { maxErrors: 0 }));
+  it("should throw error is maxFailures is not positive integer", () => {
+    assertThrows(() => validate(v, "", { maxFailures: 0 }));
   });
 });
 
