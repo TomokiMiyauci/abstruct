@@ -44,38 +44,58 @@ export const makeOptions = (version: string): BuildOptions => ({
   mappings: {
     "https://deno.land/x/isx@1.3.1/iterable/is_empty.ts": {
       name: "@miyauci/isx",
-      version: "1.3.1",
+      version: "1.4.0",
       subPath: "iterable/is_empty.js",
     },
     "https://deno.land/x/isx@1.3.1/iterable/is_not_empty.ts": {
       name: "@miyauci/isx",
-      version: "1.3.1",
+      version: "1.4.0",
       subPath: "iterable/is_not_empty.js",
     },
     "https://deno.land/x/isx@1.3.1/iterable/is_single.ts": {
       name: "@miyauci/isx",
-      version: "1.3.1",
+      version: "1.4.0",
       subPath: "iterable/is_single.js",
     },
     "https://deno.land/x/isx@1.3.1/is_string.ts": {
       name: "@miyauci/isx",
-      version: "1.3.1",
+      version: "1.4.0",
       subPath: "is_string.js",
     },
     "https://deno.land/x/isx@1.3.1/is_bigint.ts": {
       name: "@miyauci/isx",
-      version: "1.3.1",
+      version: "1.4.0",
       subPath: "is_bigint.js",
     },
     "https://deno.land/x/isx@1.3.1/is_nullable.ts": {
       name: "@miyauci/isx",
-      version: "1.3.1",
+      version: "1.4.0",
       subPath: "is_nullable.js",
     },
     "https://deno.land/x/isx@1.3.1/date/is_valid_date.ts": {
       name: "@miyauci/isx",
-      version: "1.3.1",
+      version: "1.4.0",
       subPath: "date/is_valid_date.js",
+    },
+    "https://deno.land/x/isx@1.4.0/numeric/is_positive_number.ts": {
+      name: "@miyauci/isx",
+      version: "1.4.0",
+      subPath: "numeric/is_positive_number.js",
+    },
+    "https://deno.land/x/isx@1.4.0/numeric/is_non_negative_number.ts": {
+      name: "@miyauci/isx",
+      version: "1.4.0",
+      subPath: "numeric/is_non_negative_number.js",
+    },
+    "https://deno.land/x/isx@1.4.0/numeric/is_negative_number.ts": {
+      name: "@miyauci/isx",
+      version: "1.4.0",
+      subPath: "numeric/is_negative_number.js",
+    },
+    "https://deno.land/x/isx@1.4.0/numeric/is_non_positive_number.ts": {
+      name: "@miyauci/isx",
+      version: "1.4.0",
+      subPath: "numeric/is_non_positive_number.js",
     },
     "https://esm.sh/escape-string-regexp@5.0.0?pin=v122": {
       name: "escape-string-regexp",
