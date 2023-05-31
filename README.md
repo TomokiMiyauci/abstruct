@@ -180,6 +180,132 @@ Throws an error in the following cases:
 
 ## assert
 
+Assert that the input passes validator.
+
+```ts
+import {
+  assert,
+  number,
+  object,
+  string,
+  ValidationError,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import {
+  assertEquals,
+  assertIsError,
+} from "https://deno.land/std/testing/asserts.ts";
+
+const Profile = object({ name: string, age: number });
+
+try {
+  assert(Profile, { name: null, age: null });
+} catch (e) {
+  assertIsError(e, ValidationError, "<string validation message>");
+}
+```
+
+The default behavior of `assert` is fail fast. That is, it stops working as soon
+as it finds a validation failure.
+
+`assert` provides flexible options, allowing the following customizations.
+
+- Error instance
+- Fail slow mode
+  - Limit number of failures
+
+### Validation error
+
+There is a setting for validation error under the `validation` property.
+
+The following elements of this instance can be customized:
+
+- Constructor
+- Error message
+- Error by cause
+
+#### Validation error constructor
+
+The default constructor is `ValidationError`.
+
+You may want to throw a web standard error. In this case, you can change the
+constructor in the `error` field.
+
+```ts
+import { assert, between } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import {
+  assertEquals,
+  assertIsError,
+} from "https://deno.land/std/testing/asserts.ts";
+
+try {
+  assert(between(0, 255), 256, { validation: { error: RangeError } });
+} catch (e) {
+  assertIsError(e, RangeError);
+}
+```
+
+This would be especially appropriate for libraries.
+
+#### Validation default error message
+
+A default error message can be specified, falling back to the default if the
+validator's failure message is empty.
+
+This is usually not necessary since the validator normally reports failure
+messages.
+
+```ts
+import {
+  assert,
+  ValidationError,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import {
+  assertEquals,
+  assertIsError,
+} from "https://deno.land/std/testing/asserts.ts";
+
+declare const emptyMsgValidator: Validator;
+declare const input: unknown;
+declare const defaultMsg: string;
+
+try {
+  assert(emptyMsgValidator, input, { validation: { message: defaultMsg } });
+} catch (e) {
+  assertIsError(e, ValidationError, defaultMsg);
+}
+```
+
+#### Error by cause
+
+Original cause of the error.
+
+```ts
+import {
+  assert,
+  ValidationError,
+  type Validator,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import {
+  assertEquals,
+  assertIsError,
+} from "https://deno.land/std/testing/asserts.ts";
+
+declare const validator: Validator;
+declare const input: unknown;
+declare const cause: unknown;
+
+assert(validator, input, { validation: { cause } });
+```
+
+### Fail slow
+
+To execute multiple validations, specify `failSlow`. This delays throwing errors
+until the specified number of failures is reached.
+
+The error instance will then be `AggregateError` since multiple failures may be
+found.
+
 ```ts
 import {
   assert,
@@ -195,205 +321,39 @@ import {
 const Profile = object({ name: string, age: number });
 
 try {
-  assert(Profile, { name: null, age: null });
+  assert(Profile, { name: null, age: null }, { failSlow: true });
 } catch (e) {
   assertIsError(e, AggregateError);
   assertEquals(e.errors.length, 2);
 }
 ```
 
-### validation
-
-Validation error configs.
-
-#### error
-
-Error constructor.
-
-The default is `ValidationError`.
-
-The example of specify validation error as:
-
-```ts
-import { assert, between } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
-
-assert(between(0, 255), 256, {
-  failFast: true,
-  validation: { error: RangeError },
-});
-```
-
-#### message
-
-Error message.
-
-```ts
-import {
-  assert,
-  type Validator,
-} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
-import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-
-declare const validator: Validator<unknown>;
-declare const input: unknown;
-declare const message: string;
-
-try {
-  assert(validator, input, { failFast: true, validation: { message } });
-} catch (e) {
-  assertEquals(e.message, message);
-}
-```
-
-#### cause
-
-Original cause of the error.
-
-```ts
-import {
-  assert,
-  type Validator,
-} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
-import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-
-declare const validator: Validator<unknown>;
-declare const input: unknown;
-declare const cause: ErrorConstructor;
-
-try {
-  assert(validator, input, { failFast: true, validation: { cause } });
-} catch (e) {
-  assertEquals(e.cause, cause);
-}
-```
-
-### Lazy vs Greedy
-
-Validation by assert works with lazy or greedy.
-
-Lazy terminates the evaluation as soon as it finds a validation error and
-reports only one validation error.
-
-In contrast, greedy continues validation until the specified number of
-validation errors is reached or all validations are completed.
-
-Also, validator has a lazy evaluation mechanism, so only as many validations are
-performed as needed.
-
-By default, it operates as greedy.
-
-### failFast
-
-If `failFast` is true, it works as lazy.
-
-```ts
-import {
-  assert,
-  ValidationError,
-  type Validator,
-} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
-import {
-  assertEquals,
-  assertIsError,
-} from "https://deno.land/std/testing/asserts.ts";
-
-declare const Profile: Validator<
-  { name: unknown; age: unknown },
-  { name: string; age: string }
->;
-
-try {
-  assert(Profile, { name: null, age: null }, { failFast: true });
-} catch (e) {
-  assertIsError(e, ValidationError);
-}
-```
-
-The following fields can only be specified in greedy mode.
-
-### maxFailures option
+#### maxFailures option
 
 The number of validation failures can be changed with `maxFailures`. For
 details, see [maxFailures](#maxfailures)
 
-### aggregation
+#### aggregation
 
-Aggregation error configs.
+There is a setting for `AggregateError` under the `aggregation` property.
 
-#### error
+The following element can be customized as
+[Validation error](#validation-error).
 
-Specify custom `AggregationErrorConstructor`.
+- [error](#validation-error-constructor)
+- [message](#validation-default-error-message)
+- [cause](#error-by-cause)
 
-The default is `AggregationError`.
+The `message` in `AggregateError` is empty by default.
 
-```ts
-import {
-  assert,
-  type Validator,
-} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
-import { assertIsError } from "https://deno.land/std/testing/asserts.ts";
-
-declare const validator: Validator<unknown>;
-declare const input: unknown;
-declare const error: AggregateErrorConstructor;
-
-try {
-  assert(validator, input, { aggregation: { error } });
-} catch (e) {
-  assertIsError(e, error);
-}
-```
-
-#### message
-
-Customize `AggregationError` message.
-
-```ts
-import {
-  assert,
-  type Validator,
-} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
-import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-
-declare const validator: Validator<unknown>;
-declare const input: unknown;
-declare const message: string;
-
-try {
-  assert(validator, input, { aggregation: { message } });
-} catch (e) {
-  assertEquals(e.message, message);
-}
-```
-
-#### cause
-
-You can specify `cause` to express the cause of the `AggregationError`.
-
-```ts
-import {
-  assert,
-  type Validator,
-} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
-import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
-
-declare const validator: Validator<unknown>;
-declare const input: unknown;
-declare const cause: Error;
-
-try {
-  assert(validator, input, { aggregation: { cause } });
-} catch (e) {
-  assertEquals(e.cause, cause);
-}
-```
+In fail slow mode, it is recommended to provide it.
 
 ### Throwing error
 
 Throws an error in the following cases:
 
-- `AggregateError`: If assertion is fail.
-- `ValidationError`: If assertion is fail and [failFast](#failfast) is true.
+- `ValidationError`: If assertion is fail.
+- `AggregateError`: If assertion is fail and [failSlow](#fail-slow) is `true`.
 - Same as [validate](#throwing-error).
 
 ## Factories

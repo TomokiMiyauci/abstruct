@@ -40,15 +40,17 @@ export interface AssertOptions {
   /** Validation error configs. */
   validation?: ValidationConfigs;
 
-  /** Whether to perform the assertion fail fast or not.
+  /** Whether to perform the assertion fail slow or not.
+   * - `true`: fail fast
+   * - `false`: fail slow
    * @default false
    */
-  failFast?: boolean;
+  failSlow?: boolean;
 }
 
 /** Lazy assert options. */
 export interface LazyAssertOptions extends AssertOptions {
-  failFast: true;
+  failSlow?: false;
 }
 
 /** Aggregation error configs. */
@@ -58,10 +60,33 @@ export interface GreedyAssertOptions extends AssertOptions, ValidateOptions {
   /** Aggregation error configs. */
   aggregation?: AggregationConfigs;
 
-  failFast?: false;
+  failSlow: true;
 }
 
-/** Assert with validator.
+/** Assert that the input passes validator.
+ *
+ * @example
+ * ```ts
+ * import {
+ *  assert,
+ *  number,
+ *  object,
+ *  string,
+ *  ValidationError,
+ * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+ * import {
+ *  assertEquals,
+ *  assertIsError,
+ * } from "https://deno.land/std/testing/asserts.ts";
+ *
+ * const Profile = object({ name: string, age: number });
+ *
+ * try {
+ *  assert(Profile, { name: null, age: null });
+ * } catch (e) {
+ *  assertIsError(e, ValidationError, "<string validation message>");
+ * }
+ * ```
  *
  * @throws {AggregateError} If assertion is fail.
  * @throws {ValidationError} If assertion is fail and {@link options.failFast} is true.
@@ -73,29 +98,29 @@ export function assert<In = unknown, A extends In = In>(
   options: Readonly<LazyAssertOptions | GreedyAssertOptions> = {},
 ): asserts input is A {
   const {
-    failFast,
+    failSlow,
     validation = {},
   } = options;
-  const maxFailures = failFast ? 1 : options.maxFailures;
+  const maxFailures = failSlow ? options.maxFailures : 1;
   const result = validate(validator, input, { maxFailures });
 
   if (result.isOk()) return;
 
-  const ErrorCtor = validation.error ?? ValidationError;
+  const { error: VError = ValidationError } = validation;
 
-  if (failFast) {
-    const failure = result.value[0];
-    const e = failure2Error(failure);
+  if (failSlow) {
+    const errors = result.value.map(failure2Error).map(captured);
+    const { aggregation = {} } = options;
+    const ErrorsCtor = aggregation.error ?? AggregateError;
+    const e = new ErrorsCtor(errors, aggregation.message, {
+      cause: aggregation.cause,
+    });
 
     throw captured(e);
   }
 
-  const errors = result.value.map(failure2Error).map(captured);
-  const { aggregation = {} } = options;
-  const ErrorsCtor = aggregation.error ?? AggregateError;
-  const e = new ErrorsCtor(errors, aggregation.message, {
-    cause: aggregation.cause,
-  });
+  const failure = result.value[0];
+  const e = failure2Error(failure);
 
   throw captured(e);
 
@@ -105,7 +130,7 @@ export function assert<In = unknown, A extends In = In>(
     message = message || (validation.message ?? "");
     const msg = makeMsg({ message, instancePath });
 
-    return new ErrorCtor(msg, { cause: validation.cause, instancePath });
+    return new VError(msg, { cause: validation.cause, instancePath });
   }
 
   // deno-lint-ignore ban-types
