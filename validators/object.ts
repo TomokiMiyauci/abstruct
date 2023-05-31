@@ -38,7 +38,7 @@ export class ObjectValidator<
       const value = input?.[key];
       const iterable = validator.validate(value);
 
-      yield* map(iterable, curryR(fromPath, key.toString()));
+      yield* map(iterable, curryR(fromPath, key));
     }
   }
 

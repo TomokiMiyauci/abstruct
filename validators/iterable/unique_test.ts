@@ -20,8 +20,8 @@ describe("UniqueValidator", () => {
 
   it("validate should yield multiple failures", () => {
     assertEquals([...new UniqueValidator().validate("aaa")], [
-      new ValidationFailure("", { instancePath: ["1"] }),
-      new ValidationFailure("", { instancePath: ["2"] }),
+      new ValidationFailure("", { instancePath: [1] }),
+      new ValidationFailure("", { instancePath: [2] }),
     ]);
   });
 

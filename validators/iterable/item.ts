@@ -26,7 +26,7 @@ export class ItemValidator<In = unknown, A extends In = In>
   *validate(input: Iterable<In>): Iterable<ValidationFailure> {
     for (const [i, el] of enumerate(input)) {
       const iterable = this.validator.validate(el);
-      const createError = curryR(fromPath, i.toString());
+      const createError = curryR(fromPath, i);
 
       yield* map(iterable, createError);
     }

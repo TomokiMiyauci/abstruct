@@ -7,7 +7,7 @@ import { interpolate, isBigint, isString } from "./deps.ts";
 
 export function fromPath(
   failure: ValidationFailure,
-  path: string,
+  path: PropertyKey,
 ): ValidationFailure {
   const instancePath = [path, ...failure.instancePath];
 

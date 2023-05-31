@@ -29,8 +29,8 @@ describe("FixedArrayValidator", () => {
     const result = validator.validate([0, ""]);
 
     assertEquals([...result], [
-      new ValidationFailure("", { instancePath: ["0"] }),
-      new ValidationFailure("", { instancePath: ["1"] }),
+      new ValidationFailure("", { instancePath: [0] }),
+      new ValidationFailure("", { instancePath: [1] }),
     ]);
   });
 

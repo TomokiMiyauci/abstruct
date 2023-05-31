@@ -25,7 +25,7 @@ describe("ObjectValidator", () => {
       [
         new ValidationFailure("", { instancePath: ["a"] }),
         new ValidationFailure("", {
-          instancePath: [Symbol.iterator.toString()],
+          instancePath: [Symbol.iterator],
         }),
       ],
     );

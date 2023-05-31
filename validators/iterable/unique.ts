@@ -34,7 +34,7 @@ export class UniqueValidator extends Reporter<Context>
     for (const [index, item] of duplicates(input)) {
       yield new ValidationFailure(
         this.report({ input, item, index }),
-        { instancePath: [index.toString()] },
+        { instancePath: [index] },
       );
     }
   }

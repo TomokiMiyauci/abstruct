@@ -35,9 +35,8 @@ export class FixedArrayValidator<
 
   *validate(input: In): Iterable<ValidationFailure> {
     for (const [i, validator] of this.validators.entries()) {
-      const key = i.toString();
       const value = input[i];
-      const createError = curryR(fromPath, key);
+      const createError = curryR(fromPath, i);
       const iterable = validator.validate(value);
 
       yield* map(iterable, createError);
