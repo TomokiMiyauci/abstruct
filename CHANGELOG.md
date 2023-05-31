@@ -1,3 +1,19 @@
+# [1.0.0-beta.7](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.6...1.0.0-beta.7) (2023-05-31)
+
+
+### Bug Fixes
+
+* **validators:** change to pass property key as is ([e09287d](https://github.com/TomokiMiyauci/abstruct/commit/e09287d6a0f3c8053f98b577876f6ba933994ae6))
+
+
+### Features
+
+* **range:** change throwing error condition ([7132e94](https://github.com/TomokiMiyauci/abstruct/commit/7132e94eeb73f95421c98f3780913efe7b866e7f))
+* **types:** expand instancePath types ([b855eeb](https://github.com/TomokiMiyauci/abstruct/commit/b855eebc8a352b2aa699b9633be1c12a159f0abc))
+* **validation:** change default assert strategy ([09b8aae](https://github.com/TomokiMiyauci/abstruct/commit/09b8aae6e877fa35875ab76dc42148e6847f1d68))
+* **validation:** rename field to `maxFailures` ([228bdf4](https://github.com/TomokiMiyauci/abstruct/commit/228bdf40336f4e160cb32c1b80d80bd16130ad83))
+* **validation:** rename interface for assert ([b37a448](https://github.com/TomokiMiyauci/abstruct/commit/b37a4489c8c6708f2b6a70d2be2875d186fac5fa))
+
 # [1.0.0-beta.6](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.5...1.0.0-beta.6) (2023-05-29)
 
 
