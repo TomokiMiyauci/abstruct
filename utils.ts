@@ -51,8 +51,7 @@ export function print(input: unknown): string {
 
 /** Return printable properties.
  */
-// deno-lint-ignore ban-types
-export function printProps(input: {}): string {
+export function printProps(input: Record<PropertyKey, unknown>): string {
   const properties = entriesAll(input)
     .map(([key, value]) => `${key.toString()}: ${print(value)}`)
     .join(", ");
@@ -66,10 +65,8 @@ export function printProps(input: {}): string {
 export function entriesAll<T>(
   obj: { [k: PropertyKey]: T },
 ): [string | symbol, T][] {
-  const keys = Object.keys(obj);
-  const symbols = Object.getOwnPropertySymbols(obj);
-  const result = (keys as (string | symbol)[])
-    .concat(symbols)
+  const result = Reflect
+    .ownKeys(obj)
     .map((key) => [key, obj[key]] as [string | symbol, T]);
 
   return result;

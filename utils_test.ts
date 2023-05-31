@@ -26,10 +26,7 @@ describe("print", () => {
 
 describe("printProps", () => {
   it("should display as", () => {
-    // deno-lint-ignore ban-types
-    const table: [{}, string][] = [
-      ["", `{}`],
-      [0, `{}`],
+    const table: [Record<PropertyKey, unknown>, string][] = [
       [{ a: "" }, `{a: ""}`],
       [{ a: "", b: " ", c: "  " }, `{a: "", b: " ", c: "  "}`],
       [{ c: "  ", a: "", b: " " }, `{c: "  ", a: "", b: " "}`],
