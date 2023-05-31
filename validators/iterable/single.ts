@@ -1,8 +1,8 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { ScalarValidator } from "../utils.ts";
 import { isSingle } from "../../deps.ts";
-import { ScalarValidator } from "../../utils.ts";
 
 /** Single validator. It checks items is single.
  *

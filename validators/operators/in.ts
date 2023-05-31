@@ -2,7 +2,8 @@
 // This module is browser compatible.
 // deno-lint-ignore-file ban-types
 
-import { print, ScalarValidator } from "../../utils.ts";
+import { ScalarValidator } from "../utils.ts";
+import { print } from "../../utils.ts";
 
 /** Validator equivalent to `in` operator.
  *

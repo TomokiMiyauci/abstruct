@@ -2,32 +2,8 @@
 // This module is browser compatible.
 
 import { Error } from "./constants.ts";
-import {
-  Reporter,
-  ValidationContext,
-  ValidationFailure,
-  Validator,
-} from "./types.ts";
+import { ValidationFailure } from "./types.ts";
 import { interpolate, isBigint, isString } from "./deps.ts";
-
-/** Validator constructor for scalar value. */
-export abstract class ScalarValidator<In = unknown, A extends In = In>
-  extends Reporter<ValidationContext<In>>
-  implements Validator<In, A> {
-  /** Whether the input is valid or not. */
-  abstract is(input: In): input is A;
-
-  /** Check the input and return message on error. */
-  check(input: In): true | string {
-    return this.is(input) || this.report({ input });
-  }
-
-  *validate(input: In): Iterable<ValidationFailure> {
-    const result = this.check(input);
-
-    if (result !== true) yield new ValidationFailure(result);
-  }
-}
 
 export function fromPath(
   failure: ValidationFailure,

@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { isNullable } from "../deps.ts";
-import { ScalarValidator } from "../utils.ts";
+import { ScalarValidator } from "./utils.ts";
 
 /** Nullish(`null` or `undefined`) validator.
  *

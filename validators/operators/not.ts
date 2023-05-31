@@ -1,8 +1,9 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { ScalarValidator } from "../utils.ts";
 import { type Validator } from "../../types.ts";
-import { print, ScalarValidator } from "../../utils.ts";
+import { print } from "../../utils.ts";
 
 /** Validator for inversion.
  *

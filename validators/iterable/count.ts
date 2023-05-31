@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../../utils.ts";
+import { ScalarValidator } from "../utils.ts";
 import { count } from "../../iter_utils.ts";
 import plural from "../plural.json" assert { type: "json" };
 

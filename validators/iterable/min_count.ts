@@ -1,8 +1,8 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { ScalarValidator } from "../utils.ts";
 import { count } from "../../iter_utils.ts";
-import { ScalarValidator } from "../../utils.ts";
 
 /** Min count validator. It checks items count is greater than or equal to {@link limit}.
  *

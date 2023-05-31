@@ -1,8 +1,8 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
+import { ScalarValidator } from "../utils.ts";
 import { isEmpty } from "../../deps.ts";
-import { ScalarValidator } from "../../utils.ts";
 
 /** Empty validator. It checks the items is empty.
  *
