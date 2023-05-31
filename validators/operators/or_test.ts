@@ -4,6 +4,7 @@ import { OrValidator } from "./or.ts";
 import { TypeValidator } from "./typeof.ts";
 import { ValidationFailure } from "../../types.ts";
 import {
+  assert,
   assertEquals,
   assertSpyCalls,
   describe,
@@ -12,6 +13,14 @@ import {
 } from "../../_dev_deps.ts";
 
 describe("OrValidator", () => {
+  it("is should return true if one of validator passed", () => {
+    const v1 = new TypeValidator("string");
+    const v2 = new TypeValidator("number");
+    const validator = new OrValidator<unknown, string | number>(v1, v2);
+
+    assert(validator.is("a"));
+  });
+
   it("validate should yield one failure", () => {
     const v1 = new TypeValidator("string");
     const v2 = new TypeValidator("number");

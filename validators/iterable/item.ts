@@ -1,7 +1,8 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { curryR, isEmpty } from "../../deps.ts";
+import { BasicValidator } from "../utils.ts";
+import { curryR } from "../../deps.ts";
 import { fromPath, print } from "../../utils.ts";
 import { enumerate, map } from "../../iter_utils.ts";
 import { type ValidationFailure, Validator } from "../../types.ts";
@@ -17,11 +18,9 @@ import { type ValidationFailure, Validator } from "../../types.ts";
  * ```
  */
 export class ItemValidator<In = unknown, A extends In = In>
-  implements Validator<Iterable<In>, Iterable<A>> {
-  constructor(public readonly validator: Validator<In, A>) {}
-
-  is(input: Iterable<In>): input is Iterable<A> {
-    return isEmpty(this.validate(input));
+  extends BasicValidator<Iterable<In>, Iterable<A>> {
+  constructor(public readonly validator: Validator<In, A>) {
+    super();
   }
 
   *validate(input: Iterable<In>): Iterable<ValidationFailure> {
@@ -33,7 +32,7 @@ export class ItemValidator<In = unknown, A extends In = In>
     }
   }
 
-  toString(): string {
+  override toString(): string {
     return `items(${print(this.validator)})`;
   }
 }

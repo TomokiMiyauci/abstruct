@@ -3,31 +3,9 @@
 import { OptionalValidator } from "./optional.ts";
 import { TypeValidator } from "../operators/typeof.ts";
 import { ValidationFailure } from "../../types.ts";
-import {
-  assert,
-  assertEquals,
-  assertFalse,
-  describe,
-  it,
-} from "../../_dev_deps.ts";
+import { assertEquals, describe, it } from "../../_dev_deps.ts";
 
 describe("OptionalValidator", () => {
-  it("is should be return true if properties matched or not exist", () => {
-    assert(new OptionalValidator({}).is({}));
-    assert(
-      new OptionalValidator({ a: new TypeValidator("string") }).is({}),
-    );
-
-    assertFalse(
-      new OptionalValidator({ a: new TypeValidator("string") }).is({ a: 0 }),
-    );
-    assertFalse(
-      new OptionalValidator({ a: new TypeValidator("string") }).is({
-        a: undefined,
-      }),
-    );
-  });
-
   it("validate should yield failures", () => {
     assertEquals(
       [...new OptionalValidator({ a: new TypeValidator("string") }).validate({

@@ -5,6 +5,7 @@ import { TypeValidator } from "./typeof.ts";
 import { ValidationFailure, Validator } from "../../types.ts";
 import { PatternValidator } from "../string/pattern.ts";
 import {
+  assert,
   assertEquals,
   assertSpyCalls,
   assertType,
@@ -17,6 +18,13 @@ import {
 } from "../../_dev_deps.ts";
 
 describe("AndValidator", () => {
+  it("is should return true if all validators passed", () => {
+    const v1 = new TypeValidator("string");
+    const v2 = new PatternValidator(/^abc/);
+    const validator = AndValidator.create(v1, v2);
+
+    assert(validator.is("abc"));
+  });
   it("should compose 2 validators", () => {
     const v1 = new TypeValidator("string");
     const v2 = new PatternValidator(/^abc/);

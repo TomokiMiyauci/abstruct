@@ -2,10 +2,11 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { curryR, isEmpty } from "../deps.ts";
+import { BasicValidator } from "./utils.ts";
+import { curryR } from "../deps.ts";
 import { fromPath, print } from "../utils.ts";
 import { map } from "../iter_utils.ts";
-import { type ValidationFailure, Validator } from "../types.ts";
+import { type ValidationFailure, type Validator } from "../types.ts";
 
 /** Property key validator. It checks to pass all property key.
  *
@@ -18,15 +19,12 @@ import { type ValidationFailure, Validator } from "../types.ts";
  * ```
  */
 export class KeyValidator<T extends string = string>
-  implements Validator<{}, Record<T, unknown>> {
+  extends BasicValidator<{}, Record<T, unknown>> {
   validator: Validator<string, T>;
 
   constructor(validator: Validator<string, T>) {
+    super();
     this.validator = validator;
-  }
-
-  is(input: {}): input is Record<T, unknown> {
-    return isEmpty(this.validate(input));
   }
 
   *validate(input: {}): Iterable<ValidationFailure> {
@@ -37,7 +35,7 @@ export class KeyValidator<T extends string = string>
     }
   }
 
-  toString(): string {
+  override toString(): string {
     return `key of ${print(this.validator)}`;
   }
 }

@@ -4,9 +4,7 @@ import { FixedArrayValidator } from "./fixed_array.ts";
 import { TypeValidator } from "../operators/typeof.ts";
 import { ValidationFailure, Validator } from "../../types.ts";
 import {
-  assert,
   assertEquals,
-  assertFalse,
   assertType,
   describe,
   InferValidator,
@@ -23,16 +21,6 @@ const av1: Validator<unknown, string> = v;
 const av2: Validator<string, ""> = v;
 
 describe("FixedArrayValidator", () => {
-  it("is should be return true if each item pass each validator", () => {
-    const validator = new FixedArrayValidator(
-      new TypeValidator("string"),
-      new TypeValidator("number"),
-    );
-    assert(validator.is(["", 0]));
-
-    assertFalse(validator.is([0, ""]));
-  });
-
   it("validate should yield failures if each item not pass", () => {
     const validator = new FixedArrayValidator(
       new TypeValidator("string"),

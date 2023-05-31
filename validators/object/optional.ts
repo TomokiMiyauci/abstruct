@@ -1,7 +1,8 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { filterKeys, isEmpty } from "../../deps.ts";
+import { BasicValidator } from "../utils.ts";
+import { filterKeys } from "../../deps.ts";
 import { printProps } from "../../utils.ts";
 import { ObjectValidator } from "../object.ts";
 import { ValidationFailure, Validator } from "../../types.ts";
@@ -19,15 +20,13 @@ import { ValidationFailure, Validator } from "../../types.ts";
 export class OptionalValidator<
   In extends Record<PropertyKey, unknown>,
   A extends In = In,
-> implements Validator<Partial<In>, Partial<A>> {
+> extends BasicValidator<Partial<In>, Partial<A>> {
   constructor(
     public validators:
       & { [k in keyof In]: Validator<In[k], A[k]> }
       & { [k in keyof A]: Validator<A[k]> },
-  ) {}
-
-  is(input: Partial<In>): input is Partial<A> {
-    return isEmpty(this.validate(input));
+  ) {
+    super();
   }
 
   *validate(input: Partial<In>): Iterable<ValidationFailure> {
@@ -39,7 +38,7 @@ export class OptionalValidator<
     yield* new ObjectValidator(validators).validate(input as In);
   }
 
-  toString(): string {
+  override toString(): string {
     return `optional ${printProps(this.validators)}`;
   }
 }

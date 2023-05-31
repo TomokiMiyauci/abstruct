@@ -3,26 +3,9 @@
 import { ObjectValidator } from "./object.ts";
 import { TypeValidator } from "./operators/typeof.ts";
 import { ValidationFailure } from "../types.ts";
-import {
-  assert,
-  assertEquals,
-  assertFalse,
-  describe,
-  it,
-} from "../_dev_deps.ts";
+import { assertEquals, describe, it } from "../_dev_deps.ts";
 
 describe("ObjectValidator", () => {
-  it("is should be return true if properties matched", () => {
-    assert(new ObjectValidator({}).is({}));
-    assert(
-      new ObjectValidator({ a: new TypeValidator("string") }).is({ a: "" }),
-    );
-
-    assertFalse(
-      new ObjectValidator({ a: new TypeValidator("string") }).is({ a: 0 }),
-    );
-  });
-
   it("validate should yield failures", () => {
     assertEquals(
       [...new ObjectValidator({ a: new TypeValidator("string") }).validate({
