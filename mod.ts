@@ -70,6 +70,12 @@ export {
   validDate,
   value,
 } from "./factories.ts";
-export { defineValidator, lazy } from "./validators/utils.ts";
+export {
+  BasicValidator,
+  defineScalarValidator,
+  defineValidator,
+  lazy,
+  ScalarValidator,
+} from "./validators/utils.ts";
 export { type TypeStr, TypeValidator } from "./validators/operators/typeof.ts";
 export { type Constructor } from "./deps.ts";
