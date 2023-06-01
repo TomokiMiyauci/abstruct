@@ -133,4 +133,17 @@ describe("Reportable", () => {
         .validate(""),
     ], [new ValidationFailure("test3", { instancePath: [] })]);
   });
+
+  it("should return default message if not set", () => {
+    class V {
+      validate() {
+        return [{ message: "test", instancePath: [] }];
+      }
+    }
+    const $V = Reportable(V);
+
+    assertEquals([...new $V().validate("")], [
+      new ValidationFailure("test", { instancePath: [] }),
+    ]);
+  });
 });
