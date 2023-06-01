@@ -1,16 +1,11 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isEmpty } from "../../deps.ts";
+import { BasicValidator } from "../utils.ts";
 import { enumerate } from "../../iter_utils.ts";
-import {
-  Reporter,
-  ValidationContext,
-  ValidationFailure,
-  Validator,
-} from "../../types.ts";
+import { ValidationFailure } from "../../types.ts";
 
-export interface Context extends ValidationContext<Iterable<unknown>> {
+export interface Context {
   /** Item index. */
   index: number;
   item: unknown;
@@ -24,18 +19,12 @@ export interface Context extends ValidationContext<Iterable<unknown>> {
  * const validator = new UniqueValidator();
  * ```
  */
-export class UniqueValidator extends Reporter<Context>
-  implements Validator<Iterable<unknown>> {
-  is(input: Iterable<unknown>): input is Iterable<unknown> {
-    return isEmpty(this.validate(input));
-  }
-
-  *validate(input: Iterable<unknown>): Iterable<ValidationFailure> {
+export class UniqueValidator extends BasicValidator<Iterable<unknown>> {
+  override *validate(
+    input: Iterable<unknown>,
+  ): Iterable<ValidationFailure & Context> {
     for (const [index, item] of duplicates(input)) {
-      yield new ValidationFailure(
-        this.report({ input, item, index }),
-        { instancePath: [index] },
-      );
+      yield { message: "", instancePath: [index], item, index };
     }
   }
 

@@ -1,15 +1,9 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { curryR, isEmpty } from "../../deps.ts";
-import { iterIter, map } from "../../iter_utils.ts";
-import { fromMessage } from "../../utils.ts";
-import {
-  Reporter,
-  type ValidationContext,
-  type ValidationFailure,
-  Validator,
-} from "../../types.ts";
+import { BasicValidator } from "../utils.ts";
+import { iterIter } from "../../iter_utils.ts";
+import { type ValidationFailure, Validator } from "../../types.ts";
 
 /** And validator composer. It composes validators like Logical AND operator.
  *
@@ -22,17 +16,12 @@ import {
  * ```
  */
 export class AndValidator<In = unknown, A extends In = In>
-  extends Reporter<ValidationContext<In>>
-  implements Validator<In, A> {
+  extends BasicValidator<In, A> {
   validators: Validator<In, A>[];
 
-  private constructor(validators: readonly Readonly<Validator<In, A>>[]) {
+  constructor(validators: readonly Readonly<Validator<In, A>>[]) {
     super();
     this.validators = [...validators];
-  }
-
-  is(input: In): input is A {
-    return isEmpty(this.validate(input));
   }
 
   *validate(input: In): Iterable<ValidationFailure> {
@@ -43,10 +32,8 @@ export class AndValidator<In = unknown, A extends In = In>
 
       if (result.done) continue;
 
-      const message = this.report({ input });
-
-      yield fromMessage(result.value, message);
-      yield* map(iterator, curryR(fromMessage, message));
+      yield result.value;
+      yield* iterator;
       return;
     }
   }

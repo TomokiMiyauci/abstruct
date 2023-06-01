@@ -2,7 +2,7 @@
 // This module is browser compatible.
 // deno-lint-ignore-file ban-types
 
-import { ScalarValidator } from "../utils.ts";
+import { IsValidator } from "../utils.ts";
 import { print } from "../../utils.ts";
 
 /** Validator equivalent to `in` operator.
@@ -14,7 +14,7 @@ import { print } from "../../utils.ts";
  * ```
  */
 export class InValidator<const K extends PropertyKey>
-  extends ScalarValidator<{}, Record<K, unknown>> {
+  extends IsValidator<{}, Record<K, unknown>> {
   constructor(public key: K) {
     super();
   }

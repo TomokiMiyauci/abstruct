@@ -1,8 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isString } from "./deps.ts";
-
 /** Validator API. */
 export interface Validator<in In = unknown, out A extends In = In> {
   /** Validates the input and yield validation errors if exists. */
@@ -40,26 +38,6 @@ export interface ValidationContext<In = unknown> {
 }
 
 export interface Reporter<T = unknown> {
-  report(context: T): string;
-
   expect(message: string): this;
-  expect(report: Reporter["report"]): this;
-}
-
-export class Reporter<T = unknown> {
-  #messageFn?: Reporter<T>["report"];
-
-  report(context: T): string {
-    return this.#messageFn?.(context) ?? "";
-  }
-
-  expect(messageOrReport: string | Reporter<T>["report"]): this {
-    const fn = isString(messageOrReport)
-      ? (() => messageOrReport) as Reporter<T>["report"]
-      : messageOrReport;
-
-    this.#messageFn = fn;
-
-    return this;
-  }
+  expect(report: (ctx: T) => string): this;
 }

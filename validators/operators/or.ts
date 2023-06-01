@@ -1,13 +1,9 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isEmpty, maxBy } from "../../deps.ts";
-import {
-  Reporter,
-  ValidationContext,
-  ValidationFailure,
-  Validator,
-} from "../../types.ts";
+import { BasicValidator } from "../utils.ts";
+import { maxBy } from "../../deps.ts";
+import { ValidationFailure, Validator } from "../../types.ts";
 import { iter } from "../../iter_utils.ts";
 
 /** Or validator composer. It composes validators like Logical OR operator.
@@ -21,8 +17,7 @@ import { iter } from "../../iter_utils.ts";
  * ```
  */
 export class OrValidator<in In = unknown, A extends In = In>
-  extends Reporter<ValidationContext<In>>
-  implements Validator<In, A> {
+  extends BasicValidator<In, A> {
   validators: [Validator<In, A>, Validator<In, A>, ...Validator<In, A>[]];
 
   constructor(
@@ -32,10 +27,6 @@ export class OrValidator<in In = unknown, A extends In = In>
   ) {
     super();
     this.validators = [v1, v2, ...validations];
-  }
-
-  is(input: In): input is A {
-    return isEmpty(this.validate(input));
   }
 
   *validate(input: In): Iterable<ValidationFailure> {
@@ -53,9 +44,8 @@ export class OrValidator<in In = unknown, A extends In = In>
 
     const instancePath = maxBy(failures, instancePathLength)
       ?.instancePath ?? [];
-    const message = this.report({ input });
 
-    yield new ValidationFailure(message, { instancePath });
+    yield new ValidationFailure("", { instancePath });
   }
 
   override toString(): string {

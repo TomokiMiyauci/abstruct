@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../utils.ts";
+import { IsValidator } from "../utils.ts";
 
 interface LegacyTypeMap {
   bigint: bigint;
@@ -36,7 +36,7 @@ export type TypeStr = keyof TypeMap;
  * ```
  */
 export class TypeValidator<T extends TypeStr>
-  extends ScalarValidator<unknown, TypeMap[T]> {
+  extends IsValidator<unknown, TypeMap[T]> {
   constructor(public of: T) {
     super();
   }

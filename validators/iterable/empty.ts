@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../utils.ts";
+import { IsValidator } from "../utils.ts";
 import { isEmpty } from "../../deps.ts";
 
 /** Empty validator. It checks the items is empty.
@@ -12,7 +12,7 @@ import { isEmpty } from "../../deps.ts";
  * const validator = new EmptyValidator();
  * ```
  */
-export class EmptyValidator extends ScalarValidator<Iterable<unknown>> {
+export class EmptyValidator extends IsValidator<Iterable<unknown>> {
   override is = isEmpty;
 
   override toString(): string {

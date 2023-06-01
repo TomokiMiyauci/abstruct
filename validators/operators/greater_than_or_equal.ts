@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../utils.ts";
+import { IsValidator } from "../utils.ts";
 import { print } from "../../utils.ts";
 
 /** Validator equivalent to greater than or equal(`<=`) operator.
@@ -12,7 +12,7 @@ import { print } from "../../utils.ts";
  * const validator = new GreaterThanOrEqualValidator(8);
  * ```
  */
-export class GreaterThanOrEqualValidator<In> extends ScalarValidator<In> {
+export class GreaterThanOrEqualValidator<In> extends IsValidator<In> {
   constructor(public base: In) {
     super();
   }

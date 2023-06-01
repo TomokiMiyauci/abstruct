@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "./utils.ts";
+import { IsValidator } from "./utils.ts";
 
 /** Enumerator validator.
  *
@@ -11,7 +11,7 @@ import { ScalarValidator } from "./utils.ts";
  * const validator = new EnumValidator(1, 2, 3);
  * ```
  */
-export class EnumValidator<const A> extends ScalarValidator<unknown, A> {
+export class EnumValidator<const A> extends IsValidator<unknown, A> {
   values: [A, A, ...A[]];
   constructor(v1: A, v2: A, ...values: readonly A[]) {
     super();

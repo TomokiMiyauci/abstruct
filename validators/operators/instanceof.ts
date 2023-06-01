@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../utils.ts";
+import { IsValidator } from "../utils.ts";
 import { type Constructor } from "../../deps.ts";
 
 /** Validator for instance. It executes `instanceof` operator.
@@ -13,7 +13,7 @@ import { type Constructor } from "../../deps.ts";
  * ```
  */
 export class InstanceValidator<T extends Constructor>
-  extends ScalarValidator<unknown, InstanceType<T>> {
+  extends IsValidator<unknown, InstanceType<T>> {
   constructor(public of: T) {
     super();
   }

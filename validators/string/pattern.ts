@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../utils.ts";
+import { IsValidator } from "../utils.ts";
 
 /** Validator for regex pattern.
  *
@@ -11,7 +11,7 @@ import { ScalarValidator } from "../utils.ts";
  * const validator = new PatternValidator(/^\d+$/);
  * ```
  */
-export class PatternValidator extends ScalarValidator<string> {
+export class PatternValidator extends IsValidator<string> {
   constructor(public pattern: RegExp) {
     super();
   }

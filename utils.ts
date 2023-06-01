@@ -1,8 +1,9 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
+// deno-lint-ignore-file no-explicit-any
 
 import { Error } from "./constants.ts";
-import { ValidationFailure } from "./types.ts";
+import { type Reporter, ValidationFailure } from "./types.ts";
 import { interpolate, isBigint, isString } from "./deps.ts";
 
 export function fromPath(
@@ -70,4 +71,39 @@ export function entriesAll<T>(
     .map((key) => [key, obj[key]] as [string | symbol, T]);
 
   return result;
+}
+
+export function Reportable<T extends NewableFunction, U>(
+  base: T & {
+    new (...args: any): { validate(input: U): Iterable<ValidationFailure> };
+  },
+): T & { new (...args: any): Reporter<{ input: U }> } {
+  class TBase extends base implements Reporter<{ input: U }> {
+    #messageFn?: (ctx: { input: U }) => string;
+    expect(
+      messageOrReport:
+        | string
+        | ((ctx: { input: U }) => string),
+    ): this {
+      const fn = isString(messageOrReport)
+        ? (() => messageOrReport)
+        : messageOrReport;
+
+      this.#messageFn = fn;
+
+      return this;
+    }
+
+    override *validate(
+      input: U,
+    ): Iterable<ValidationFailure> {
+      for (const failure of super.validate(input)) {
+        failure.message = this.#messageFn?.({ input }) || failure.message;
+
+        yield failure;
+      }
+    }
+  }
+
+  return TBase;
 }

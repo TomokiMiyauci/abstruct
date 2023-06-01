@@ -2,9 +2,15 @@
 // This module is browser compatible.
 
 import { type Constructor, interpolate } from "./deps.ts";
-import { type Validator } from "./types.ts";
+import { type Reporter, type Validator } from "./types.ts";
 import { count as getCount } from "./iter_utils.ts";
-import { createInst, print, shouldBe, shouldBeBut } from "./utils.ts";
+import {
+  createInst,
+  print,
+  Reportable,
+  shouldBe,
+  shouldBeBut,
+} from "./utils.ts";
 import { EnumValidator } from "./validators/enum.ts";
 import { KeyValidator } from "./validators/key.ts";
 import { ValueValidator } from "./validators/value.ts";
@@ -43,6 +49,49 @@ import { InValidator } from "./validators/operators/in.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
 import { Error } from "./constants.ts";
 
+const $TypeValidator = /* @__PURE__ */ Reportable(TypeValidator);
+const $InstanceValidator = /* @__PURE__ */ Reportable(InstanceValidator);
+const $AndValidator = /* @__PURE__ */ Reportable(AndValidator);
+const $EnumValidator = /* @__PURE__ */ Reportable(EnumValidator);
+const $NullishValidator = /* @__PURE__ */ Reportable(NullishValidator);
+const $PatternValidator = /* @__PURE__ */ Reportable(PatternValidator);
+const $RangeValidator = /* @__PURE__ */ Reportable(RangeValidator);
+const $UniqueValidator = /* @__PURE__ */ Reportable(UniqueValidator);
+const $EqualityValidator = /* @__PURE__ */ Reportable(EqualityValidator);
+const $NegativeNumberValidator = /* @__PURE__ */ Reportable(
+  NegativeNumberValidator,
+);
+const $NonNegativeNumberValidator = /* @__PURE__ */ Reportable(
+  NonNegativeNumberValidator,
+);
+const $NonPositiveNumberValidator = /* @__PURE__ */ Reportable(
+  NonPositiveNumberValidator,
+);
+const $PositiveNumberValidator = /* @__PURE__ */ Reportable(
+  PositiveNumberValidator,
+);
+const $LessThanValidator = /* @__PURE__ */ Reportable(LessThanValidator);
+const $LessThanOrEqualValidator = /* @__PURE__ */ Reportable(
+  LessThanOrEqualValidator,
+);
+const $GreaterThanValidator = /* @__PURE__ */ Reportable(GreaterThanValidator);
+const $GreaterThanOrEqualValidator = /* @__PURE__ */ Reportable(
+  GreaterThanOrEqualValidator,
+);
+const $InequalityValidator = /* @__PURE__ */ Reportable(InequalityValidator);
+const $NotValidator = /* @__PURE__ */ Reportable(NotValidator);
+const $OrValidator = /* @__PURE__ */ Reportable(OrValidator);
+const $InValidator = /* @__PURE__ */ Reportable(InValidator);
+const $ValidDateValidator = /* @__PURE__ */ Reportable(ValidDateValidator);
+const $CountValidator = /* @__PURE__ */ Reportable(CountValidator);
+const $EmptyValidator = /* @__PURE__ */ Reportable(EmptyValidator);
+const $MaxCountValidator = /* @__PURE__ */ Reportable(MaxCountValidator);
+const $MinCountValidator = /* @__PURE__ */ Reportable(MinCountValidator);
+const $NonEmptyValidator = /* @__PURE__ */ Reportable(NonEmptyValidator);
+const $SingleValidator = /* @__PURE__ */ Reportable(SingleValidator);
+const $FloatValidator = /* @__PURE__ */ Reportable(FloatValidator);
+const $IntegerValidator = /* @__PURE__ */ Reportable(IntegerValidator);
+
 /** Validator factory for JavaScript data type.
  * The difference with `typeof` operator is that `"object"` does not match `null`.
  *
@@ -52,8 +101,8 @@ import { Error } from "./constants.ts";
  * const validator = type("object")
  * ```
  */
-export function type<T extends TypeStr>(of: T): TypeValidator<T> {
-  const validator = new TypeValidator(of);
+export function type<T extends TypeStr>(of: T) {
+  const validator = new $TypeValidator(of);
 
   return validator.expect(({ input }) =>
     interpolate(Error.ShouldBeBut, [print(validator), typeof input])
@@ -79,8 +128,8 @@ export function enumerator<const T>(
   v1: T,
   v2: T,
   ...values: readonly T[]
-): EnumValidator<T> {
-  return new EnumValidator(v1, v2, ...values).expect(shouldBeBut);
+) {
+  return new $EnumValidator(v1, v2, ...values).expect(shouldBeBut);
 }
 
 /** Validator factory equivalent to the `instanceof` operator.
@@ -91,8 +140,8 @@ export function enumerator<const T>(
  * const validator = instance(Array);
  * ```
  */
-export function instance<T extends Constructor>(of: T): InstanceValidator<T> {
-  const validator = new InstanceValidator(of);
+export function instance<T extends Constructor>(of: T) {
+  const validator = new $InstanceValidator(of);
 
   return validator.expect(({ input }) =>
     interpolate(Error.ShouldBeBut, [
@@ -131,7 +180,7 @@ export const object = /* @__PURE__ */ createInst(ObjectValidator);
 export const optional = /* @__PURE__ */ createInst(OptionalValidator);
 
 /** Nullish(`null` or `undefined`) validator. */
-export const nullish = /* @__PURE__ */ new NullishValidator().expect(
+export const nullish = /* @__PURE__ */ new $NullishValidator().expect(
   shouldBeBut,
 );
 
@@ -143,8 +192,8 @@ export const nullish = /* @__PURE__ */ new NullishValidator().expect(
  * const validator = eq(0);
  * ```
  */
-export function eq<const A = unknown>(value: A): EqualityValidator<A> {
-  return new EqualityValidator(value).expect(shouldBeBut);
+export function eq<const A = unknown>(value: A) {
+  return new $EqualityValidator(value).expect(shouldBeBut);
 }
 
 /** Factory for validator equivalent to less than(`>`) operator.
@@ -155,8 +204,8 @@ export function eq<const A = unknown>(value: A): EqualityValidator<A> {
  * const validator = lt(256);
  * ```
  */
-export function lt<T>(base: T): LessThanValidator<T> {
-  return new LessThanValidator(base).expect(shouldBeBut);
+export function lt<T>(base: T) {
+  return new $LessThanValidator(base).expect(shouldBeBut);
 }
 
 /** Factory for validator equivalent to less than or equal to (`>=`) operator.
@@ -167,8 +216,8 @@ export function lt<T>(base: T): LessThanValidator<T> {
  * const validator = lte(255);
  * ```
  */
-export function lte<T>(base: T): LessThanOrEqualValidator<T> {
-  return new LessThanOrEqualValidator(base).expect(shouldBeBut);
+export function lte<T>(base: T) {
+  return new $LessThanOrEqualValidator(base).expect(shouldBeBut);
 }
 
 /** Factory for validator equivalent to greater than(`<`) operator.
@@ -179,8 +228,8 @@ export function lte<T>(base: T): LessThanOrEqualValidator<T> {
  * const validator = gt(8);
  * ```
  */
-export function gt<T>(base: T): GreaterThanValidator<T> {
-  return new GreaterThanValidator(base).expect(shouldBeBut);
+export function gt<T>(base: T) {
+  return new $GreaterThanValidator(base).expect(shouldBeBut);
 }
 
 /** Factory for validator equivalent to greater than or equal(`<=`) operator.
@@ -191,8 +240,8 @@ export function gt<T>(base: T): GreaterThanValidator<T> {
  * const validator = gte(8);
  * ```
  */
-export function gte<T>(base: T): GreaterThanOrEqualValidator<T> {
-  return new GreaterThanOrEqualValidator(base).expect(shouldBeBut);
+export function gte<T>(base: T) {
+  return new $GreaterThanOrEqualValidator(base).expect(shouldBeBut);
 }
 
 /** Factory for validator equivalent to strict inequality(`!==`) operator.
@@ -203,8 +252,8 @@ export function gte<T>(base: T): GreaterThanOrEqualValidator<T> {
  * const validator = ne(0);
  * ```
  */
-export function ne(value: unknown): InequalityValidator {
-  return new InequalityValidator(value).expect(shouldBeBut);
+export function ne(value: unknown) {
+  return new $InequalityValidator(value).expect(shouldBeBut);
 }
 
 /** Factory for validator inversion.
@@ -222,8 +271,9 @@ export function ne(value: unknown): InequalityValidator {
  */
 export function not<In, A extends In = In>(
   validator: Validator<In, A>,
-): NotValidator<In, A> {
-  return new NotValidator(validator).expect(shouldBeBut);
+) {
+  new NotValidator(validator);
+  return new $NotValidator(validator).expect(shouldBeBut);
 }
 
 /** Factory for validator composer like Logical OR.
@@ -266,8 +316,9 @@ export function or<In = unknown, A extends In = In>(
   v1: Validator<In, A>,
   v2: Validator<In, A>,
   ...validations: Validator<In, A>[]
-): OrValidator<In, A> {
-  return new OrValidator(v1, v2, ...validations).expect(shouldBe);
+) {
+  new OrValidator(v1, v2);
+  return new $OrValidator(v1, v2, ...validations).expect(shouldBe);
 }
 
 /** Factory for validator composer like Logical AND.
@@ -322,7 +373,10 @@ export function and<
   A extends In,
   In2,
   A2 extends In2,
->(v1: Validator<In, A>, v2: Validator<In2 | A, A2>): AndValidator<In, A & A2>;
+>(
+  v1: Validator<In, A>,
+  v2: Validator<In2 | A, A2>,
+): AndValidator<In, A & A2> & Reporter<{ input: In }>;
 export function and<
   In,
   A extends In,
@@ -334,7 +388,7 @@ export function and<
   v1: Validator<In, A>,
   v2: Validator<In2 | A, A2>,
   v3: Validator<In3 | A & A2, A3>,
-): AndValidator<In, A & A2 & A3>;
+): AndValidator<In, A & A2 & A3> & Reporter<{ input: In }>;
 export function and<
   In,
   A extends In,
@@ -349,7 +403,7 @@ export function and<
   v2: Validator<In2 | A, A2>,
   v3: Validator<In3 | A & A2, A3>,
   v4: Validator<In4 | A & A2 & A3, A4>,
-): AndValidator<In, A & A2 & A3 & A4>;
+): AndValidator<In, A & A2 & A3 & A4> & Reporter<{ input: In }>;
 export function and<
   In,
   A extends In,
@@ -367,11 +421,11 @@ export function and<
   v3: Validator<In3 | A & A2, A3>,
   v4: Validator<In4 | A & A2 & A3, A4>,
   v5: Validator<In5 | A & A2 & A3 & A4, A5>,
-): AndValidator<In, A & A2 & A3 & A4 & A5>;
+): AndValidator<In, A & A2 & A3 & A4 & A5> & Reporter<{ input: In }>;
 export function and(
   ...validators: readonly [Validator, Validator]
-): AndValidator {
-  return AndValidator.create(...validators);
+) {
+  return new $AndValidator(validators);
 }
 
 /** Factory for existence of property validator.
@@ -382,8 +436,8 @@ export function and(
  * const validator = has("prop");
  * ```
  */
-export function has<const K extends PropertyKey>(key: K): InValidator<K> {
-  return new InValidator(key).expect(() => `should has ${print(key)}`);
+export function has<const K extends PropertyKey>(key: K) {
+  return new $InValidator(key).expect(() => `should has ${print(key)}`);
 }
 
 /** Factory for range validator.
@@ -395,8 +449,8 @@ export function has<const K extends PropertyKey>(key: K): InValidator<K> {
  * const dateRangeValidator = between(new Date("1970/1/1"), new Date("2038/1/19"));
  * ```
  */
-export function between<T>(min: T, max: T): RangeValidator<T> {
-  return new RangeValidator(min, max).expect(shouldBeBut);
+export function between<T>(min: T, max: T) {
+  return new $RangeValidator(min, max).expect(shouldBeBut);
 }
 
 // Non-nullish
@@ -447,7 +501,7 @@ export const fixedArray = /* @__PURE__ */ createInst(FixedArrayValidator);
 
 // Date
 /** Valid `Date` validator. */
-export const validDate = /* @__PURE__ */ new ValidDateValidator().expect(
+export const validDate = /* @__PURE__ */ new $ValidDateValidator().expect(
   shouldBe,
 );
 
@@ -461,8 +515,8 @@ export const validDate = /* @__PURE__ */ new ValidDateValidator().expect(
  * const validator = count(5);
  * ```
  */
-export function count(of: number): CountValidator {
-  const validator = new CountValidator(of);
+export function count(of: number) {
+  const validator = new $CountValidator(of);
 
   return validator.expect(({ input }) =>
     interpolate(Error.ShouldBeBut, [print(validator), getCount(input)])
@@ -473,7 +527,7 @@ export function count(of: number): CountValidator {
  *
  * @example
  */
-export const empty = /* @__PURE__ */ new EmptyValidator().expect(shouldBe);
+export const empty = /* @__PURE__ */ new $EmptyValidator().expect(shouldBe);
 
 /** Factory for item validator.
  * It checks each item of items.
@@ -499,8 +553,8 @@ export const item = /* @__PURE__ */ createInst(ItemValidator);
  * const validator = maxCount(limit);
  * ```
  */
-export function maxCount(limit: number): MaxCountValidator {
-  return new MaxCountValidator(limit).expect(({ input }) =>
+export function maxCount(limit: number) {
+  return new $MaxCountValidator(limit).expect(({ input }) =>
     interpolate(Error.MaxCount, [limit, getCount(input)])
   );
 }
@@ -514,29 +568,30 @@ export function maxCount(limit: number): MaxCountValidator {
  * const validator = minCount(limit);
  * ```
  */
-export function minCount(limit: number): MinCountValidator {
-  return new MinCountValidator(limit).expect(({ input }) =>
+export function minCount(limit: number) {
+  return new $MinCountValidator(limit).expect(({ input }) =>
     interpolate(Error.MinCount, [limit, getCount(input)])
   );
 }
 
 /** Non-Empty validator. It checks items is non-empty. */
-export const nonEmpty = /* @__PURE__ */ new NonEmptyValidator()
+export const nonEmpty = /* @__PURE__ */ new $NonEmptyValidator()
   .expect(shouldBe);
 
 /** Single validator. It checks items is single. */
-export const single = /* @__PURE__ */ new SingleValidator().expect(shouldBe);
+export const single = /* @__PURE__ */ new $SingleValidator().expect(shouldBe);
 
 /** Unique validator. It checks the each item is unique. */
-export const unique = /* @__PURE__ */ new UniqueValidator().expect(shouldBe);
+
+export const unique = /* @__PURE__ */ new $UniqueValidator().expect(shouldBe);
 
 // number
 
 /** Float validator. */
-export const float = /* @__PURE__ */ new FloatValidator().expect(shouldBeBut);
+export const float = /* @__PURE__ */ new $FloatValidator().expect(shouldBeBut);
 
 /** Integer validator. */
-export const int = /* @__PURE__ */ new IntegerValidator().expect(shouldBeBut);
+export const int = /* @__PURE__ */ new $IntegerValidator().expect(shouldBeBut);
 
 /** Integer in the range -127 ~ 128 validator. */
 export const int8 = /* @__PURE__ */ and(
@@ -575,19 +630,19 @@ export const uint32 = /* @__PURE__ */ and(
 );
 
 /** Negative number validator. */
-export const negative = /* @__PURE__ */ new NegativeNumberValidator()
+export const negative = /* @__PURE__ */ new $NegativeNumberValidator()
   .expect(shouldBeBut);
 
 /** Non-negative number validator. */
-export const nonNegative = /* @__PURE__ */ new NonNegativeNumberValidator()
+export const nonNegative = /* @__PURE__ */ new $NonNegativeNumberValidator()
   .expect(shouldBeBut);
 
 /** Non-positive number validator. */
-export const nonPositive = /* @__PURE__ */ new NonPositiveNumberValidator()
+export const nonPositive = /* @__PURE__ */ new $NonPositiveNumberValidator()
   .expect(shouldBeBut);
 
 /** Positive number validator. */
-export const positive = /* @__PURE__ */ new PositiveNumberValidator()
+export const positive = /* @__PURE__ */ new $PositiveNumberValidator()
   .expect(shouldBeBut);
 
 // string
@@ -600,8 +655,10 @@ export const positive = /* @__PURE__ */ new PositiveNumberValidator()
  * const validator = pattern(/^\d*$/);
  * ```
  */
-export function pattern(pattern: RegExp): PatternValidator {
-  const validator = new PatternValidator(pattern);
+export function pattern(
+  pattern: RegExp,
+): PatternValidator & Reporter<{ input: string }> {
+  const validator = new $PatternValidator(pattern);
 
   return validator.expect(({ input }) =>
     interpolate(Error.ShouldBeBut, [`match ${validator}`, print(input)])

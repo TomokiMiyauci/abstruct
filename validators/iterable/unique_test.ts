@@ -1,7 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
 import { duplicates, UniqueValidator } from "./unique.ts";
-import { ValidationFailure } from "../../types.ts";
 import {
   assert,
   assertEquals,
@@ -20,8 +19,8 @@ describe("UniqueValidator", () => {
 
   it("validate should yield multiple failures", () => {
     assertEquals([...new UniqueValidator().validate("aaa")], [
-      new ValidationFailure("", { instancePath: [1] }),
-      new ValidationFailure("", { instancePath: [2] }),
+      { instancePath: [1], message: "", index: 1, item: "a" },
+      { instancePath: [2], message: "", index: 2, item: "a" },
     ]);
   });
 

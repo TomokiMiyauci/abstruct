@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "./utils.ts";
+import { IsValidator } from "./utils.ts";
 import { isInRange } from "../deps.ts";
 import { print } from "../utils.ts";
 
@@ -13,7 +13,7 @@ import { print } from "../utils.ts";
  * const validator = new RangeValidator(4, 8);
  * ```
  */
-export class RangeValidator<In> extends ScalarValidator<In> {
+export class RangeValidator<In> extends IsValidator<In> {
   #range!: readonly [In, In];
 
   /**

@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../utils.ts";
+import { IsValidator } from "../utils.ts";
 import { isPositiveNumber, ToPredicate } from "../../deps.ts";
 
 /** Positive number validator.
@@ -12,7 +12,7 @@ import { isPositiveNumber, ToPredicate } from "../../deps.ts";
  * const validator = new PositiveNumberValidator();
  * ```
  */
-export class PositiveNumberValidator extends ScalarValidator<number | bigint> {
+export class PositiveNumberValidator extends IsValidator<number | bigint> {
   is = isPositiveNumber as ToPredicate<typeof isPositiveNumber>;
 
   override toString(): string {

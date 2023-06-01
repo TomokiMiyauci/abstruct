@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../utils.ts";
+import { IsValidator } from "../utils.ts";
 import { print } from "../../utils.ts";
 
 /** Validator equivalent to strict inequality(`!==`) operator.
@@ -12,7 +12,7 @@ import { print } from "../../utils.ts";
  * const validator = new InequalityValidator(0);
  * ```
  */
-export class InequalityValidator extends ScalarValidator {
+export class InequalityValidator extends IsValidator {
   constructor(public value: unknown) {
     super();
   }

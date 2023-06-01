@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../utils.ts";
+import { IsValidator } from "../utils.ts";
 import { count } from "../../iter_utils.ts";
 
 /** Max count validator. It checks items count is less than or equal to {@link limit}.
@@ -13,7 +13,7 @@ import { count } from "../../iter_utils.ts";
  * const validator = new MaxCountValidator(limit);
  * ```
  */
-export class MaxCountValidator extends ScalarValidator<Iterable<unknown>> {
+export class MaxCountValidator extends IsValidator<Iterable<unknown>> {
   constructor(public limit: number) {
     super();
   }

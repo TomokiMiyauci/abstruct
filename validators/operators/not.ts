@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../utils.ts";
+import { IsValidator } from "../utils.ts";
 import { type Validator } from "../../types.ts";
 import { print } from "../../utils.ts";
 
@@ -16,7 +16,7 @@ import { print } from "../../utils.ts";
  * ```
  */
 export class NotValidator<In, A extends In = In>
-  extends ScalarValidator<In, Exclude<In, A>> {
+  extends IsValidator<In, Exclude<In, A>> {
   validator: Validator<In, A>;
 
   constructor(validator: Validator<In, A>) {

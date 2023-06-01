@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { ScalarValidator } from "../utils.ts";
+import { IsValidator } from "../utils.ts";
 import { print } from "../../utils.ts";
 
 /** Validator equivalent to less than(`>`) operator.
@@ -12,7 +12,7 @@ import { print } from "../../utils.ts";
  * const validator = new LessThanValidator(256);
  * ```
  */
-export class LessThanValidator<In> extends ScalarValidator<In> {
+export class LessThanValidator<In> extends IsValidator<In> {
   constructor(public base: In) {
     super();
   }
