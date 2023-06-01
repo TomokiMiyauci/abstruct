@@ -37,7 +37,7 @@ export interface ValidationContext<In = unknown> {
   input: In;
 }
 
-export interface Reporter<T = unknown> {
+export interface Expectation<T = unknown> {
   expect(message: string): this;
-  expect(report: (ctx: T) => string): this;
+  expect(report: (context: T) => string): this;
 }

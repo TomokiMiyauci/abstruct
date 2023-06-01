@@ -2,12 +2,12 @@
 // This module is browser compatible.
 
 import { type Constructor, interpolate } from "./deps.ts";
-import { type Reporter, type Validator } from "./types.ts";
+import { type Expectation, type Validator } from "./types.ts";
 import { count as getCount } from "./iter_utils.ts";
 import {
   createInst,
+  Expectable,
   print,
-  Reportable,
   shouldBe,
   shouldBeBut,
 } from "./utils.ts";
@@ -49,48 +49,48 @@ import { InValidator } from "./validators/operators/in.ts";
 import { ValidDateValidator } from "./validators/date/valid_date.ts";
 import { Error } from "./constants.ts";
 
-const $TypeValidator = /* @__PURE__ */ Reportable(TypeValidator);
-const $InstanceValidator = /* @__PURE__ */ Reportable(InstanceValidator);
-const $AndValidator = /* @__PURE__ */ Reportable(AndValidator);
-const $EnumValidator = /* @__PURE__ */ Reportable(EnumValidator);
-const $NullishValidator = /* @__PURE__ */ Reportable(NullishValidator);
-const $PatternValidator = /* @__PURE__ */ Reportable(PatternValidator);
-const $RangeValidator = /* @__PURE__ */ Reportable(RangeValidator);
-const $UniqueValidator = /* @__PURE__ */ Reportable(UniqueValidator);
-const $EqualityValidator = /* @__PURE__ */ Reportable(EqualityValidator);
-const $NegativeNumberValidator = /* @__PURE__ */ Reportable(
+const $TypeValidator = /* @__PURE__ */ Expectable(TypeValidator);
+const $InstanceValidator = /* @__PURE__ */ Expectable(InstanceValidator);
+const $AndValidator = /* @__PURE__ */ Expectable(AndValidator);
+const $EnumValidator = /* @__PURE__ */ Expectable(EnumValidator);
+const $NullishValidator = /* @__PURE__ */ Expectable(NullishValidator);
+const $PatternValidator = /* @__PURE__ */ Expectable(PatternValidator);
+const $RangeValidator = /* @__PURE__ */ Expectable(RangeValidator);
+const $UniqueValidator = /* @__PURE__ */ Expectable(UniqueValidator);
+const $EqualityValidator = /* @__PURE__ */ Expectable(EqualityValidator);
+const $NegativeNumberValidator = /* @__PURE__ */ Expectable(
   NegativeNumberValidator,
 );
-const $NonNegativeNumberValidator = /* @__PURE__ */ Reportable(
+const $NonNegativeNumberValidator = /* @__PURE__ */ Expectable(
   NonNegativeNumberValidator,
 );
-const $NonPositiveNumberValidator = /* @__PURE__ */ Reportable(
+const $NonPositiveNumberValidator = /* @__PURE__ */ Expectable(
   NonPositiveNumberValidator,
 );
-const $PositiveNumberValidator = /* @__PURE__ */ Reportable(
+const $PositiveNumberValidator = /* @__PURE__ */ Expectable(
   PositiveNumberValidator,
 );
-const $LessThanValidator = /* @__PURE__ */ Reportable(LessThanValidator);
-const $LessThanOrEqualValidator = /* @__PURE__ */ Reportable(
+const $LessThanValidator = /* @__PURE__ */ Expectable(LessThanValidator);
+const $LessThanOrEqualValidator = /* @__PURE__ */ Expectable(
   LessThanOrEqualValidator,
 );
-const $GreaterThanValidator = /* @__PURE__ */ Reportable(GreaterThanValidator);
-const $GreaterThanOrEqualValidator = /* @__PURE__ */ Reportable(
+const $GreaterThanValidator = /* @__PURE__ */ Expectable(GreaterThanValidator);
+const $GreaterThanOrEqualValidator = /* @__PURE__ */ Expectable(
   GreaterThanOrEqualValidator,
 );
-const $InequalityValidator = /* @__PURE__ */ Reportable(InequalityValidator);
-const $NotValidator = /* @__PURE__ */ Reportable(NotValidator);
-const $OrValidator = /* @__PURE__ */ Reportable(OrValidator);
-const $InValidator = /* @__PURE__ */ Reportable(InValidator);
-const $ValidDateValidator = /* @__PURE__ */ Reportable(ValidDateValidator);
-const $CountValidator = /* @__PURE__ */ Reportable(CountValidator);
-const $EmptyValidator = /* @__PURE__ */ Reportable(EmptyValidator);
-const $MaxCountValidator = /* @__PURE__ */ Reportable(MaxCountValidator);
-const $MinCountValidator = /* @__PURE__ */ Reportable(MinCountValidator);
-const $NonEmptyValidator = /* @__PURE__ */ Reportable(NonEmptyValidator);
-const $SingleValidator = /* @__PURE__ */ Reportable(SingleValidator);
-const $FloatValidator = /* @__PURE__ */ Reportable(FloatValidator);
-const $IntegerValidator = /* @__PURE__ */ Reportable(IntegerValidator);
+const $InequalityValidator = /* @__PURE__ */ Expectable(InequalityValidator);
+const $NotValidator = /* @__PURE__ */ Expectable(NotValidator);
+const $OrValidator = /* @__PURE__ */ Expectable(OrValidator);
+const $InValidator = /* @__PURE__ */ Expectable(InValidator);
+const $ValidDateValidator = /* @__PURE__ */ Expectable(ValidDateValidator);
+const $CountValidator = /* @__PURE__ */ Expectable(CountValidator);
+const $EmptyValidator = /* @__PURE__ */ Expectable(EmptyValidator);
+const $MaxCountValidator = /* @__PURE__ */ Expectable(MaxCountValidator);
+const $MinCountValidator = /* @__PURE__ */ Expectable(MinCountValidator);
+const $NonEmptyValidator = /* @__PURE__ */ Expectable(NonEmptyValidator);
+const $SingleValidator = /* @__PURE__ */ Expectable(SingleValidator);
+const $FloatValidator = /* @__PURE__ */ Expectable(FloatValidator);
+const $IntegerValidator = /* @__PURE__ */ Expectable(IntegerValidator);
 
 /** Validator factory for JavaScript data type.
  * The difference with `typeof` operator is that `"object"` does not match `null`.
@@ -376,7 +376,7 @@ export function and<
 >(
   v1: Validator<In, A>,
   v2: Validator<In2 | A, A2>,
-): AndValidator<In, A & A2> & Reporter<{ input: In }>;
+): AndValidator<In, A & A2> & Expectation<{ input: In }>;
 export function and<
   In,
   A extends In,
@@ -388,7 +388,7 @@ export function and<
   v1: Validator<In, A>,
   v2: Validator<In2 | A, A2>,
   v3: Validator<In3 | A & A2, A3>,
-): AndValidator<In, A & A2 & A3> & Reporter<{ input: In }>;
+): AndValidator<In, A & A2 & A3> & Expectation<{ input: In }>;
 export function and<
   In,
   A extends In,
@@ -403,7 +403,7 @@ export function and<
   v2: Validator<In2 | A, A2>,
   v3: Validator<In3 | A & A2, A3>,
   v4: Validator<In4 | A & A2 & A3, A4>,
-): AndValidator<In, A & A2 & A3 & A4> & Reporter<{ input: In }>;
+): AndValidator<In, A & A2 & A3 & A4> & Expectation<{ input: In }>;
 export function and<
   In,
   A extends In,
@@ -421,7 +421,7 @@ export function and<
   v3: Validator<In3 | A & A2, A3>,
   v4: Validator<In4 | A & A2 & A3, A4>,
   v5: Validator<In5 | A & A2 & A3 & A4, A5>,
-): AndValidator<In, A & A2 & A3 & A4 & A5> & Reporter<{ input: In }>;
+): AndValidator<In, A & A2 & A3 & A4 & A5> & Expectation<{ input: In }>;
 export function and(
   ...validators: readonly [Validator, Validator]
 ) {
@@ -657,7 +657,7 @@ export const positive = /* @__PURE__ */ new $PositiveNumberValidator()
  */
 export function pattern(
   pattern: RegExp,
-): PatternValidator & Reporter<{ input: string }> {
+): PatternValidator & Expectation<{ input: string }> {
   const validator = new $PatternValidator(pattern);
 
   return validator.expect(({ input }) =>

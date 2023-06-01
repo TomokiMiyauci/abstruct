@@ -3,7 +3,7 @@
 // deno-lint-ignore-file no-explicit-any
 
 import { Error } from "./constants.ts";
-import { type Reporter, ValidationFailure } from "./types.ts";
+import { type Expectation, ValidationFailure } from "./types.ts";
 import { interpolate, isBigint, isString } from "./deps.ts";
 
 export function fromPath(
@@ -73,12 +73,12 @@ export function entriesAll<T>(
   return result;
 }
 
-export function Reportable<T extends NewableFunction, U>(
+export function Expectable<T extends NewableFunction, U>(
   ctor: T & {
     new (...args: any): { validate(input: U): Iterable<ValidationFailure> };
   },
 ) {
-  class Reportable extends ctor implements Reporter<{ input: U }> {
+  class Expectable extends ctor implements Expectation<{ input: U }> {
     #messageFn?: (ctx: { input: U }) => string;
     expect(
       messageOrReport:
@@ -104,5 +104,5 @@ export function Reportable<T extends NewableFunction, U>(
     }
   }
 
-  return Reportable;
+  return Expectable;
 }

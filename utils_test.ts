@@ -3,11 +3,11 @@
 import {
   createInst,
   entriesAll,
+  Expectable,
   fromMessage,
   fromPath,
   print,
   printProps,
-  Reportable,
 } from "./utils.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
 import { ValidationFailure } from "./mod.ts";
@@ -112,14 +112,14 @@ describe("createInst", () => {
   });
 });
 
-describe("Reportable", () => {
+describe("Expectable", () => {
   it("should override failure message", () => {
     class V {
       validate() {
         return [{ message: "", instancePath: [] }];
       }
     }
-    const $V = Reportable(V);
+    const $V = Expectable(V);
 
     assertEquals([...new $V().expect(`test`).validate("")], [
       new ValidationFailure("test", { instancePath: [] }),
@@ -140,7 +140,7 @@ describe("Reportable", () => {
         return [{ message: "test", instancePath: [] }];
       }
     }
-    const $V = Reportable(V);
+    const $V = Expectable(V);
 
     assertEquals([...new $V().validate("")], [
       new ValidationFailure("test", { instancePath: [] }),
