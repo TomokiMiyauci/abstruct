@@ -109,10 +109,19 @@ export function type<T extends TypeStr>(of: T) {
   );
 }
 
+/** String validator. */
 export const string = /* @__PURE__ */ type("string");
+
+/** Number validator. */
 export const number = /* @__PURE__ */ type("number");
+
+/** Bigint validator. */
 export const bigint = /* @__PURE__ */ type("bigint");
+
+/** Boolean validator. */
 export const boolean = /* @__PURE__ */ type("boolean");
+
+/** Symbol validator. */
 export const symbol = /* @__PURE__ */ type("symbol");
 
 /** Factory for enumerator validator.

@@ -5,6 +5,92 @@ messages.
 
 They are also exported in the form of closures or, objects.
 
+## Common interface
+
+Binding includes the following interfaces.
+
+### Validator
+
+API to perform Validation. See [Validator](./validator.md) for details.
+
+### Expectation
+
+Objects with the `Expectation` interface can bind validation failure messages.
+
+Static message:
+
+```ts
+import { string } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
+
+const StringValidator = string.expect("should be string");
+```
+
+Dynamic message:
+
+The context is different for each object.
+
+```ts
+import { string } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
+
+const StringValidator = string.expect((context) =>
+  `should be string, but ${typeof context.input}`
+);
+```
+
+Objects implementing this interface also come with default messages.
+
+## List of bindings
+
+| Name                        | Closure / Object | Validator                   | Expectation |
+| --------------------------- | :--------------: | --------------------------- | :---------: |
+| [type](#type)               |     Closure      | TypeValidator               |     ✅      |
+| [string](#instance)         |      Object      | TypeValidator               |     ✅      |
+| [number](#instance)         |      Object      | TypeValidator               |     ✅      |
+| [bigint](#instance)         |      Object      | TypeValidator               |     ✅      |
+| [boolean](#instance)        |      Object      | TypeValidator               |     ✅      |
+| [symbol](#instance)         |      Object      | TypeValidator               |     ✅      |
+| [instance](#instance)       |     Closure      | InstanceValidator           |     ✅      |
+| [object](#object)           |     Closure      | ObjectValidator             |             |
+| [optional](#object)         |     Closure      | OptionalValidator           |             |
+| [enumerator](#enumerator)   |     Closure      | EnumValidator               |     ✅      |
+| [nullish](#nullish)         |      Object      | NullishValidator            |     ✅      |
+| [key](#key)                 |     Closure      | KeyValidator                |             |
+| [value](#value)             |     Closure      | ValueValidator              |             |
+| [and](#and)                 |     Closure      | AndValidator                |     ✅      |
+| [or](#or)                   |     Closure      | OrValidator                 |     ✅      |
+| [eq](#eq)                   |     Closure      | EqualityValidator           |     ✅      |
+| [ne](#ne)                   |     Closure      | InequalityValidator         |     ✅      |
+| [gt](#gt)                   |     Closure      | GreaterThanValidator        |     ✅      |
+| [gte](#gt)                  |     Closure      | GreaterThanOrEqualValidator |     ✅      |
+| [lt](#lt)                   |     Closure      | LessThanValidator           |     ✅      |
+| [lte](#lte)                 |     Closure      | LessThanOrEqualValidator    |     ✅      |
+| [between](#between)         |     Closure      | RangeValidator              |     ✅      |
+| [not](#not)                 |     Closure      | NotValidator                |     ✅      |
+| [has](#has)                 |     Closure      | InValidator                 |     ✅      |
+| [pattern](#pattern)         |     Closure      | PatternValidator            |     ✅      |
+| [item](#item)               |     Closure      | ItemValidator               |             |
+| [count](#count)             |     Closure      | CountValidator              |     ✅      |
+| [maxCount](#maxcount)       |     Closure      | MaxCountValidator           |     ✅      |
+| [minCount](#mincount)       |     Closure      | MinCountValidator           |     ✅      |
+| [single](#single)           |      Object      | SingleValidator             |     ✅      |
+| [empty](#single)            |      Object      | EmptyValidator              |     ✅      |
+| [nonEmpty](#nonempty)       |      Object      | NonEmptyValidator           |     ✅      |
+| [unique](#unique)           |      Object      | UniqueValidator             |     ✅      |
+| [fixedArray](#fixedarray)   |     Closure      | FixedArrayValidator         |             |
+| [float](#float)             |      Object      | FloatValidator              |     ✅      |
+| [int](#int)                 |      Object      | IntegerValidator            |     ✅      |
+| [positive](#positive)       |      Object      | PositiveNumberValidator     |     ✅      |
+| [negative](#negative)       |      Object      | NegativeNumberValidator     |     ✅      |
+| [nonPositive](#nonpositive) |      Object      | NonPositiveNumberValidator  |     ✅      |
+| [nonNegative](#nonnegative) |      Object      | NonNegativeNumberValidator  |     ✅      |
+| [int8](#int8)               |      Object      | -                           |     ✅      |
+| [int16](#int16)             |      Object      | -                           |     ✅      |
+| [int32](#int32)             |      Object      | -                           |     ✅      |
+| [uint8](#int8)              |      Object      | -                           |     ✅      |
+| [uint16](#int8)             |      Object      | -                           |     ✅      |
+| [uint32](#int8)             |      Object      | -                           |     ✅      |
+| [validDate](#validdate)     |      Object      | ValidDateValidator          |     ✅      |
+
 ## type
 
 Validator factory for JavaScript data type. The difference with `typeof`
@@ -14,6 +100,26 @@ operator is that `"object"` does not match `null`.
 import { type } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = type("object");
 ```
+
+## string
+
+String validator.
+
+## number
+
+Number validator.
+
+## bigint
+
+Bigint validator.
+
+## boolean
+
+Boolean validator.
+
+## symbol
+
+Symbol validator.
 
 ## instance
 
@@ -396,13 +502,13 @@ Positive number validator.
 
 Negative number validator.
 
-## nonNegative
-
-Non-negative number validator.
-
 ## nonPositive
 
 Non-positive number validator.
+
+## nonNegative
+
+Non-negative number validator.
 
 ## int8
 
