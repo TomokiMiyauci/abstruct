@@ -3,12 +3,36 @@
 import {
   createInst,
   entriesAll,
+  fromMessage,
+  fromPath,
   print,
   printProps,
   Reportable,
 } from "./utils.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
 import { ValidationFailure } from "./mod.ts";
+
+describe("fromMessage", () => {
+  it("should return new message failure", () => {
+    const failure = new ValidationFailure();
+    assertEquals(fromMessage(failure, "test"), new ValidationFailure("test"));
+  });
+
+  it("should return old message", () => {
+    const failure = new ValidationFailure("test");
+    assertEquals(fromMessage(failure, ""), new ValidationFailure("test"));
+  });
+});
+
+describe("fromPath", () => {
+  it("should return new instance path", () => {
+    const failure = new ValidationFailure("", { instancePath: [1, 2, 3] });
+    assertEquals(
+      fromPath(failure, 0),
+      new ValidationFailure("", { instancePath: [0, 1, 2, 3] }),
+    );
+  });
+});
 
 describe("print", () => {
   it("should display as", () => {
