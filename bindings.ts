@@ -97,7 +97,7 @@ const $IntegerValidator = /* @__PURE__ */ Reportable(IntegerValidator);
  *
  * @example
  * ```ts
- * import { type } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { type } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = type("object")
  * ```
  */
@@ -119,7 +119,7 @@ export const symbol = /* @__PURE__ */ type("symbol");
  *
  * @example
  * ```ts
- * import { enumerator } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { enumerator } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = enumerator(0, 1, 2, 3);
  * const validator2 = enumerator("Red", "Yellow", "Green");
  * ```
@@ -136,7 +136,7 @@ export function enumerator<const T>(
  *
  * @example
  * ```ts
- * import { instance } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { instance } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = instance(Array);
  * ```
  */
@@ -188,7 +188,7 @@ export const nullish = /* @__PURE__ */ new $NullishValidator().expect(
  *
  * @example
  * ```ts
- * import { eq } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { eq } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = eq(0);
  * ```
  */
@@ -200,7 +200,7 @@ export function eq<const A = unknown>(value: A) {
  *
  * @example
  * ```ts
- * import { lt } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { lt } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = lt(256);
  * ```
  */
@@ -212,7 +212,7 @@ export function lt<T>(base: T) {
  *
  * @example
  * ```ts
- * import { lte } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { lte } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = lte(255);
  * ```
  */
@@ -224,7 +224,7 @@ export function lte<T>(base: T) {
  *
  * @example
  * ```ts
- * import { gt } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { gt } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = gt(8);
  * ```
  */
@@ -236,7 +236,7 @@ export function gt<T>(base: T) {
  *
  * @example
  * ```ts
- * import { gte } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { gte } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = gte(8);
  * ```
  */
@@ -248,7 +248,7 @@ export function gte<T>(base: T) {
  *
  * @example
  * ```ts
- * import { ne } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { ne } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = ne(0);
  * ```
  */
@@ -335,7 +335,7 @@ export function or<In = unknown, A extends In = In>(
  *  gte,
  *  int,
  *  lte,
- * } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const _int8 = and(int, lte(128), gte(-127));
  * const __int8 = and(int, between(-127, 128));
  * ```
@@ -432,7 +432,7 @@ export function and(
  *
  * @example
  * ```ts
- * import { has } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { has } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = has("prop");
  * ```
  */
@@ -444,7 +444,7 @@ export function has<const K extends PropertyKey>(key: K) {
  *
  * @example
  * ```ts
- * import { between } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { between } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const numberRangeValidator = between(0, 255);
  * const dateRangeValidator = between(new Date("1970/1/1"), new Date("2038/1/19"));
  * ```
@@ -511,7 +511,7 @@ export const validDate = /* @__PURE__ */ new $ValidDateValidator().expect(
  *
  * @example
  * ```ts
- * import { count } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { count } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = count(5);
  * ```
  */
@@ -548,7 +548,7 @@ export const item = /* @__PURE__ */ createInst(ItemValidator);
  *
  * @example
  * ```ts
- * import { maxCount } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { maxCount } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * declare const limit: number;
  * const validator = maxCount(limit);
  * ```
@@ -563,7 +563,7 @@ export function maxCount(limit: number) {
  *
  * @example
  * ```ts
- * import { minCount } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { minCount } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * declare const limit: number;
  * const validator = minCount(limit);
  * ```
@@ -651,7 +651,7 @@ export const positive = /* @__PURE__ */ new $PositiveNumberValidator()
  *
  * @example
  * ```ts
- * import { pattern } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+ * import { pattern } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
  * const validator = pattern(/^\d*$/);
  * ```
  */

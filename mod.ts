@@ -69,7 +69,7 @@ export {
   unique,
   validDate,
   value,
-} from "./factories.ts";
+} from "./bindings.ts";
 export {
   BasicValidator,
   defineScalarValidator,

@@ -11,7 +11,7 @@ Validator factory for JavaScript data type. The difference with `typeof`
 operator is that `"object"` does not match `null`.
 
 ```ts
-import { type } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { type } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = type("object");
 ```
 
@@ -20,7 +20,7 @@ const validator = type("object");
 Validator factory equivalent to the `instanceof` operator.
 
 ```ts
-import { instance } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { instance } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = instance(Array);
 ```
 
@@ -55,7 +55,7 @@ const Profile = optional({ greeting: string, hobby: string });
 Factory for enumerator validator.
 
 ```ts
-import { enumerator } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { enumerator } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = enumerator(0, 1, 2, 3);
 const validator2 = enumerator("Red", "Yellow", "Green");
 ```
@@ -105,7 +105,7 @@ import {
   gte,
   int,
   lte,
-} from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+} from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const _int8 = and(int, lte(128), gte(-127));
 const __int8 = and(int, between(-127, 128));
 ```
@@ -215,7 +215,7 @@ For more information, see
 Validator factory equivalent to strict equality(`===`) operator.
 
 ```ts
-import { eq } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { eq } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = eq(0);
 ```
 
@@ -224,7 +224,7 @@ const validator = eq(0);
 Factory for validator equivalent to strict inequality(`!==`) operator.
 
 ```ts
-import { ne } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { ne } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = ne(0);
 ```
 
@@ -233,7 +233,7 @@ const validator = ne(0);
 Factory for validator equivalent to greater than(`<`) operator.
 
 ```ts
-import { gt } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { gt } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = gt(8);
 ```
 
@@ -242,7 +242,7 @@ const validator = gt(8);
 Factory for validator equivalent to greater than or equal(`<=`) operator.
 
 ```ts
-import { gte } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { gte } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = gte(8);
 ```
 
@@ -251,7 +251,7 @@ const validator = gte(8);
 Factory for validator equivalent to less than(`>`) operator.
 
 ```ts
-import { lt } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { lt } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = lt(256);
 ```
 
@@ -260,7 +260,7 @@ const validator = lt(256);
 Factory for validator equivalent to less than or equal to (`>=`) operator.
 
 ```ts
-import { lte } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { lte } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = lte(255);
 ```
 
@@ -269,7 +269,7 @@ const validator = lte(255);
 Factory for range validator.
 
 ```ts
-import { between } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { between } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const numberRangeValidator = between(0, 255);
 const dateRangeValidator = between(new Date("1970/1/1"), new Date("2038/1/19"));
 ```
@@ -293,7 +293,7 @@ const inversionValidator = not(validator);
 Factory for existence of property validator.
 
 ```ts
-import { has } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { has } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = has("prop");
 ```
 
@@ -302,7 +302,7 @@ const validator = has("prop");
 Factory for regex pattern validator.
 
 ```ts
-import { pattern } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { pattern } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = pattern(/^\d*$/);
 ```
 
@@ -324,7 +324,7 @@ const itemValidator = item(validator);
 Factory for count validator. It checks count(size, length) of items.
 
 ```ts
-import { count } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { count } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = count(5);
 ```
 
@@ -334,7 +334,7 @@ Factory for max count validator. It checks items count is less than or equal to
 `limit`.
 
 ```ts
-import { maxCount } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { maxCount } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 declare const limit: number;
 const validator = maxCount(limit);
 ```
@@ -345,7 +345,7 @@ Factory for min count validator. It checks items count is greater than or equal
 to `limit`.
 
 ```ts
-import { minCount } from "https://deno.land/x/abstruct@$VERSION/factories.ts";
+import { minCount } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 declare const limit: number;
 const validator = minCount(limit);
 ```

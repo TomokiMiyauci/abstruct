@@ -32,7 +32,7 @@ import {
   type,
   unique,
   validDate,
-} from "./factories.ts";
+} from "./bindings.ts";
 import { ValidationFailure } from "./types.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
 
