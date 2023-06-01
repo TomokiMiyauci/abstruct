@@ -201,7 +201,7 @@ export const nullish = /* @__PURE__ */ new $NullishValidator().expect(
  * const validator = eq(0);
  * ```
  */
-export function eq<const A = unknown>(value: A) {
+export function eq<const RIn = unknown>(value: RIn) {
   return new $EqualityValidator(value).expect(shouldBeBut);
 }
 
@@ -213,7 +213,7 @@ export function eq<const A = unknown>(value: A) {
  * const validator = lt(256);
  * ```
  */
-export function lt<T>(base: T) {
+export function lt<In>(base: In) {
   return new $LessThanValidator(base).expect(shouldBeBut);
 }
 
@@ -225,7 +225,7 @@ export function lt<T>(base: T) {
  * const validator = lte(255);
  * ```
  */
-export function lte<T>(base: T) {
+export function lte<In>(base: In) {
   return new $LessThanOrEqualValidator(base).expect(shouldBeBut);
 }
 
@@ -237,7 +237,7 @@ export function lte<T>(base: T) {
  * const validator = gt(8);
  * ```
  */
-export function gt<T>(base: T) {
+export function gt<In>(base: In) {
   return new $GreaterThanValidator(base).expect(shouldBeBut);
 }
 
@@ -249,7 +249,7 @@ export function gt<T>(base: T) {
  * const validator = gte(8);
  * ```
  */
-export function gte<T>(base: T) {
+export function gte<In>(base: In) {
   return new $GreaterThanOrEqualValidator(base).expect(shouldBeBut);
 }
 
@@ -460,7 +460,7 @@ export function has<const K extends PropertyKey>(key: K) {
  * const dateRangeValidator = between(new Date("1970/1/1"), new Date("2038/1/19"));
  * ```
  */
-export function between<T>(min: T, max: T) {
+export function between<In>(min: In, max: In) {
   return new $RangeValidator(min, max).expect(shouldBeBut);
 }
 

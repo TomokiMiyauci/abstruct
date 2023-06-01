@@ -17,16 +17,16 @@ import { type ValidationFailure, type Validator } from "../types.ts";
  * const keyValidator = new ValueValidator(validator);
  * ```
  */
-export class ValueValidator<In, RIn extends In = In>
-  extends BasicValidator<Record<string, In>, Record<string, RIn>> {
-  validator: Validator<In, RIn>;
+export class ValueValidator<T, U extends T = T>
+  extends BasicValidator<Record<string, T>, Record<string, U>> {
+  validator: Validator<T, U>;
 
-  constructor(validator: Validator<In, RIn>) {
+  constructor(validator: Validator<T, U>) {
     super();
     this.validator = validator;
   }
 
-  *validate(input: Record<string, In>): Iterable<ValidationFailure> {
+  *validate(input: Record<string, T>): Iterable<ValidationFailure> {
     for (const [key, value] of Object.entries(input)) {
       const createError = curryR(fromPath, key);
 

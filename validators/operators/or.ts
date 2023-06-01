@@ -16,7 +16,7 @@ import { iter } from "../../iter_utils.ts";
  * const validator = new OrValidator(v, v, v);
  * ```
  */
-export class OrValidator<in In = unknown, RIn extends In = In>
+export class OrValidator<In = unknown, RIn extends In = In>
   extends BasicValidator<In, RIn> {
   validators: [Validator<In, RIn>, Validator<In, RIn>, ...Validator<In, RIn>[]];
 

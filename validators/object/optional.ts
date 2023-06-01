@@ -18,24 +18,24 @@ import { ValidationFailure, Validator } from "../../types.ts";
  * ```
  */
 export class OptionalValidator<
-  In extends Record<PropertyKey, unknown>,
-  RIn extends In = In,
-> extends BasicValidator<Partial<In>, Partial<RIn>> {
+  T extends Record<PropertyKey, unknown>,
+  U extends T = T,
+> extends BasicValidator<Partial<T>, Partial<U>> {
   constructor(
     public validators:
-      & { [k in keyof In]: Validator<In[k], RIn[k]> }
-      & { [k in keyof RIn]: Validator<RIn[k]> },
+      & { [k in keyof T]: Validator<T[k], U[k]> }
+      & { [k in keyof U]: Validator<U[k]> },
   ) {
     super();
   }
 
-  *validate(input: Partial<In>): Iterable<ValidationFailure> {
+  *validate(input: Partial<T>): Iterable<ValidationFailure> {
     const validators = filterKeys(
       this.validators,
       Reflect.has.bind(this, input),
     ) as Record<string, Validator>;
 
-    yield* new ObjectValidator(validators).validate(input as In);
+    yield* new ObjectValidator(validators).validate(input as T);
   }
 
   override toString(): string {

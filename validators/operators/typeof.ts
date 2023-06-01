@@ -35,13 +35,13 @@ export type TypeStr = keyof TypeMap;
  * const iterable =new TypeValidator("string").validate(0);
  * ```
  */
-export class TypeValidator<T extends TypeStr>
-  extends IsValidator<unknown, TypeMap[T]> {
-  constructor(public of: T) {
+export class TypeValidator<RIn extends TypeStr>
+  extends IsValidator<unknown, TypeMap[RIn]> {
+  constructor(public of: RIn) {
     super();
   }
 
-  override is(input: unknown): input is TypeMap[T] {
+  override is(input: unknown): input is TypeMap[RIn] {
     return typeOf(input) === this.of;
   }
 
