@@ -8,6 +8,7 @@ import {
   Reportable,
 } from "./utils.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
+import { ValidationFailure } from "./mod.ts";
 
 describe("print", () => {
   it("should display as", () => {
@@ -96,21 +97,16 @@ describe("Reportable", () => {
     }
     const $V = Reportable(V);
 
-    assertEquals([...new $V().expect(`test`).validate("")], [{
-      message: "test",
-      instancePath: [],
-    }]);
-    assertEquals([...new $V().expect(`test`).expect(`test2`).validate("")], [{
-      message: "test2",
-      instancePath: [],
-    }]);
+    assertEquals([...new $V().expect(`test`).validate("")], [
+      new ValidationFailure("test", { instancePath: [] }),
+    ]);
+    assertEquals([...new $V().expect(`test`).expect(`test2`).validate("")], [
+      new ValidationFailure("test2", { instancePath: [] }),
+    ]);
 
     assertEquals([
       ...new $V().expect(`test`).expect(`test2`).expect(() => "test3")
         .validate(""),
-    ], [{
-      message: "test3",
-      instancePath: [],
-    }]);
+    ], [new ValidationFailure("test3", { instancePath: [] })]);
   });
 });

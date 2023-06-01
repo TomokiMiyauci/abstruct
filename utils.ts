@@ -96,9 +96,10 @@ export function Reportable<T extends NewableFunction, U>(
 
     override *validate(input: U): Iterable<ValidationFailure> {
       for (const failure of super.validate(input)) {
-        failure.message = this.#messageFn?.({ input }) || failure.message;
-
-        yield failure;
+        yield fromMessage(
+          failure,
+          this.#messageFn?.({ input }) || failure.message,
+        );
       }
     }
   }
