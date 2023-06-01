@@ -132,10 +132,20 @@ const ID = string.expect(({ input }) =>
 
 ## Documentation
 
-- [Validator](./docs//validator.md)
+You have very little to learn.
+
+- [Validator](./docs/validator.md)
 - [Validation](./docs/validation.md)
 - [Bindings](./docs/bindings.md)
 - [FAQ](./docs/faq.md)
+
+## Example
+
+Few examples of common patterns:
+
+- [Basic](./examples/basic.ts)
+- [Compose validators](./examples/compose_validators.ts)
+- [Custom message](./examples/custom_message.ts)
 
 ## Inspired by
 
