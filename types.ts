@@ -31,12 +31,6 @@ export interface ValidationFailureOptions {
   instancePath?: readonly PropertyKey[];
 }
 
-/** Validation context API. */
-export interface ValidationContext<In = unknown> {
-  /** The actual input. */
-  input: In;
-}
-
 export interface Expectation<T = unknown> {
   expect(message: string): this;
   expect(report: (context: T) => string): this;

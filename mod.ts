@@ -16,7 +16,6 @@ export {
 } from "./validation.ts";
 export {
   type Expectation,
-  type ValidationContext,
   ValidationFailure,
   type ValidationFailureOptions,
   type Validator,
