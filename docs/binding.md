@@ -103,25 +103,37 @@ const validator = type("object");
 
 ## string
 
+[![abstruct:string](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+string+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+string+%7D%5D#sharing)
+
 String validator.
 
 ## number
+
+[![abstruct:number](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+number+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+number+%7D%5D#sharing)
 
 Number validator.
 
 ## bigint
 
+[![abstruct:bigint](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+bigint+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+bigint+%7D%5D#sharing)
+
 Bigint validator.
 
 ## boolean
+
+[![abstruct:boolean](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+boolean+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+boolean+%7D%5D#sharing)
 
 Boolean validator.
 
 ## symbol
 
+[![abstruct:symbol](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+symbol+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+symbol+%7D%5D#sharing)
+
 Symbol validator.
 
 ## instance
+
+[![abstruct:instance](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+instance+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+instance+%7D%5D#sharing)
 
 Validator factory equivalent to the `instanceof` operator.
 
@@ -131,6 +143,8 @@ const validator = instance(Array);
 ```
 
 ## object
+
+[![abstruct:object](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+object+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+object+%7D%5D#sharing)
 
 Factory for object validator.
 
@@ -145,6 +159,8 @@ const User = object({ name: string, age: number });
 
 ## optional
 
+[![abstruct:optional](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+optional+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+optional+%7D%5D#sharing)
+
 Factory for optional properties validator.
 
 ```ts
@@ -158,6 +174,8 @@ const Profile = optional({ greeting: string, hobby: string });
 
 ## enumerator
 
+[![abstruct:enumerator](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+enumerator+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+enumerator+%7D%5D#sharing)
+
 Factory for enumerator validator.
 
 ```ts
@@ -168,9 +186,13 @@ const validator2 = enumerator("Red", "Yellow", "Green");
 
 ## nullish
 
+[![abstruct:nullish](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+nullish+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+nullish+%7D%5D#sharing)
+
 Nullish(`null` or `undefined`) validator.
 
 ## key
+
+[![abstruct:key](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+key+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+key+%7D%5D#sharing)
 
 Factory for property key validator.
 
@@ -185,6 +207,8 @@ const keyValidator = key(validator);
 
 ## value
 
+[![abstruct:value](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+value+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+value+%7D%5D#sharing)
+
 Factory for property value validator.
 
 ```ts
@@ -197,6 +221,8 @@ const valueValidator = value(validator);
 ```
 
 ## and
+
+[![abstruct:and](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+and+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+and+%7D%5D#sharing)
 
 Factory for validator composer like Logical AND.
 
@@ -218,7 +244,7 @@ const __int8 = and(int, between(-127, 128));
 
 note: [int8](#int8) provides.
 
-## Type-narrowing
+### Type-narrowing
 
 Composition of `and` is type-safe.
 
@@ -282,6 +308,8 @@ If more than that is needed, you must nest `and`.
 
 ## or
 
+[![abstruct:or](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+or+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+or+%7D%5D#sharing)
+
 Factory for validator composer like Logical OR.
 
 ```ts
@@ -318,6 +346,8 @@ For more information, see
 
 ## eq
 
+[![abstruct:eq](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+eq+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+eq+%7D%5D#sharing)
+
 Validator factory equivalent to strict equality(`===`) operator.
 
 ```ts
@@ -326,6 +356,8 @@ const validator = eq(0);
 ```
 
 ## ne
+
+[![abstruct:ne](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+ne+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+ne+%7D%5D#sharing)
 
 Factory for validator equivalent to strict inequality(`!==`) operator.
 
@@ -336,6 +368,8 @@ const validator = ne(0);
 
 ## gt
 
+[![abstruct:gt](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+gt+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+gt+%7D%5D#sharing)
+
 Factory for validator equivalent to greater than(`<`) operator.
 
 ```ts
@@ -344,6 +378,8 @@ const validator = gt(8);
 ```
 
 ## gte
+
+[![abstruct:gte](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+gte+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+gte+%7D%5D#sharing)
 
 Factory for validator equivalent to greater than or equal(`<=`) operator.
 
@@ -354,6 +390,8 @@ const validator = gte(8);
 
 ## lt
 
+[![abstruct:lt](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+lt+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+lt+%7D%5D#sharing)
+
 Factory for validator equivalent to less than(`>`) operator.
 
 ```ts
@@ -362,6 +400,8 @@ const validator = lt(256);
 ```
 
 ## lte
+
+[![abstruct:lte](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+lte+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+lte+%7D%5D#sharing)
 
 Factory for validator equivalent to less than or equal to (`>=`) operator.
 
@@ -372,6 +412,8 @@ const validator = lte(255);
 
 ## between
 
+[![abstruct:between](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+between+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+between+%7D%5D#sharing)
+
 Factory for range validator.
 
 ```ts
@@ -381,6 +423,8 @@ const dateRangeValidator = between(new Date("1970/1/1"), new Date("2038/1/19"));
 ```
 
 ## not
+
+[![abstruct:not](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+not+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+not+%7D%5D#sharing)
 
 Factory for validator inversion.
 
@@ -396,6 +440,8 @@ const inversionValidator = not(validator);
 
 ## has
 
+[![abstruct:has](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+has+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+has+%7D%5D#sharing)
+
 Factory for existence of property validator.
 
 ```ts
@@ -405,6 +451,8 @@ const validator = has("prop");
 
 ## pattern
 
+[![abstruct:pattern](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+pattern+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+pattern+%7D%5D#sharing)
+
 Factory for regex pattern validator.
 
 ```ts
@@ -413,6 +461,8 @@ const validator = pattern(/^\d*$/);
 ```
 
 ## item
+
+[![abstruct:item](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+item+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+item+%7D%5D#sharing)
 
 Factory for item validator. It checks each item of items.
 
@@ -427,6 +477,8 @@ const itemValidator = item(validator);
 
 ## count
 
+[![abstruct:count](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+count+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+count+%7D%5D#sharing)
+
 Factory for count validator. It checks count(size, length) of items.
 
 ```ts
@@ -435,6 +487,8 @@ const validator = count(5);
 ```
 
 ## maxCount
+
+[![abstruct:maxCount](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+maxCount+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+maxCount+%7D%5D#sharing)
 
 Factory for max count validator. It checks items count is less than or equal to
 `limit`.
@@ -447,6 +501,8 @@ const validator = maxCount(limit);
 
 ## minCount
 
+[![abstruct:minCount](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+minCount+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+minCount+%7D%5D#sharing)
+
 Factory for min count validator. It checks items count is greater than or equal
 to `limit`.
 
@@ -458,21 +514,31 @@ const validator = minCount(limit);
 
 ## single
 
+[![abstruct:single](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+single+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+single+%7D%5D#sharing)
+
 Single validator. It checks items is single.
 
 ## empty
+
+[![abstruct:empty](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+empty+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+empty+%7D%5D#sharing)
 
 Empty validator. It checks the items is empty.
 
 ## nonEmpty
 
+[![abstruct:nonEmpty](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+nonEmpty+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+nonEmpty+%7D%5D#sharing)
+
 Non-Empty validator. It checks items is non-empty.
 
 ## unique
 
+[![abstruct:unique](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+unique+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+unique+%7D%5D#sharing)
+
 Unique validator. It checks the each item is unique.
 
 ## fixedArray
+
+[![abstruct:fixedArray](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+fixedArray+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+fixedArray+%7D%5D#sharing)
 
 Factory for fixed array validator. It checks each item passes each `Validator`.
 
@@ -488,52 +554,78 @@ const validator = fixedArray(v1, v2);
 
 ## float
 
+[![abstruct:float](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+float+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+float+%7D%5D#sharing)
+
 Float validator.
 
 ## int
+
+[![abstruct:int](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+int+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+int+%7D%5D#sharing)
 
 Integer validator.
 
 ## positive
 
+[![abstruct:positive](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+positive+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+positive+%7D%5D#sharing)
+
 Positive number validator.
 
 ## negative
+
+[![abstruct:negative](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+negative+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+negative+%7D%5D#sharing)
 
 Negative number validator.
 
 ## nonPositive
 
+[![abstruct:nonPositive](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+nonPositive+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+nonPositive+%7D%5D#sharing)
+
 Non-positive number validator.
 
 ## nonNegative
+
+[![abstruct:nonNegative](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+nonNegative+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+nonNegative+%7D%5D#sharing)
 
 Non-negative number validator.
 
 ## int8
 
+[![abstruct:int8](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+int8+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+int8+%7D%5D#sharing)
+
 Integer in the range -127 ~ 128 validator.
 
 ## int16
+
+[![abstruct:int16](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+int16+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+int16+%7D%5D#sharing)
 
 Integer in the range -32768 ~ 32767 validator.
 
 ## int32
 
+[![abstruct:int32](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+int32+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+int32+%7D%5D#sharing)
+
 Integer in the range -2147483648 ~ 2147483647 validator.
 
 ## uint8
+
+[![abstruct:uint8](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+uint8+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+uint8+%7D%5D#sharing)
 
 Integer in the range 0 ~ 255 validator.
 
 ## uint16
 
+[![abstruct:uint16](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+uint16+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+uint16+%7D%5D#sharing)
+
 Integer in the range 0 ~ 65535 validator.
 
 ## uint32
 
+[![abstruct:uint32](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+uint32+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+uint32+%7D%5D#sharing)
+
 Integer in the range 0 ~ 4294967295 validator.
 
 ## validDate
+
+[![abstruct:validDate](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+validDate+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+validDate+%7D%5D#sharing)
 
 Valid `Date` validator.
