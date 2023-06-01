@@ -1,6 +1,13 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { BasicValidator, defineValidator, IsValidator, lazy } from "./utils.ts";
+import {
+  BasicValidator,
+  defineScalarValidator,
+  defineValidator,
+  IsValidator,
+  lazy,
+  ScalarValidator,
+} from "./utils.ts";
 import { TypeValidator } from "./operators/typeof.ts";
 import { ValidationFailure } from "../types.ts";
 import {
@@ -73,5 +80,39 @@ describe("defineValidator", () => {
 
     assert(validator.validate === validate);
     assert(validator.is(""));
+  });
+});
+
+describe("ScalarValidator", () => {
+  it("validate should yield if is function return string", () => {
+    class V extends ScalarValidator {
+      override check(): string | true {
+        return "";
+      }
+    }
+
+    assertFalse(new V().is(""));
+    assertEquals([...new V().validate("")], [new ValidationFailure()]);
+  });
+
+  it("validate should not yield if is function return true", () => {
+    class V extends ScalarValidator {
+      override check(): string | true {
+        return true;
+      }
+    }
+
+    assert(new V().is(""));
+    assertEquals([...new V().validate("")], []);
+  });
+});
+
+describe("defineScalarValidator", () => {
+  it("should return validator", () => {
+    const check = () => true as const;
+    const validator = defineScalarValidator<string, "a" | "b">(check);
+
+    assert(validator.is(""));
+    assertEquals([...validator.validate("")], []);
   });
 });

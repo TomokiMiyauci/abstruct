@@ -44,6 +44,61 @@ export function defineValidator<In, A extends In = In>(
   return new Validator();
 }
 
+/** Base validator for scalar.
+ *
+ * @example
+ * import { ScalarValidator } from "https://deno.land/x/abstruct@$VERSION/validators/utils.ts";
+ *
+ * class StringValidator extends ScalarValidator<unknown, string> {
+ *  check(input: unknown): true | string {
+ *    const typeOf = typeof input;
+ *
+ *    return typeOf === "string" || `should be string, actual ${typeOf}`;
+ *  }
+ * }
+ */
+export abstract class ScalarValidator<In = unknown, RIn extends In = In>
+  implements Validator<In, RIn> {
+  /** Check the input and return validation result.
+   * - `true`: The validation is success.
+   * - `string`: Reason for validation fail.
+   */
+  abstract check(input: In): true | string;
+
+  is(input: In): input is RIn {
+    return this.check(input) === true;
+  }
+
+  *validate(input: In): Iterable<ValidationFailure> {
+    const checked = this.check(input);
+
+    if (checked !== true) yield new ValidationFailure(checked);
+  }
+}
+
+/** Create validator from {@link check} function.
+ *
+ * @example
+ * ```ts
+ * import { defineScalarValidator } from "https://deno.land/x/abstruct@$VERSION/validators/utils.ts";
+ *
+ * const StringValidator = defineScalarValidator<unknown, string>((input) => {
+ *  const typeOf = typeof input;
+ *
+ *  return typeOf === "string" || `should be string, actual ${typeOf}`;
+ * });
+ * ```
+ */
+export function defineScalarValidator<In = unknown, RIn extends In = In>(
+  check: (input: In) => true | string,
+): Validator<In, RIn> {
+  class Validator extends ScalarValidator<In, RIn> {
+    check = check;
+  }
+
+  return new Validator();
+}
+
 /** Crate validator lazily.
  *
  * @example
