@@ -16,7 +16,7 @@ export { isNonPositiveNumber } from "https://deno.land/x/isx@1.4.0/numeric/is_no
 export { isValidDate } from "https://deno.land/x/isx@1.4.0/date/is_valid_date.ts";
 export { filterKeys } from "https://deno.land/std@0.187.0/collections/filter_keys.ts";
 export { maxBy } from "https://deno.land/std@0.187.0/collections/max_by.ts";
-import { default as escapeStringRegex } from "https://esm.sh/escape-string-regexp@5.0.0?pin=v122";
+import { default as escapeStringRegex } from "npm:escape-string-regexp@5.0.0";
 
 /** Whether the input is in range. It is inclusive.
  * @throws {RangeError} If max less than to min.

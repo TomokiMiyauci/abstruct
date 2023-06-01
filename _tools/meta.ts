@@ -97,9 +97,5 @@ export const makeOptions = (version: string): BuildOptions => ({
       version: "1.4.0",
       subPath: "numeric/is_non_positive_number.js",
     },
-    "https://esm.sh/escape-string-regexp@5.0.0?pin=v122": {
-      name: "escape-string-regexp",
-      version: "5.0.0",
-    },
   },
 });
