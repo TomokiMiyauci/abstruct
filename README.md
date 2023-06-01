@@ -136,7 +136,7 @@ You have very little to learn.
 
 - [Validator](./docs/validator.md)
 - [Validation](./docs/validation.md)
-- [Bindings](./docs/bindings.md)
+- [Binding](./docs/binding.md)
 - [FAQ](./docs/faq.md)
 
 ## Example

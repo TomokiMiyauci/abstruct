@@ -1,4 +1,4 @@
-# Bindings
+# Binding
 
 Provides ready-to-use functionality. They are bound with default failure
 messages.
