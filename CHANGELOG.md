@@ -1,3 +1,14 @@
+# [1.0.0-beta.8](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.7...1.0.0-beta.8) (2023-06-01)
+
+
+### Features
+
+* **deps:** update deps version ([70c12da](https://github.com/TomokiMiyauci/abstruct/commit/70c12dab6581d52b6f6de75bea23fb23a0f6a0cc))
+* **mod:** export validator utilities ([5e1e137](https://github.com/TomokiMiyauci/abstruct/commit/5e1e137a23f7a8e7e5d6fe5eda4279cbe0d26341))
+* **mod:** omit Reporter impl ([067b328](https://github.com/TomokiMiyauci/abstruct/commit/067b32881accb6e65975b470e3e2f62d65af97a8))
+* **utils:** add helper for validator definition ([2c907d4](https://github.com/TomokiMiyauci/abstruct/commit/2c907d4a0fd507da6015d6a7da61d95edfa69dae))
+* **utils:** add utility for define validator ([dd966ce](https://github.com/TomokiMiyauci/abstruct/commit/dd966ce741e331ede64ad2dd16823e60d6bbe8d6))
+
 # [1.0.0-beta.7](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.6...1.0.0-beta.7) (2023-05-31)
 
 
