@@ -74,11 +74,11 @@ export function entriesAll<T>(
 }
 
 export function Reportable<T extends NewableFunction, U>(
-  base: T & {
+  ctor: T & {
     new (...args: any): { validate(input: U): Iterable<ValidationFailure> };
   },
-): T & { new (...args: any): Reporter<{ input: U }> } {
-  class TBase extends base implements Reporter<{ input: U }> {
+) {
+  class Reportable extends ctor implements Reporter<{ input: U }> {
     #messageFn?: (ctx: { input: U }) => string;
     expect(
       messageOrReport:
@@ -94,9 +94,7 @@ export function Reportable<T extends NewableFunction, U>(
       return this;
     }
 
-    override *validate(
-      input: U,
-    ): Iterable<ValidationFailure> {
+    override *validate(input: U): Iterable<ValidationFailure> {
       for (const failure of super.validate(input)) {
         failure.message = this.#messageFn?.({ input }) || failure.message;
 
@@ -105,5 +103,5 @@ export function Reportable<T extends NewableFunction, U>(
     }
   }
 
-  return TBase;
+  return Reportable;
 }

@@ -1,6 +1,12 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { createInst, entriesAll, print, printProps } from "./utils.ts";
+import {
+  createInst,
+  entriesAll,
+  print,
+  printProps,
+  Reportable,
+} from "./utils.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
 
 describe("print", () => {
@@ -78,5 +84,33 @@ describe("createInst", () => {
     }
 
     createInst(A)();
+  });
+});
+
+describe("Reportable", () => {
+  it("should override failure message", () => {
+    class V {
+      validate() {
+        return [{ message: "", instancePath: [] }];
+      }
+    }
+    const $V = Reportable(V);
+
+    assertEquals([...new $V().expect(`test`).validate("")], [{
+      message: "test",
+      instancePath: [],
+    }]);
+    assertEquals([...new $V().expect(`test`).expect(`test2`).validate("")], [{
+      message: "test2",
+      instancePath: [],
+    }]);
+
+    assertEquals([
+      ...new $V().expect(`test`).expect(`test2`).expect(() => "test3")
+        .validate(""),
+    ], [{
+      message: "test3",
+      instancePath: [],
+    }]);
   });
 });
