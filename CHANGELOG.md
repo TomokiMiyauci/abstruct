@@ -1,3 +1,13 @@
+# [1.0.0-beta.9](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.8...1.0.0-beta.9) (2023-06-01)
+
+
+### Features
+
+* add readonly signature ([b477323](https://github.com/TomokiMiyauci/abstruct/commit/b47732397dd5e1b15c86035a9b35a2f4d7cfd844))
+* **deps:** use npm specifier instead of esm.sh ([256a4d3](https://github.com/TomokiMiyauci/abstruct/commit/256a4d3f5fbebada68a4d6f57b5e06c827cb0445))
+* **types:** remove unused types ([64a56bf](https://github.com/TomokiMiyauci/abstruct/commit/64a56bf9ccbd8bed5b04d3e3ae7e47a8d538cafe))
+* **types:** rename to `Expectation` ([747dbf6](https://github.com/TomokiMiyauci/abstruct/commit/747dbf6ccd89d78bc136eeafc4742199b12d0440))
+
 # [1.0.0-beta.8](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.7...1.0.0-beta.8) (2023-06-01)
 
 
