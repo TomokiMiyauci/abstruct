@@ -279,7 +279,7 @@ export function ne(value: unknown) {
  * ```
  */
 export function not<In, RIn extends In = In>(
-  validator: Validator<In, RIn>,
+  validator: Readonly<Validator<In, RIn>>,
 ) {
   new NotValidator(validator);
   return new $NotValidator(validator).expect(shouldBeBut);
@@ -322,9 +322,9 @@ export function not<In, RIn extends In = In>(
  * [Specifying Type Arguments](https://www.typescriptlang.org/docs/handbook/2/functions.html#specifying-type-arguments).
  */
 export function or<In = unknown, RIn extends In = In>(
-  v1: Validator<In, RIn>,
-  v2: Validator<In, RIn>,
-  ...validations: Validator<In, RIn>[]
+  v1: Readonly<Validator<In, RIn>>,
+  v2: Readonly<Validator<In, RIn>>,
+  ...validations: Readonly<Validator<In, RIn>>[]
 ) {
   new OrValidator(v1, v2);
   return new $OrValidator(v1, v2, ...validations).expect(shouldBe);
@@ -383,8 +383,8 @@ export function and<
   In2,
   RIn2 extends In2,
 >(
-  v1: Validator<In, RIn>,
-  v2: Validator<In2 | RIn, RIn2>,
+  v1: Readonly<Validator<In, RIn>>,
+  v2: Readonly<Validator<In2 | RIn, RIn2>>,
 ): AndValidator<In, RIn & RIn2> & Expectation<{ input: In }>;
 export function and<
   In,
@@ -394,9 +394,9 @@ export function and<
   In3,
   RIn3 extends In3,
 >(
-  v1: Validator<In, RIn>,
-  v2: Validator<In2 | RIn, RIn2>,
-  v3: Validator<In3 | RIn & RIn2, RIn3>,
+  v1: Readonly<Validator<In, RIn>>,
+  v2: Readonly<Validator<In2 | RIn, RIn2>>,
+  v3: Readonly<Validator<In3 | RIn & RIn2, RIn3>>,
 ): AndValidator<In, RIn & RIn2 & RIn3> & Expectation<{ input: In }>;
 export function and<
   In,
@@ -408,10 +408,10 @@ export function and<
   In4,
   RIn4 extends In4,
 >(
-  v1: Validator<In, RIn>,
-  v2: Validator<In2 | RIn, RIn2>,
-  v3: Validator<In3 | RIn & RIn2, RIn3>,
-  v4: Validator<In4 | RIn & RIn2 & RIn3, RIn4>,
+  v1: Readonly<Validator<In, RIn>>,
+  v2: Readonly<Validator<In2 | RIn, RIn2>>,
+  v3: Readonly<Validator<In3 | RIn & RIn2, RIn3>>,
+  v4: Readonly<Validator<In4 | RIn & RIn2 & RIn3, RIn4>>,
 ): AndValidator<In, RIn & RIn2 & RIn3 & RIn4> & Expectation<{ input: In }>;
 export function and<
   In,
@@ -425,16 +425,16 @@ export function and<
   In5,
   RIn5 extends In5,
 >(
-  v1: Validator<In, RIn>,
-  v2: Validator<In2 | RIn, RIn2>,
-  v3: Validator<In3 | RIn & RIn2, RIn3>,
-  v4: Validator<In4 | RIn & RIn2 & RIn3, RIn4>,
-  v5: Validator<In5 | RIn & RIn2 & RIn3 & RIn4, RIn5>,
+  v1: Readonly<Validator<In, RIn>>,
+  v2: Readonly<Validator<In2 | RIn, RIn2>>,
+  v3: Readonly<Validator<In3 | RIn & RIn2, RIn3>>,
+  v4: Readonly<Validator<In4 | RIn & RIn2 & RIn3, RIn4>>,
+  v5: Readonly<Validator<In5 | RIn & RIn2 & RIn3 & RIn4, RIn5>>,
 ):
   & AndValidator<In, RIn & RIn2 & RIn3 & RIn4 & RIn5>
   & Expectation<{ input: In }>;
 export function and(
-  ...validators: readonly [Validator, Validator]
+  ...validators: readonly [Readonly<Validator>, Readonly<Validator>]
 ) {
   return new $AndValidator(validators);
 }
@@ -667,7 +667,7 @@ export const positive = /* @__PURE__ */ new $PositiveNumberValidator()
  * ```
  */
 export function pattern(
-  pattern: RegExp,
+  pattern: Readonly<RegExp>,
 ): PatternValidator & Expectation<{ input: string }> {
   const validator = new $PatternValidator(pattern);
 

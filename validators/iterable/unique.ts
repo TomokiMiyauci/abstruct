@@ -21,7 +21,7 @@ export interface Context {
  */
 export class UniqueValidator extends BasicValidator<Iterable<unknown>> {
   override *validate(
-    input: Iterable<unknown>,
+    input: Readonly<Iterable<unknown>>,
   ): Iterable<ValidationFailure & Context> {
     for (const [index, item] of duplicates(input)) {
       yield { message: "", instancePath: [index], item, index };
@@ -35,7 +35,7 @@ export class UniqueValidator extends BasicValidator<Iterable<unknown>> {
 
 /** Yield duplicated items. */
 export function* duplicates<T>(
-  iterable: Iterable<T>,
+  iterable: Readonly<Iterable<T>>,
 ): Iterable<[index: number, item: T]> {
   const seen = new Set<T>();
 

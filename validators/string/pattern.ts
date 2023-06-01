@@ -12,8 +12,11 @@ import { IsValidator } from "../utils.ts";
  * ```
  */
 export class PatternValidator extends IsValidator<string> {
-  constructor(public pattern: RegExp) {
+  pattern: RegExp;
+
+  constructor(pattern: Readonly<RegExp>) {
     super();
+    this.pattern = pattern;
   }
 
   is(input: string): input is string {

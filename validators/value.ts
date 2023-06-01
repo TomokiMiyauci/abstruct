@@ -21,12 +21,12 @@ export class ValueValidator<T, U extends T = T>
   extends BasicValidator<Record<string, T>, Record<string, U>> {
   validator: Validator<T, U>;
 
-  constructor(validator: Validator<T, U>) {
+  constructor(validator: Readonly<Validator<T, U>>) {
     super();
     this.validator = validator;
   }
 
-  *validate(input: Record<string, T>): Iterable<ValidationFailure> {
+  *validate(input: Readonly<Record<string, T>>): Iterable<ValidationFailure> {
     for (const [key, value] of Object.entries(input)) {
       const createError = curryR(fromPath, key);
 

@@ -18,7 +18,7 @@ export class CountValidator extends IsValidator<Iterable<unknown>> {
     super();
   }
 
-  override is(input: Iterable<unknown>): input is Iterable<unknown> {
+  override is(input: Readonly<Iterable<unknown>>): input is Iterable<unknown> {
     return count(input) === this.of;
   }
 

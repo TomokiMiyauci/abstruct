@@ -7,7 +7,7 @@ import { type Expectation, ValidationFailure } from "./types.ts";
 import { interpolate, isBigint, isString } from "./deps.ts";
 
 export function fromPath(
-  failure: ValidationFailure,
+  failure: Readonly<ValidationFailure>,
   path: PropertyKey,
 ): ValidationFailure {
   const instancePath = [path, ...failure.instancePath];
@@ -16,7 +16,7 @@ export function fromPath(
 }
 
 export function fromMessage(
-  failure: ValidationFailure,
+  failure: Readonly<ValidationFailure>,
   message: string,
 ): ValidationFailure {
   return new ValidationFailure(message || failure.message, {
@@ -29,7 +29,7 @@ export function shouldBe(this: void): string {
 
 export function shouldBeBut(
   this: void,
-  { input }: { input: unknown },
+  { input }: Readonly<{ input: unknown }>,
 ): string {
   return interpolate(Error.ShouldBeBut, [print(this), print(input)]);
 }
@@ -52,7 +52,9 @@ export function print(input: unknown): string {
 
 /** Return printable properties.
  */
-export function printProps(input: Record<PropertyKey, unknown>): string {
+export function printProps(
+  input: Readonly<Record<PropertyKey, unknown>>,
+): string {
   const properties = entriesAll(input)
     .map(([key, value]) => `${key.toString()}: ${print(value)}`)
     .join(", ");
@@ -64,7 +66,7 @@ export function printProps(input: Record<PropertyKey, unknown>): string {
  * @param o Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
  */
 export function entriesAll<T>(
-  obj: { [k: PropertyKey]: T },
+  obj: Readonly<Record<PropertyKey, T>>,
 ): [string | symbol, T][] {
   const result = Reflect
     .ownKeys(obj)

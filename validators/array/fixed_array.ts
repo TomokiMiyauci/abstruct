@@ -26,14 +26,14 @@ export class FixedArrayValidator<
 
   constructor(
     ...validators:
-      & { [k in keyof In]: Validator<In[k], RIn[k]> }
-      & { [k in keyof RIn]: Validator<RIn[k], RIn[k]> }
+      & { readonly [k in keyof In]: Readonly<Validator<In[k], RIn[k]>> }
+      & { readonly [k in keyof RIn]: Readonly<Validator<RIn[k], RIn[k]>> }
   ) {
     super();
     this.validators = validators;
   }
 
-  *validate(input: In): Iterable<ValidationFailure> {
+  *validate(input: Readonly<In>): Iterable<ValidationFailure> {
     for (const [i, validator] of this.validators.entries()) {
       const value = input[i];
       const createError = curryR(fromPath, i);

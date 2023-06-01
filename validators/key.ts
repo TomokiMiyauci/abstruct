@@ -22,7 +22,7 @@ export class KeyValidator<T extends string = string>
   extends BasicValidator<{}, Record<T, unknown>> {
   validator: Validator<string, T>;
 
-  constructor(validator: Validator<string, T>) {
+  constructor(validator: Readonly<Validator<string, T>>) {
     super();
     this.validator = validator;
   }

@@ -21,9 +21,9 @@ export class OrValidator<In = unknown, RIn extends In = In>
   validators: [Validator<In, RIn>, Validator<In, RIn>, ...Validator<In, RIn>[]];
 
   constructor(
-    v1: Validator<In, RIn>,
-    v2: Validator<In, RIn>,
-    ...validations: Validator<In, RIn>[]
+    v1: Readonly<Validator<In, RIn>>,
+    v2: Readonly<Validator<In, RIn>>,
+    ...validations: Readonly<Validator<In, RIn>>[]
   ) {
     super();
     this.validators = [v1, v2, ...validations];
@@ -55,6 +55,6 @@ export class OrValidator<In = unknown, RIn extends In = In>
   }
 }
 
-function instancePathLength(failure: ValidationFailure): number {
+function instancePathLength(failure: Readonly<ValidationFailure>): number {
   return failure.instancePath.length;
 }

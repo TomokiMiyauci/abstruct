@@ -21,15 +21,19 @@ export class OptionalValidator<
   T extends Record<PropertyKey, unknown>,
   U extends T = T,
 > extends BasicValidator<Partial<T>, Partial<U>> {
+  validators:
+    & { [k in keyof T]: Validator<T[k], U[k]> }
+    & { [k in keyof U]: Validator<U[k]> };
   constructor(
-    public validators:
-      & { [k in keyof T]: Validator<T[k], U[k]> }
-      & { [k in keyof U]: Validator<U[k]> },
+    validators:
+      & { readonly [k in keyof T]: Readonly<Validator<T[k], U[k]>> }
+      & { readonly [k in keyof U]: Readonly<Validator<U[k]>> },
   ) {
     super();
+    this.validators = validators;
   }
 
-  *validate(input: Partial<T>): Iterable<ValidationFailure> {
+  *validate(input: Readonly<Partial<T>>): Iterable<ValidationFailure> {
     const validators = filterKeys(
       this.validators,
       Reflect.has.bind(this, input),

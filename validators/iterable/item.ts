@@ -19,11 +19,13 @@ import { type ValidationFailure, Validator } from "../../types.ts";
  */
 export class ItemValidator<T = unknown, U extends T = T>
   extends BasicValidator<Iterable<T>, Iterable<U>> {
-  constructor(public readonly validator: Validator<T, U>) {
+  validator: Validator<T, U>;
+  constructor(validator: Readonly<Validator<T, U>>) {
     super();
+    this.validator = validator;
   }
 
-  *validate(input: Iterable<T>): Iterable<ValidationFailure> {
+  *validate(input: Readonly<Iterable<T>>): Iterable<ValidationFailure> {
     for (const [i, el] of enumerate(input)) {
       const iterable = this.validator.validate(el);
       const createError = curryR(fromPath, i);

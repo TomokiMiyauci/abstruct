@@ -19,7 +19,7 @@ export class NotValidator<In, RIn extends In = In>
   extends IsValidator<In, Exclude<In, RIn>> {
   validator: Validator<In, RIn>;
 
-  constructor(validator: Validator<In, RIn>) {
+  constructor(validator: Readonly<Validator<In, RIn>>) {
     super();
     this.validator = validator;
   }
