@@ -37,11 +37,11 @@ export abstract class BasicValidator<In = unknown, RIn extends In = In>
 export function defineValidator<In, RIn extends In = In>(
   validate: (input: In) => Iterable<ValidationFailure>,
 ): Validator<In, RIn> {
-  class Validator extends BasicValidator<In, RIn> {
+  const validator = new class extends BasicValidator<In, RIn> {
     validate = validate;
-  }
+  }();
 
-  return new Validator();
+  return validator;
 }
 
 /** Base validator for scalar.
@@ -92,11 +92,11 @@ export abstract class ScalarValidator<In = unknown, RIn extends In = In>
 export function defineScalarValidator<In = unknown, RIn extends In = In>(
   check: (input: In) => true | string,
 ): Validator<In, RIn> {
-  class Validator extends ScalarValidator<In, RIn> {
+  const validator = new class extends ScalarValidator<In, RIn> {
     check = check;
-  }
+  }();
 
-  return new Validator();
+  return validator;
 }
 
 /** Crate validator lazily.
