@@ -19,12 +19,12 @@ import { ValidationFailure, Validator } from "../../types.ts";
  */
 export class OptionalValidator<
   In extends Record<PropertyKey, unknown>,
-  A extends In = In,
-> extends BasicValidator<Partial<In>, Partial<A>> {
+  RIn extends In = In,
+> extends BasicValidator<Partial<In>, Partial<RIn>> {
   constructor(
     public validators:
-      & { [k in keyof In]: Validator<In[k], A[k]> }
-      & { [k in keyof A]: Validator<A[k]> },
+      & { [k in keyof In]: Validator<In[k], RIn[k]> }
+      & { [k in keyof RIn]: Validator<RIn[k]> },
   ) {
     super();
   }

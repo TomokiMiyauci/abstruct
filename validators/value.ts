@@ -17,11 +17,11 @@ import { type ValidationFailure, type Validator } from "../types.ts";
  * const keyValidator = new ValueValidator(validator);
  * ```
  */
-export class ValueValidator<In, A extends In = In>
-  extends BasicValidator<Record<string, In>, Record<string, A>> {
-  validator: Validator<In, A>;
+export class ValueValidator<In, RIn extends In = In>
+  extends BasicValidator<Record<string, In>, Record<string, RIn>> {
+  validator: Validator<In, RIn>;
 
-  constructor(validator: Validator<In, A>) {
+  constructor(validator: Validator<In, RIn>) {
     super();
     this.validator = validator;
   }

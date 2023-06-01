@@ -16,14 +16,14 @@ import { iter } from "../../iter_utils.ts";
  * const validator = new OrValidator(v, v, v);
  * ```
  */
-export class OrValidator<in In = unknown, A extends In = In>
-  extends BasicValidator<In, A> {
-  validators: [Validator<In, A>, Validator<In, A>, ...Validator<In, A>[]];
+export class OrValidator<in In = unknown, RIn extends In = In>
+  extends BasicValidator<In, RIn> {
+  validators: [Validator<In, RIn>, Validator<In, RIn>, ...Validator<In, RIn>[]];
 
   constructor(
-    v1: Validator<In, A>,
-    v2: Validator<In, A>,
-    ...validations: Validator<In, A>[]
+    v1: Validator<In, RIn>,
+    v2: Validator<In, RIn>,
+    ...validations: Validator<In, RIn>[]
   ) {
     super();
     this.validators = [v1, v2, ...validations];

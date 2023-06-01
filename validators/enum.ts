@@ -11,14 +11,14 @@ import { IsValidator } from "./utils.ts";
  * const validator = new EnumValidator(1, 2, 3);
  * ```
  */
-export class EnumValidator<const A> extends IsValidator<unknown, A> {
-  values: [A, A, ...A[]];
-  constructor(v1: A, v2: A, ...values: readonly A[]) {
+export class EnumValidator<const RIn> extends IsValidator<unknown, RIn> {
+  values: [RIn, RIn, ...RIn[]];
+  constructor(v1: RIn, v2: RIn, ...values: readonly RIn[]) {
     super();
     this.values = [v1, v2, ...values];
   }
 
-  is(input: unknown): input is A {
+  is(input: unknown): input is RIn {
     return (this.values as unknown[]).includes(input);
   }
 

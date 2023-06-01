@@ -20,14 +20,14 @@ import { fromPath } from "../../utils.ts";
  */
 export class FixedArrayValidator<
   const in In extends readonly unknown[] = unknown[],
-  const out A extends In = In,
-> extends BasicValidator<In, A> {
+  const out RIn extends In = In,
+> extends BasicValidator<In, RIn> {
   validators: readonly Validator[];
 
   constructor(
     ...validators:
-      & { [k in keyof In]: Validator<In[k], A[k]> }
-      & { [k in keyof A]: Validator<A[k], A[k]> }
+      & { [k in keyof In]: Validator<In[k], RIn[k]> }
+      & { [k in keyof RIn]: Validator<RIn[k], RIn[k]> }
   ) {
     super();
     this.validators = validators;

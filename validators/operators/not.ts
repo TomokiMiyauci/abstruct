@@ -15,16 +15,16 @@ import { print } from "../../utils.ts";
  * const notValidator = new NotValidator(validator);
  * ```
  */
-export class NotValidator<In, A extends In = In>
-  extends IsValidator<In, Exclude<In, A>> {
-  validator: Validator<In, A>;
+export class NotValidator<In, RIn extends In = In>
+  extends IsValidator<In, Exclude<In, RIn>> {
+  validator: Validator<In, RIn>;
 
-  constructor(validator: Validator<In, A>) {
+  constructor(validator: Validator<In, RIn>) {
     super();
     this.validator = validator;
   }
 
-  is(input: In): input is Exclude<In, A> {
+  is(input: In): input is Exclude<In, RIn> {
     return !this.validator.is(input);
   }
 

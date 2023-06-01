@@ -92,11 +92,11 @@ export interface MultiAssertOptions extends AssertOptions, ValidateOptions {
  * @throws {ValidationError} If assertion is fail and {@link options.failFast} is true.
  * @throws {RangeError} If options.maxFailures is not positive integer.
  */
-export function assert<In = unknown, A extends In = In>(
-  validator: Readonly<Validator<In, A>>,
+export function assert<In = unknown, RIn extends In = In>(
+  validator: Readonly<Validator<In, RIn>>,
   input: In,
   options: Readonly<SingleAssertOptions | MultiAssertOptions> = {},
-): asserts input is A {
+): asserts input is RIn {
   const {
     failSlow,
     validation = {},
@@ -225,16 +225,16 @@ export interface ValidateOptions {
  *
  * @throws {RangeError} If the {@link ValidateOptions.maxFailures} is not positive integer.
  */
-export function validate<In = unknown, A extends In = In>(
-  validator: Readonly<Validator<In, A>>,
+export function validate<In = unknown, RIn extends In = In>(
+  validator: Readonly<Validator<In, RIn>>,
   input: In,
   options: Readonly<ValidateOptions> = {},
-): Result<A, [ValidationFailure, ...ValidationFailure[]]> {
+): Result<RIn, [ValidationFailure, ...ValidationFailure[]]> {
   const failures = [...take(validator.validate(input), options.maxFailures)];
 
   if (isNotEmpty(failures)) return new Err(failures);
 
-  return new Ok(input as A);
+  return new Ok(input as RIn);
 }
 
 /** Validation error.

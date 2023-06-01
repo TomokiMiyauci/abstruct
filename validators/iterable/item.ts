@@ -17,9 +17,9 @@ import { type ValidationFailure, Validator } from "../../types.ts";
  * const itemValidator = new ItemValidator(validator);
  * ```
  */
-export class ItemValidator<In = unknown, A extends In = In>
-  extends BasicValidator<Iterable<In>, Iterable<A>> {
-  constructor(public readonly validator: Validator<In, A>) {
+export class ItemValidator<In = unknown, RIn extends In = In>
+  extends BasicValidator<Iterable<In>, Iterable<RIn>> {
+  constructor(public readonly validator: Validator<In, RIn>) {
     super();
   }
 

@@ -4,18 +4,18 @@
 import { ValidationFailure, type Validator } from "../types.ts";
 import { isEmpty, memoize } from "../deps.ts";
 
-export abstract class IsValidator<In = unknown, A extends In = In>
-  implements Validator<In, A> {
-  abstract is(input: In): input is A;
+export abstract class IsValidator<In = unknown, RIn extends In = In>
+  implements Validator<In, RIn> {
+  abstract is(input: In): input is RIn;
 
   *validate(input: In): Iterable<ValidationFailure> {
     if (!this.is(input)) yield new ValidationFailure();
   }
 }
 
-export abstract class BasicValidator<In = unknown, A extends In = In>
-  implements Validator<In, A> {
-  is(input: In): input is A {
+export abstract class BasicValidator<In = unknown, RIn extends In = In>
+  implements Validator<In, RIn> {
+  is(input: In): input is RIn {
     return isEmpty(this.validate(input));
   }
 
@@ -34,10 +34,10 @@ export abstract class BasicValidator<In = unknown, A extends In = In>
  *  }
  * });
  */
-export function defineValidator<In, A extends In = In>(
+export function defineValidator<In, RIn extends In = In>(
   validate: (input: In) => Iterable<ValidationFailure>,
-): Validator<In, A> {
-  class Validator extends BasicValidator<In, A> {
+): Validator<In, RIn> {
+  class Validator extends BasicValidator<In, RIn> {
     validate = validate;
   }
 
@@ -109,12 +109,12 @@ export function defineScalarValidator<In = unknown, RIn extends In = In>(
  * const validator = lazy(() => v);
  * ```
  */
-export function lazy<In, A extends In = In>(
-  fn: () => Validator<In, A>,
-): Validator<In, A> {
+export function lazy<In, RIn extends In = In>(
+  fn: () => Validator<In, RIn>,
+): Validator<In, RIn> {
   const $fn = memoize(fn);
   const validator = {
-    is: (input: In): input is A => {
+    is: (input: In): input is RIn => {
       return $fn().is(input);
     },
     *validate(input: In): Iterable<ValidationFailure> {

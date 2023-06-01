@@ -278,8 +278,8 @@ export function ne(value: unknown) {
  * const inversionValidator = not(validator);
  * ```
  */
-export function not<In, A extends In = In>(
-  validator: Validator<In, A>,
+export function not<In, RIn extends In = In>(
+  validator: Validator<In, RIn>,
 ) {
   new NotValidator(validator);
   return new $NotValidator(validator).expect(shouldBeBut);
@@ -321,10 +321,10 @@ export function not<In, A extends In = In>(
  * For more information, see
  * [Specifying Type Arguments](https://www.typescriptlang.org/docs/handbook/2/functions.html#specifying-type-arguments).
  */
-export function or<In = unknown, A extends In = In>(
-  v1: Validator<In, A>,
-  v2: Validator<In, A>,
-  ...validations: Validator<In, A>[]
+export function or<In = unknown, RIn extends In = In>(
+  v1: Validator<In, RIn>,
+  v2: Validator<In, RIn>,
+  ...validations: Validator<In, RIn>[]
 ) {
   new OrValidator(v1, v2);
   return new $OrValidator(v1, v2, ...validations).expect(shouldBe);
@@ -379,58 +379,60 @@ export function or<In = unknown, A extends In = In>(
  */
 export function and<
   In,
-  A extends In,
+  RIn extends In,
   In2,
-  A2 extends In2,
+  RIn2 extends In2,
 >(
-  v1: Validator<In, A>,
-  v2: Validator<In2 | A, A2>,
-): AndValidator<In, A & A2> & Expectation<{ input: In }>;
+  v1: Validator<In, RIn>,
+  v2: Validator<In2 | RIn, RIn2>,
+): AndValidator<In, RIn & RIn2> & Expectation<{ input: In }>;
 export function and<
   In,
-  A extends In,
+  RIn extends In,
   In2,
-  A2 extends In2,
+  RIn2 extends In2,
   In3,
-  A3 extends In3,
+  RIn3 extends In3,
 >(
-  v1: Validator<In, A>,
-  v2: Validator<In2 | A, A2>,
-  v3: Validator<In3 | A & A2, A3>,
-): AndValidator<In, A & A2 & A3> & Expectation<{ input: In }>;
+  v1: Validator<In, RIn>,
+  v2: Validator<In2 | RIn, RIn2>,
+  v3: Validator<In3 | RIn & RIn2, RIn3>,
+): AndValidator<In, RIn & RIn2 & RIn3> & Expectation<{ input: In }>;
 export function and<
   In,
-  A extends In,
+  RIn extends In,
   In2,
-  A2 extends In2,
+  RIn2 extends In2,
   In3,
-  A3 extends In3,
+  RIn3 extends In3,
   In4,
-  A4 extends In4,
+  RIn4 extends In4,
 >(
-  v1: Validator<In, A>,
-  v2: Validator<In2 | A, A2>,
-  v3: Validator<In3 | A & A2, A3>,
-  v4: Validator<In4 | A & A2 & A3, A4>,
-): AndValidator<In, A & A2 & A3 & A4> & Expectation<{ input: In }>;
+  v1: Validator<In, RIn>,
+  v2: Validator<In2 | RIn, RIn2>,
+  v3: Validator<In3 | RIn & RIn2, RIn3>,
+  v4: Validator<In4 | RIn & RIn2 & RIn3, RIn4>,
+): AndValidator<In, RIn & RIn2 & RIn3 & RIn4> & Expectation<{ input: In }>;
 export function and<
   In,
-  A extends In,
+  RIn extends In,
   In2,
-  A2 extends In2,
+  RIn2 extends In2,
   In3,
-  A3 extends In3,
+  RIn3 extends In3,
   In4,
-  A4 extends In4,
+  RIn4 extends In4,
   In5,
-  A5 extends In5,
+  RIn5 extends In5,
 >(
-  v1: Validator<In, A>,
-  v2: Validator<In2 | A, A2>,
-  v3: Validator<In3 | A & A2, A3>,
-  v4: Validator<In4 | A & A2 & A3, A4>,
-  v5: Validator<In5 | A & A2 & A3 & A4, A5>,
-): AndValidator<In, A & A2 & A3 & A4 & A5> & Expectation<{ input: In }>;
+  v1: Validator<In, RIn>,
+  v2: Validator<In2 | RIn, RIn2>,
+  v3: Validator<In3 | RIn & RIn2, RIn3>,
+  v4: Validator<In4 | RIn & RIn2 & RIn3, RIn4>,
+  v5: Validator<In5 | RIn & RIn2 & RIn3 & RIn4, RIn5>,
+):
+  & AndValidator<In, RIn & RIn2 & RIn3 & RIn4 & RIn5>
+  & Expectation<{ input: In }>;
 export function and(
   ...validators: readonly [Validator, Validator]
 ) {

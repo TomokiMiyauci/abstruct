@@ -2,12 +2,12 @@
 // This module is browser compatible.
 
 /** Validator API. */
-export interface Validator<in In = unknown, out A extends In = In> {
+export interface Validator<In = unknown, RIn extends In = In> {
   /** Validates the input and yield validation errors if exists. */
   validate: (input: In) => Iterable<ValidationFailure>;
 
   /** Whether the input is valid or not. */
-  is: (input: In) => input is A;
+  is: (input: In) => input is RIn;
 }
 
 /** Validation failure. */

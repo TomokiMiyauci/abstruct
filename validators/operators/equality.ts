@@ -12,13 +12,13 @@ import { print } from "../../utils.ts";
  * const validator = new EqualityValidator(0);
  * ```
  */
-export class EqualityValidator<const A = unknown>
-  extends IsValidator<unknown, A> {
-  constructor(public value: A) {
+export class EqualityValidator<const RIn = unknown>
+  extends IsValidator<unknown, RIn> {
+  constructor(public value: RIn) {
     super();
   }
 
-  override is(input: unknown): input is A {
+  override is(input: unknown): input is RIn {
     return input === this.value;
   }
 

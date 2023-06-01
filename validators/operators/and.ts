@@ -15,11 +15,11 @@ import { type ValidationFailure, Validator } from "../../types.ts";
  * const validator = AndValidator.create(v, v, v)
  * ```
  */
-export class AndValidator<In = unknown, A extends In = In>
-  extends BasicValidator<In, A> {
-  validators: Validator<In, A>[];
+export class AndValidator<In = unknown, RIn extends In = In>
+  extends BasicValidator<In, RIn> {
+  validators: Validator<In, RIn>[];
 
-  constructor(validators: readonly Readonly<Validator<In, A>>[]) {
+  constructor(validators: readonly Readonly<Validator<In, RIn>>[]) {
     super();
     this.validators = [...validators];
   }
@@ -45,48 +45,55 @@ export class AndValidator<In = unknown, A extends In = In>
   }
 
   /** Create {@link AndValidator} instance. */
-  static create<In, A extends In = In, In2 = unknown, A2 extends In2 = In2>(
-    v1: Validator<In, A>,
-    v2: Validator<In2 | A, A2>,
-  ): AndValidator<In, A & A2>;
-  static create<In, A extends In, In2, A2 extends In2, In3, A3 extends In3>(
-    v1: Validator<In, A>,
-    v2: Validator<In2 | A, A2>,
-    v3: Validator<In3 | A & A2, A3>,
-  ): AndValidator<In, A & A2 & A3>;
+  static create<In, RIn extends In = In, In2 = unknown, RIn2 extends In2 = In2>(
+    v1: Validator<In, RIn>,
+    v2: Validator<In2 | RIn, RIn2>,
+  ): AndValidator<In, RIn & RIn2>;
   static create<
     In,
-    A extends In,
+    RIn extends In,
     In2,
-    A2 extends In2,
+    RIn2 extends In2,
     In3,
-    A3 extends In3,
-    In4,
-    A4 extends In4,
+    RIn3 extends In3,
   >(
-    v1: Validator<In, A>,
-    v2: Validator<In2 | A, A2>,
-    v3: Validator<In3 | A & A2, A3>,
-    v4: Validator<In4 | A & A2 & A3, A4>,
-  ): AndValidator<In, A & A2 & A3 & A4>;
+    v1: Validator<In, RIn>,
+    v2: Validator<In2 | RIn, RIn2>,
+    v3: Validator<In3 | RIn & RIn2, RIn3>,
+  ): AndValidator<In, RIn & RIn2 & RIn3>;
   static create<
     In,
-    A extends In,
+    RIn extends In,
     In2,
-    A2 extends In2,
+    RIn2 extends In2,
     In3,
-    A3 extends In3,
+    RIn3 extends In3,
     In4,
-    A4 extends In4,
+    RIn4 extends In4,
+  >(
+    v1: Validator<In, RIn>,
+    v2: Validator<In2 | RIn, RIn2>,
+    v3: Validator<In3 | RIn & RIn2, RIn3>,
+    v4: Validator<In4 | RIn & RIn2 & RIn3, RIn4>,
+  ): AndValidator<In, RIn & RIn2 & RIn3 & RIn4>;
+  static create<
+    In,
+    RIn extends In,
+    In2,
+    RIn2 extends In2,
+    In3,
+    RIn3 extends In3,
+    In4,
+    RIn4 extends In4,
     In5,
-    A5 extends In5,
+    RIn5 extends In5,
   >(
-    v1: Validator<In, A>,
-    v2: Validator<In2 | A, A2>,
-    v3: Validator<In3 | A & A2, A3>,
-    v4: Validator<In4 | A & A2 & A3, A4>,
-    v5: Validator<In5 | A & A2 & A3 & A4, A5>,
-  ): AndValidator<In, A & A2 & A3 & A4 & A5>;
+    v1: Validator<In, RIn>,
+    v2: Validator<In2 | RIn, RIn2>,
+    v3: Validator<In3 | RIn & RIn2, RIn3>,
+    v4: Validator<In4 | RIn & RIn2 & RIn3, RIn4>,
+    v5: Validator<In5 | RIn & RIn2 & RIn3 & RIn4, RIn5>,
+  ): AndValidator<In, RIn & RIn2 & RIn3 & RIn4 & RIn5>;
   static create(...validators: readonly Validator[]) {
     return new AndValidator(validators);
   }
