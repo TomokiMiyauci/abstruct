@@ -4,6 +4,8 @@ Utility to execute validation with the [Validator](./validator.md).
 
 ## validate
 
+[![abstruct:validate](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+validate+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+validate+%7D%5D#sharing)
+
 The `validate` executes the validator and returns a `Result` type. If validation
 succeeds, it returns `Ok(T)`. If it fails, it returns `Err(E)`.
 
@@ -87,6 +89,8 @@ Throws an error in the following cases:
 - `RangeError`: If [maxFailures](#maxfailures) is not positive integer.
 
 ## assert
+
+[![abstruct:assert](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+assert+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+assert+%7D%5D#sharing)
 
 Assert that the input passes validator.
 
