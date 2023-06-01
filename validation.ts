@@ -127,7 +127,7 @@ export function assert<In = unknown, A extends In = In>(
   function failure2Error(
     { message, instancePath }: Readonly<ValidationFailure>,
   ): Error {
-    message = message || (validation.message ?? "");
+    message ||= validation.message ?? "";
     const msg = makeMsg({ message, instancePath });
 
     return new VError(msg, { cause: validation.cause, instancePath });
