@@ -22,6 +22,28 @@ export abstract class BasicValidator<In = unknown, A extends In = In>
   abstract validate(input: In): Iterable<ValidationFailure>;
 }
 
+/** Create {@link Validator} from {@link Validator.validate}.
+ *
+ * @example
+ * import { defineValidator } from "https://deno.land/x/abstruct@$VERSION/validators/utils.ts";
+ *
+ * const StringValidator = defineValidator<unknown, string>(function* (input) {
+ *  const typeOf = typeof input;
+ *  if (typeOf !== "string") {
+ *    yield { message: `should be string, actual ${typeOf}`, instancePath: [] };
+ *  }
+ * });
+ */
+export function defineValidator<In, A extends In = In>(
+  validate: (input: In) => Iterable<ValidationFailure>,
+): Validator<In, A> {
+  class Validator extends BasicValidator<In, A> {
+    validate = validate;
+  }
+
+  return new Validator();
+}
+
 /** Crate validator lazily.
  *
  * @example

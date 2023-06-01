@@ -1,6 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { BasicValidator, IsValidator, lazy } from "./utils.ts";
+import { BasicValidator, defineValidator, IsValidator, lazy } from "./utils.ts";
 import { TypeValidator } from "./operators/typeof.ts";
 import { ValidationFailure } from "../types.ts";
 import {
@@ -63,5 +63,15 @@ describe("IsValidator", () => {
     }
 
     assertEquals([...new V().validate("")], []);
+  });
+});
+
+describe("defineValidator", () => {
+  it("should return validator", () => {
+    const validate = () => [];
+    const validator = defineValidator<string, "a" | "b">(validate);
+
+    assert(validator.validate === validate);
+    assert(validator.is(""));
   });
 });
