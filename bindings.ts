@@ -471,14 +471,14 @@ export function between<In>(min: In, max: In) {
  * @example
  * ```ts
  * import {
- *  key,
+ *  propKey,
  *  type Validator,
  * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
  * declare const validator: Validator<string>;
- * const keyValidator = key(validator);
+ * const keyValidator = propKey(validator);
  * ```
  */
-export const key = /* @__PURE__ */ createInst(PropertyKeyValidator);
+export const propKey = /* @__PURE__ */ createInst(PropertyKeyValidator);
 
 /** Factory for property value validator.
  *
@@ -486,13 +486,13 @@ export const key = /* @__PURE__ */ createInst(PropertyKeyValidator);
  * ```ts
  * import {
  *   type Validator,
- *   value,
+ *   propValue,
  * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
  * declare const validator: Validator;
- * const valueValidator = value(validator);
+ * const valueValidator = propValue(validator);
  * ```
  */
-export const value = /* @__PURE__ */ createInst(PropertyValueValidator);
+export const propValue = /* @__PURE__ */ createInst(PropertyValueValidator);
 
 // Array
 /** Factory for fixed array validator. It checks each item passes each {@link Validator}.

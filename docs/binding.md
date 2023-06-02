@@ -54,8 +54,8 @@ Objects implementing this interface also come with default messages.
 | [optional](#optional)       |     Closure      | OptionalValidator           |             |
 | [enumerator](#enumerator)   |     Closure      | EnumValidator               |     ✅      |
 | [nullish](#nullish)         |      Object      | NullishValidator            |     ✅      |
-| [key](#key)                 |     Closure      | PropertyKeyValidator        |             |
-| [value](#value)             |     Closure      | PropertyValueValidator      |             |
+| [propKey](#propkey)         |     Closure      | PropertyKeyValidator        |             |
+| [propValue](#propvalue)     |     Closure      | PropertyValueValidator      |             |
 | [and](#and)                 |     Closure      | AndValidator                |     ✅      |
 | [or](#or)                   |     Closure      | OrValidator                 |     ✅      |
 | [eq](#eq)                   |     Closure      | EqualityValidator           |     ✅      |
@@ -190,34 +190,34 @@ const validator2 = enumerator("Red", "Yellow", "Green");
 
 Nullish(`null` or `undefined`) validator.
 
-## key
+## propKey
 
-[![abstruct:key](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+key+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+key+%7D%5D#sharing)
+[![abstruct:propKey](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+propKey+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+propKey+%7D%5D#sharing)
 
 Factory for property key validator.
 
 ```ts
 import {
-  key,
+  propKey,
   type Validator,
 } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
 declare const validator: Validator<string>;
-const keyValidator = key(validator);
+const keyValidator = propKey(validator);
 ```
 
-## value
+## propValue
 
-[![abstruct:value](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+value+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+value+%7D%5D#sharing)
+[![abstruct:propValue](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+propValue+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+propValue+%7D%5D#sharing)
 
 Factory for property value validator.
 
 ```ts
 import {
+  propValue,
   type Validator,
-  value,
 } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
 declare const validator: Validator;
-const valueValidator = value(validator);
+const valueValidator = propValue(validator);
 ```
 
 ## and

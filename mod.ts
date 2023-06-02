@@ -40,7 +40,6 @@ export {
   int32,
   int8,
   item,
-  key,
   lt,
   lte,
   maxCount,
@@ -58,6 +57,8 @@ export {
   or,
   pattern,
   positive,
+  propKey,
+  propValue,
   single,
   string,
   symbol,
@@ -67,7 +68,6 @@ export {
   uint8,
   unique,
   validDate,
-  value,
 } from "./bindings.ts";
 export {
   BasicValidator,
