@@ -26,3 +26,13 @@ is because instantiation usually has a small overhead.
 Most bundlers will mark top-level calls as having side-effects.
 
 See [example:lib](../examples/lib.ts) for more information.
+
+## About bundle size
+
+Bundle sizes for individual modules are listed in the respective documentation.
+This is a reference value for bundle size.
+
+However, it should be noted that if multiple modules are used, they do not add
+up.
+
+This is because each module shares a reusable module.
