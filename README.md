@@ -146,6 +146,7 @@ Few examples of common patterns:
 - [Basic](./examples/basic.ts)
 - [Compose validators](./examples/compose_validators.ts)
 - [Custom message](./examples/custom_message.ts)
+- [As Library](./examples/lib.ts)
 
 ## Inspired by
 
