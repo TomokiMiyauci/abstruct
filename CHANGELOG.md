@@ -1,3 +1,15 @@
+# [1.0.0-beta.10](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.9...1.0.0-beta.10) (2023-06-02)
+
+
+### Features
+
+* **bindings:** rename to add prefix of prop ([ec6a956](https://github.com/TomokiMiyauci/abstruct/commit/ec6a956b01b06f56447c53563e0d04418746d411))
+* **deps:** replace escape regex module ([95ded0e](https://github.com/TomokiMiyauci/abstruct/commit/95ded0ee807d692176ca957e3ba845cdee2ffe10))
+* **mod:** export all validators ([e3f1106](https://github.com/TomokiMiyauci/abstruct/commit/e3f11068ad87d8039baf990430828d4286b491aa))
+* **properties:** rename to properties validator from object validator ([9ae301d](https://github.com/TomokiMiyauci/abstruct/commit/9ae301d6594460804ae8df0013324c1aae4790d1))
+* **property_key:** rename validator to property key from key ([db65b8e](https://github.com/TomokiMiyauci/abstruct/commit/db65b8ea017b0725e44817c9968b623fb65838ca))
+* **property_value:** rename validator to property value from value ([35b0bec](https://github.com/TomokiMiyauci/abstruct/commit/35b0bec2c6f0a98580ad40a8a805684b52c9f2d7))
+
 # [1.0.0-beta.9](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.8...1.0.0-beta.9) (2023-06-01)
 
 
