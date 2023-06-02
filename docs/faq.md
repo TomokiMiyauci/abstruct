@@ -14,3 +14,15 @@ created unnecessary complexity.
 
 It was a requirement that `validate` be able to lazily generate results, so the
 interface requires two functions.
+
+## How to use in library
+
+Don't forget to add a pure annotation so that users of your library will receive
+the appropriate tree-shaking.
+
+It is recommended that structure be defined at the top-level of the module. This
+is because instantiation usually has a small overhead.
+
+Most bundlers will mark top-level calls as having side-effects.
+
+See [example:lib](../examples/lib.ts) for more information.
