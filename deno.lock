@@ -1,0 +1,29 @@
+{
+  "version": "2",
+  "remote": {
+    "https://deno.land/std@0.186.0/fmt/colors.ts": "d67e3cd9f472535241a8e410d33423980bec45047e343577554d3356e1f0ef4e",
+    "https://deno.land/std@0.186.0/testing/_diff.ts": "1a3c044aedf77647d6cac86b798c6417603361b66b54c53331b312caeb447aea",
+    "https://deno.land/std@0.186.0/testing/_format.ts": "a69126e8a469009adf4cf2a50af889aca364c349797e63174884a52ff75cf4c7",
+    "https://deno.land/std@0.186.0/testing/_test_suite.ts": "30f018feeb3835f12ab198d8a518f9089b1bcb2e8c838a8b615ab10d5005465c",
+    "https://deno.land/std@0.186.0/testing/asserts.ts": "e16d98b4d73ffc4ed498d717307a12500ae4f2cbe668f1a215632d19fcffc22f",
+    "https://deno.land/std@0.186.0/testing/bdd.ts": "59f7f7503066d66a12e50ace81bfffae5b735b6be1208f5684b630ae6b4de1d0",
+    "https://deno.land/std@0.186.0/testing/mock.ts": "220ed9b8151cb2cac141043d4cfea7c47673fab5d18d1c1f0943297c8afb5d13",
+    "https://deno.land/std@0.186.0/testing/types.ts": "6832887bea73ee3549dda953a8df41f8bfa8790219ab56a3b94b984a71a3b3e9",
+    "https://deno.land/std@0.187.0/collections/filter_keys.ts": "3b99bd98d347f23b8fe8183b108077ae6e467707e80798e768c11eb86fff49c9",
+    "https://deno.land/std@0.187.0/collections/max_by.ts": "2adb39effb8df0e1c99c7c7745a994c3bac0f3405474766cd262d7eba8b0ec6f",
+    "https://deno.land/x/escape_string_regexp@v0.0.1/mod.ts": "23a8025f4567d5bc0ab5dee2d976212bb66173bb1a80cb6aa72a5a6d7443ed7a",
+    "https://deno.land/x/isx@1.4.0/date/is_valid_date.ts": "125c0517104cda31599114a86bb21270624a81d28ffd032ecbc385ff559fb083",
+    "https://deno.land/x/isx@1.4.0/is_bigint.ts": "fa89dc037f8dc20a24104489ccc35728e1d5c4eae033de1c79efc96dad7451ca",
+    "https://deno.land/x/isx@1.4.0/is_null.ts": "02b30255073843d001e715a04382f1d6aebd77ed5506ffbb44bf77b9e20ebf7d",
+    "https://deno.land/x/isx@1.4.0/is_nullable.ts": "4d1b95dd93aad6c4740f19eb00b9caccd977c52ea170d0e5c3130eeabf6e5292",
+    "https://deno.land/x/isx@1.4.0/is_string.ts": "268254eab5f8dbc09ee879eb53675813cdc5350207dde436d457cb34462cc857",
+    "https://deno.land/x/isx@1.4.0/is_undefined.ts": "561d7787e74bc56f83870df386bd0ed81d8006f2ee0062cf8903589fc89c51ac",
+    "https://deno.land/x/isx@1.4.0/iterable/is_empty.ts": "50951052c78e80eee4178ee07c7c17dd1d88134fb34223d51f2d592448e96026",
+    "https://deno.land/x/isx@1.4.0/iterable/is_not_empty.ts": "6f9139c8cc89745add8c880f4aec0359ed8da19842287b409c9e62d1ccd292a7",
+    "https://deno.land/x/isx@1.4.0/iterable/is_single.ts": "265608704eb4a83c22d8da216c2ddac0d6d44ec43762b039ce136281d24237c5",
+    "https://deno.land/x/isx@1.4.0/numeric/is_negative_number.ts": "e4fabe353789b27ebbd1b1292728cb4ba05ce9a19be46d769fd5f97021964a8b",
+    "https://deno.land/x/isx@1.4.0/numeric/is_non_negative_number.ts": "7a4575105225d4337fafa6686db52dec98adab019c6fc08634a24d9ebd88acf6",
+    "https://deno.land/x/isx@1.4.0/numeric/is_non_positive_number.ts": "e2aa5b8605de2cd2d98906a29231db5671e522252bdf0327a10e20a663b13c33",
+    "https://deno.land/x/isx@1.4.0/numeric/is_positive_number.ts": "73d37328a385b3c24b7acebb0d4b444ebbc799c24f91fe6c0d845dfe4c9d47ae"
+  }
+}

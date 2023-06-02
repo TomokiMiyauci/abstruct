@@ -9,79 +9,31 @@
 [![test](https://github.com/TomokiMiyauci/abstruct/actions/workflows/test.yaml/badge.svg)](https://github.com/TomokiMiyauci/abstruct/actions/workflows/test.yaml)
 [![NPM](https://nodei.co/npm/abstruct.png?mini=true)](https://nodei.co/npm/abstruct/)
 
-Composable, validation for JavaScript data
+Abstract structure for JavaScript data validation
 
-Abstruct(not abstract!) provides functions for defining data structures. It also
-has an abstract interface that allows data structures to be used for any
-operation. For example, validation.
+Abstruct(not abstract!) provides features for defining data structures. It used
+for any operation. For example, validation.
 
-## Features
+## Usage
 
-- Composable
-
-  It is composable and you only pay the cost for what you need. All features are
-  supported around this feature.
-
-- High performance
-
-  We actively employ delay evaluation. It is not performed until it is needed.
-  Composable allows each module to take on only one responsibility. Therefore,
-  there is very little duplication of logic.
-
-- Tiny
-
-  Great care is taken to keep code size small. Composable also contributes to
-  size.
-
-- Library first
-
-  It can be used with any 3rd party library. Therefore, it is small and care is
-  taken not to bring unnecessary code into the library.
-
-Also, as a validation,
-
-- Default error messages
-
-  Validator consists of a very small default error message. You can begin
-  validation out of box.
-
-- Error message first
-
-  Error messages are the central issue in validation. The appropriate error
-  message depends on the recipient. The default error message may not be the
-  best for every subject. The solution to this challenge is to make them fully
-  customizable.
-
-- Upstream definition
-
-  Error messages can be bound to data structures. Therefore, messages can be
-  defined very close to the data structure definition. There is no need to
-  create error messages from errors.
-
-- Type assertion
-
-  The validator can assert the type of the input. This allows the validation
-  result to be automatically type inferred.
-
-## Quick view
+Define the data structure and validate.
 
 ```ts
 import {
   and,
   assert,
-  max,
-  number,
-  object,
+  maxCount,
   pattern,
+  props,
   string,
   validDate,
 } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
 import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 
 const Id = and(string, pattern(/^\d$/));
-const Book = object({
+const Book = props({
   id: Id,
-  title: maxCount(256).expect(`should be less than or equal to 256`),
+  title: maxCount(256).expect(`length should be less than or equal to 256`),
   publishAt: validDate,
 });
 
@@ -93,6 +45,117 @@ assertThrows(() =>
   })
 );
 ```
+
+Validators do only one thing, so they can be combined to make new validator.
+
+```ts
+import {
+  and,
+  gte,
+  int,
+  lte,
+  validate,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+
+const Int8 = and(
+  int,
+  gte(-127),
+  lte(128),
+);
+declare const input: number;
+
+const result = validate(Int8, input);
+
+if (result.isOk()) {
+  // result.value;
+} else {
+  // result.value;
+}
+```
+
+And narrowing works correctly.
+
+```ts
+import {
+  and,
+  assert,
+  gte,
+  instance,
+  lte,
+  validDate,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { Assert, IsExact } from "https://deno.land/std/testing/types.ts";
+
+const ValidDate = and(
+  instance(Date),
+  validDate,
+  gte(new Date("1970/1/1")),
+  lte(new Date("2038/1/19")),
+);
+const input: unknown = null;
+
+assert(ValidDate, input);
+
+type doTest = Assert<IsExact<typeof input, Date>, true>;
+```
+
+Fully customizable messages:
+
+```ts
+import { int8, string } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+
+const Int8 = int8.expect("should be int8!!!");
+const ID = string.expect(({ input }) =>
+  `id should be string, actual ${typeof input}`
+);
+```
+
+## Philosophy
+
+1. Composable: All features are composable. Being composable brings the
+   following features:
+
+   - Single responsibility
+   - DRY
+   - Pay as you go
+   - Customizable
+   - Tiny
+
+2. Library first: It can use in library. To fulfill this, special attention has
+   been paid to the following:
+
+   - Universal
+   - Customizable
+   - Tiny
+
+3. Type first: Type safety is a matter of course.
+
+## Documentation
+
+You have very little to learn.
+
+- [Validator](./docs/validator.md)
+- [Validation](./docs/validation.md)
+- [Binding](./docs/binding.md)
+- [FAQ](./docs/faq.md)
+
+## Example
+
+Few examples of common patterns:
+
+- [Basic](./examples/basic.ts)
+- [Compose validators](./examples/compose_validators.ts)
+- [Custom message](./examples/custom_message.ts)
+- [As Library](./examples/lib.ts)
+
+## Inspired by
+
+- [JSON Type Definition](https://github.com/jsontypedef)
+- [JSON schema](https://github.com/json-schema-org)
+- [superstruct](https://github.com/ianstormtaylor/superstruct)
+- [joi](https://github.com/hapijs/joi)
+- [io-ts](https://github.com/gcanti/io-ts)
+- [zod](https://github.com/colinhacks/zod)
 
 ## License
 
