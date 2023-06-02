@@ -18,7 +18,8 @@ import { ValidationFailure, Validator } from "../../types.ts";
  * ```
  */
 export class OptionalValidator<
-  T extends Record<PropertyKey, unknown>,
+  // deno-lint-ignore ban-types
+  T extends object,
   U extends T = T,
 > extends BasicValidator<Partial<T>, Partial<U>> {
   validators:
@@ -26,8 +27,8 @@ export class OptionalValidator<
     & { [k in keyof U]: Validator<U[k]> };
   constructor(
     validators:
-      & { readonly [k in keyof T]: Readonly<Validator<T[k], U[k]>> }
-      & { readonly [k in keyof U]: Readonly<Validator<U[k]>> },
+      & { readonly [k in keyof T]-?: Readonly<Validator<T[k], U[k]>> }
+      & { readonly [k in keyof U]-?: Readonly<Validator<U[k]>> },
   ) {
     super();
     this.validators = validators;
@@ -39,7 +40,7 @@ export class OptionalValidator<
       Reflect.has.bind(this, input),
     ) as Record<string, Validator>;
 
-    yield* new PropertiesValidator(validators).validate(input as T);
+    yield* new PropertiesValidator(validators).validate(input);
   }
 
   override toString(): string {
