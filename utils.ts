@@ -109,3 +109,12 @@ export function Expectable<T extends NewableFunction, U>(
 
   return Expectable;
 }
+
+/** join by dot.  */
+export function joinDot(...rest: readonly unknown[]): string {
+  const str = rest
+    .map(String)
+    .join(".");
+
+  return str;
+}

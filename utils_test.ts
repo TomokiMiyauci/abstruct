@@ -6,6 +6,7 @@ import {
   Expectable,
   fromMessage,
   fromPath,
+  joinDot,
   print,
   printProps,
 } from "./utils.ts";
@@ -148,5 +149,22 @@ describe("Expectable", () => {
       message: "test",
       instancePath: [],
     }]);
+  });
+});
+
+describe("joinDot", () => {
+  it("should return string", () => {
+    const table: [[unknown, ...unknown[]], string][] = [
+      [[""], ""],
+      [["a"], "a"],
+      [["a", "b"], "a.b"],
+      [["", ""], "."],
+      [["", "a"], ".a"],
+      [["a", ""], "a."],
+    ];
+
+    table.forEach(([input, expected]) => {
+      assertEquals(joinDot(...input), expected);
+    });
   });
 });

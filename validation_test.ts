@@ -6,6 +6,7 @@ import {
   assertEquals,
   assertFalse,
   assertIsError,
+  assertMatch,
   assertThrows,
   describe,
   it,
@@ -21,6 +22,52 @@ describe("assert", () => {
     assertFalse(assert(v, ""));
     assertFalse(assert(v, "", { failSlow: true }));
     assertFalse(assert(v, "", { failSlow: true, maxFailures: 1 }));
+  });
+
+  it("should expose instance path info by default", () => {
+    let err;
+    try {
+      assert(
+        { ...v, validate: () => [{ message: "test", instancePath: ["a"] }] },
+        "",
+      );
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, ValidationError);
+      assertMatch(err.message, /^test\ninstance path: a$/);
+    }
+  });
+
+  it("should not expose instance path info if the instance path is empty", () => {
+    let err;
+    try {
+      assert(
+        { ...v, validate: () => [{ message: "test", instancePath: [] }] },
+        "",
+      );
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, ValidationError);
+      assertMatch(err.message, /^test$/);
+    }
+  });
+
+  it("should hide instance path info", () => {
+    let err;
+    try {
+      assert(
+        { ...v, validate: () => [{ message: "test", instancePath: ["a"] }] },
+        "",
+        { pathInfo: { hide: true } },
+      );
+    } catch (e) {
+      err = e;
+    } finally {
+      assertIsError(err, ValidationError);
+      assertMatch(err.message, /^test$/);
+    }
   });
 
   describe("fail fast", () => {

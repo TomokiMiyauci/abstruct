@@ -1,7 +1,9 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { isNotEmpty } from "./deps.ts";
+import { INSTANCE_PATH } from "./constants.ts";
+import { interpolate, isNotEmpty } from "./deps.ts";
+import { joinDot } from "./utils.ts";
 import { type ValidationFailure, Validator } from "./types.ts";
 import { take } from "./iter_utils.ts";
 
@@ -35,6 +37,16 @@ interface AggregationConfigs extends ErrorConfigs {
   };
 }
 
+/** Instance path info options. */
+export interface PathInfoOptions {
+  /** Whether to keep instance path information private.
+   * - `true`: private.
+   * - `false`: public.
+   * @default false
+   */
+  private?: boolean;
+}
+
 /** Assert options. */
 export interface AssertOptions {
   /** Validation error configs. */
@@ -46,6 +58,9 @@ export interface AssertOptions {
    * @default false
    */
   failSlow?: boolean;
+
+  /** Instance path info options. */
+  pathInfo?: PathInfoOptions;
 }
 
 /** Single assert options. */
@@ -100,6 +115,7 @@ export function assert<In = unknown, RIn extends In = In>(
   const {
     failSlow,
     validation = {},
+    pathInfo = {},
   } = options;
   const maxFailures = failSlow ? options.maxFailures : 1;
   const result = validate(validator, input, { maxFailures });
@@ -128,9 +144,14 @@ export function assert<In = unknown, RIn extends In = In>(
     { message, instancePath }: Readonly<ValidationFailure>,
   ): Error {
     message ||= validation.message ?? "";
-    const msg = makeMsg({ message, instancePath });
 
-    return new VError(msg, { cause: validation.cause, instancePath });
+    if (!pathInfo.private && isNotEmpty(instancePath)) {
+      const pathRepr = joinDot(...instancePath);
+
+      message += "\n" + interpolate(INSTANCE_PATH, [pathRepr]);
+    }
+
+    return new VError(message, { cause: validation.cause, instancePath });
   }
 
   // deno-lint-ignore ban-types
@@ -248,7 +269,7 @@ export function validate<In = unknown, RIn extends In = In>(
  * });
  * ```
  */
-export class ValidationError extends Error {
+export class ValidationError extends Error implements ValidationFailure {
   /** The path to a part of the instance. */
   instancePath: PropertyKey[];
 
@@ -257,7 +278,7 @@ export class ValidationError extends Error {
 
   constructor(
     message?: string,
-    options: ValidationErrorOptions = {},
+    options: Readonly<ValidationErrorOptions> = {},
   ) {
     super(message, options);
     this.instancePath = options.instancePath ?? [];
@@ -312,43 +333,4 @@ export type Result<T, E> = Ok<T> | Err<E>;
 export interface ValidationErrorOptions extends ErrorOptions {
   /** Path to instance. */
   instancePath?: PropertyKey[];
-}
-
-function makeMsg(
-  failure: ValidationFailure,
-  options: { rootName?: string } = {},
-): string {
-  const { rootName: name } = options;
-  const { instancePath, message } = failure;
-  const pathSection = instancePath.length
-    ? "\n" + new InstancePath(instancePath, { name })
-    : "";
-
-  return message + pathSection;
-}
-
-interface InstancePathOptions {
-  name?: string;
-}
-
-class InstancePath {
-  paths: readonly PropertyKey[];
-  name: string;
-
-  constructor(
-    paths: readonly PropertyKey[],
-    options?: InstancePathOptions,
-  ) {
-    this.paths = paths;
-    this.name = options?.name ?? "";
-  }
-
-  toString(): string {
-    const str = [this.name, ...this.paths]
-      .filter(Boolean)
-      .map(String)
-      .join(".");
-
-    return `instance path: ${str}`;
-  }
 }
