@@ -12,12 +12,12 @@ import {
   shouldBeBut,
 } from "./utils.ts";
 import { EnumValidator } from "./validators/enum.ts";
-import { KeyValidator } from "./validators/key.ts";
 import { RangeValidator } from "./validators/range.ts";
 import { FixedArrayValidator } from "./validators/array/fixed_array.ts";
 import { PropertiesValidator } from "./validators/object/properties.ts";
 import { OptionalValidator } from "./validators/object/optional.ts";
 import { PropertyValueValidator } from "./validators/object/property_value.ts";
+import { PropertyKeyValidator } from "./validators/object/property_key.ts";
 import { NullishValidator } from "./validators/nullish.ts";
 import { FloatValidator } from "./validators/number/float.ts";
 import { IntegerValidator } from "./validators/number/integer.ts";
@@ -478,7 +478,7 @@ export function between<In>(min: In, max: In) {
  * const keyValidator = key(validator);
  * ```
  */
-export const key = /* @__PURE__ */ createInst(KeyValidator);
+export const key = /* @__PURE__ */ createInst(PropertyKeyValidator);
 
 /** Factory for property value validator.
  *

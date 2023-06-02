@@ -54,7 +54,7 @@ Objects implementing this interface also come with default messages.
 | [optional](#optional)       |     Closure      | OptionalValidator           |             |
 | [enumerator](#enumerator)   |     Closure      | EnumValidator               |     ✅      |
 | [nullish](#nullish)         |      Object      | NullishValidator            |     ✅      |
-| [key](#key)                 |     Closure      | KeyValidator                |             |
+| [key](#key)                 |     Closure      | PropertyKeyValidator        |             |
 | [value](#value)             |     Closure      | PropertyValueValidator      |             |
 | [and](#and)                 |     Closure      | AndValidator                |     ✅      |
 | [or](#or)                   |     Closure      | OrValidator                 |     ✅      |

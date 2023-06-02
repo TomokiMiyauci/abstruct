@@ -77,7 +77,6 @@ export {
   ScalarValidator,
 } from "./validators/utils.ts";
 export { EnumValidator } from "./validators/enum.ts";
-export { KeyValidator } from "./validators/key.ts";
 export { NullishValidator } from "./validators/nullish.ts";
 export { RangeValidator } from "./validators/range.ts";
 export { FixedArrayValidator } from "./validators/array/fixed_array.ts";
@@ -99,6 +98,7 @@ export { PositiveNumberValidator } from "./validators/numeric/positive_number.ts
 export { PropertiesValidator } from "./validators/object/properties.ts";
 export { OptionalValidator } from "./validators/object/optional.ts";
 export { PropertyValueValidator } from "./validators/object/property_value.ts";
+export { PropertyKeyValidator } from "./validators/object/property_key.ts";
 export { AndValidator } from "./validators/operators/and.ts";
 export { EqualityValidator } from "./validators/operators/equality.ts";
 export { GreaterThanValidator } from "./validators/operators/greater_than.ts";
