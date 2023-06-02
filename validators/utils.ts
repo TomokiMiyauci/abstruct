@@ -13,6 +13,31 @@ export abstract class IsValidator<In = unknown, RIn extends In = In>
   }
 }
 
+/** Base validator.
+ *
+ * @example
+ * ```ts
+ * import {
+ *   BasicValidator,
+ * } from "https://deno.land/x/abstruct@$VERSION/validators/utils.ts";
+ *
+ * class StringItemValidator
+ *   extends BasicValidator<Iterable<unknown>, Iterable<string>> {
+ *   *validate(input: Iterable<unknown>) {
+ *     let i = 0;
+ *
+ *     for (const item of input) {
+ *       if (typeof item !== "string") {
+ *         yield {
+ *           message: `should be string, actual ${typeof input}`,
+ *           instancePath: [i++],
+ *         };
+ *       }
+ *     }
+ *   }
+ * }
+ * ```
+ */
 export abstract class BasicValidator<In = unknown, RIn extends In = In>
   implements Validator<In, RIn> {
   is(input: In): input is RIn {
