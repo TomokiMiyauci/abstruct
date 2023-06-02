@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { INSTANCE_PATH } from "./constants.ts";
-import { interpolate, isNotEmpty } from "./deps.ts";
+import { interpolate, isNotEmpty, isString } from "./deps.ts";
 import { joinDot } from "./utils.ts";
 import { type ValidationFailure, Validator } from "./types.ts";
 import { take } from "./iter_utils.ts";
@@ -45,6 +45,12 @@ export interface PathInfoOptions {
    * @default false
    */
   private?: boolean;
+
+  /** Instance path root name.
+   *
+   * @example `options`
+   */
+  rootName?: string;
 }
 
 /** Assert options. */
@@ -144,6 +150,10 @@ export function assert<In = unknown, RIn extends In = In>(
     { message, instancePath }: Readonly<ValidationFailure>,
   ): Error {
     message ||= validation.message ?? "";
+
+    if (isString(pathInfo.rootName)) {
+      instancePath.unshift(pathInfo.rootName);
+    }
 
     if (!pathInfo.private && isNotEmpty(instancePath)) {
       const pathRepr = joinDot(...instancePath);

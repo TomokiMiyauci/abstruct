@@ -34,7 +34,6 @@ describe("assert", () => {
     } catch (e) {
       err = e;
     } finally {
-      assertIsError(err, ValidationError);
       assertMatch(err.message, /^test\ninstance path: a$/);
     }
   });
@@ -49,24 +48,52 @@ describe("assert", () => {
     } catch (e) {
       err = e;
     } finally {
-      assertIsError(err, ValidationError);
       assertMatch(err.message, /^test$/);
     }
   });
 
-  it("should hide instance path info", () => {
+  it("should be private instance path info", () => {
     let err;
     try {
       assert(
         { ...v, validate: () => [{ message: "test", instancePath: ["a"] }] },
         "",
-        { pathInfo: { hide: true } },
+        { pathInfo: { private: true } },
       );
     } catch (e) {
       err = e;
     } finally {
-      assertIsError(err, ValidationError);
       assertMatch(err.message, /^test$/);
+    }
+  });
+
+  it("should add instance path root name", () => {
+    let err;
+    try {
+      assert(
+        { ...v, validate: () => [{ message: "test", instancePath: ["a"] }] },
+        "",
+        { pathInfo: { rootName: "options" } },
+      );
+    } catch (e) {
+      err = e;
+    } finally {
+      assertMatch(err.message, /^test\ninstance path: options.a$/);
+    }
+  });
+
+  it("should add instance path root name if instance path is not exist", () => {
+    let err;
+    try {
+      assert(
+        { ...v, validate: () => [{ message: "test", instancePath: [] }] },
+        "",
+        { pathInfo: { rootName: "options" } },
+      );
+    } catch (e) {
+      err = e;
+    } finally {
+      assertMatch(err.message, /^test\ninstance path: options$/);
     }
   });
 

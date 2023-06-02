@@ -102,17 +102,19 @@ import {
   string,
   ValidationError,
 } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
-import {
-  assertEquals,
-  assertIsError,
-} from "https://deno.land/std/testing/asserts.ts";
+import { assertIsError } from "https://deno.land/std/testing/asserts.ts";
 
 const Profile = props({ name: string, age: number });
 
 try {
   assert(Profile, { name: null, age: null });
 } catch (e) {
-  assertIsError(e, ValidationError, "<string validation message>");
+  assertIsError(
+    e,
+    ValidationError,
+    `<string validation message>
+instance path: name`,
+  );
 }
 ```
 
@@ -124,6 +126,55 @@ as it finds a validation failure.
 - Error instance
 - Fail slow mode
   - Limit number of failures
+
+### Instance path information
+
+Settings related to instance paths are made in the `pathInfo` namespace.
+
+#### Public vs private
+
+By default, the instance path is added to the error message and published.
+
+To suppress this, set the `private` field.
+
+```ts
+import { assert, string } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertMatch } from "https://deno.land/std/testing/asserts.ts";
+
+try {
+  assert(string, 0, { pathInfo: { private: true } });
+} catch (e) {
+  assertMatch(e.message, /^should be string, but number$/);
+}
+```
+
+#### Root name
+
+`rootName` is the root name of the instance path.
+
+This may make error tracking more straightforward.
+
+```ts
+import {
+  and,
+  assert,
+  int,
+  nonNegative,
+  props,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import { assertMatch } from "https://deno.land/std/testing/asserts.ts";
+
+const NonNegativeInteger = and(int, nonNegative);
+const Options = props({ maxLimit: NonNegativeInteger });
+
+declare const options: { maxLimit: number };
+
+try {
+  assert(Options, options, { pathInfo: { rootName: "options" } });
+} catch (e) {
+  assertMatch(e.message, /instance path: options.maxLimit/);
+}
+```
 
 ### Validation error
 
