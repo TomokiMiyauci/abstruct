@@ -1,3 +1,11 @@
+# [1.0.0-beta.12](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.11...1.0.0-beta.12) (2023-06-02)
+
+
+### Features
+
+* **validation:** add flag for path information ([430fd90](https://github.com/TomokiMiyauci/abstruct/commit/430fd9015116c2798e92957e65f8dc348e82e51a))
+* **validation:** add root name option for path info ([1fbd4d2](https://github.com/TomokiMiyauci/abstruct/commit/1fbd4d264350a3e33d64e988b93ad3cb51263016))
+
 # [1.0.0-beta.11](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.10...1.0.0-beta.11) (2023-06-02)
 
 
