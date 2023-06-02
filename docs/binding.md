@@ -55,7 +55,7 @@ Objects implementing this interface also come with default messages.
 | [enumerator](#enumerator)   |     Closure      | EnumValidator               |     ✅      |
 | [nullish](#nullish)         |      Object      | NullishValidator            |     ✅      |
 | [key](#key)                 |     Closure      | KeyValidator                |             |
-| [value](#value)             |     Closure      | ValueValidator              |             |
+| [value](#value)             |     Closure      | PropertyValueValidator      |             |
 | [and](#and)                 |     Closure      | AndValidator                |     ✅      |
 | [or](#or)                   |     Closure      | OrValidator                 |     ✅      |
 | [eq](#eq)                   |     Closure      | EqualityValidator           |     ✅      |

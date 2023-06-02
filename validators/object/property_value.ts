@@ -1,23 +1,23 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { BasicValidator } from "./utils.ts";
-import { curryR } from "../deps.ts";
-import { fromPath, print } from "../utils.ts";
-import { map } from "../iter_utils.ts";
-import { type ValidationFailure, type Validator } from "../types.ts";
+import { BasicValidator } from "../utils.ts";
+import { curryR } from "../../deps.ts";
+import { fromPath, print } from "../../utils.ts";
+import { map } from "../../iter_utils.ts";
+import { type ValidationFailure, type Validator } from "../../types.ts";
 
 /**  Property value validator. It checks to pass all property value.
  *
  * @example
  * ```ts
- * import { ValueValidator } from "https://deno.land/x/abstruct@$VERSION/validators/value.ts";
+ * import { PropertyValueValidator } from "https://deno.land/x/abstruct@$VERSION/validators/object/property_value.ts";
  * import { type Validator } from "https://deno.land/x/abstruct@$VERSION/types.ts";
  * declare const validator: Validator<string>;
- * const keyValidator = new ValueValidator(validator);
+ * const propValueValidator = new PropertyValueValidator(validator);
  * ```
  */
-export class ValueValidator<T, U extends T = T>
+export class PropertyValueValidator<T, U extends T = T>
   extends BasicValidator<Record<string, T>, Record<string, U>> {
   validator: Validator<T, U>;
 

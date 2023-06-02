@@ -203,7 +203,6 @@ do narrowing, but check the implementation.
 | KeyValidator                | `{}`                                    |
 | NullishValidator            | `unknown`                               |
 | RangeValidator              | `unknown`                               |
-| ValueValidator              | `Record<string, unknown>`               |
 | PatternValidator            | `string`                                |
 | AndValidator                | `unknown`                               |
 | EqualityValidator           | `unknown`                               |
@@ -218,6 +217,7 @@ do narrowing, but check the implementation.
 | TypeValidator               | `unknown`                               |
 | PropertiesValidator         | `Record<PropertyKey, unknown>`          |
 | OptionalValidator           | `Partial<Record<PropertyKey, unknown>>` |
+| PropertyValueValidator      | `Record<string, unknown>`               |
 | NegativeNumberValidator     | `number` &#124; `bigint`                |
 | NonNegativeNumberValidator  | `number` &#124; `bigint`                |
 | NonPositiveNumberValidator  | `number` &#124; `bigint`                |
