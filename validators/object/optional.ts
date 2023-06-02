@@ -4,17 +4,17 @@
 import { BasicValidator } from "../utils.ts";
 import { filterKeys } from "../../deps.ts";
 import { printProps } from "../../utils.ts";
-import { ObjectValidator } from "../object.ts";
+import { PropertiesValidator } from "./properties.ts";
 import { ValidationFailure, Validator } from "../../types.ts";
 
 /** Optional object validator. It checks properties, but also passes if the property does not exist.
  *
  * @example
  * ```ts
- * import { ObjectValidator } from "https://deno.land/x/abstruct@$VERSION/validators/object.ts";
+ * import { OptionalValidator } from "https://deno.land/x/abstruct@$VERSION/validators/object/optional.ts";
  * import { type Validator } from "https://deno.land/x/abstruct@$VERSION/types.ts";
  * declare const validator: Validator<string>;
- * const objectValidator = new ObjectValidator({ key: validator, [Symbol()]: validator });
+ * const optionalValidator = new OptionalValidator({ key: validator, [Symbol()]: validator });
  * ```
  */
 export class OptionalValidator<
@@ -39,7 +39,7 @@ export class OptionalValidator<
       Reflect.has.bind(this, input),
     ) as Record<string, Validator>;
 
-    yield* new ObjectValidator(validators).validate(input as T);
+    yield* new PropertiesValidator(validators).validate(input as T);
   }
 
   override toString(): string {

@@ -1,23 +1,23 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { BasicValidator } from "./utils.ts";
-import { curryR } from "../deps.ts";
-import { map } from "../iter_utils.ts";
-import { entriesAll, fromPath, printProps } from "../utils.ts";
-import { ValidationFailure, type Validator } from "../types.ts";
+import { BasicValidator } from "../utils.ts";
+import { curryR } from "../../deps.ts";
+import { map } from "../../iter_utils.ts";
+import { entriesAll, fromPath, printProps } from "../../utils.ts";
+import { ValidationFailure, type Validator } from "../../types.ts";
 
-/** Object validator.
+/** Object properties validator.
  *
  * @example
  * ```ts
- * import { ObjectValidator } from "https://deno.land/x/abstruct@$VERSION/validators/object.ts";
+ * import { PropertiesValidator } from "https://deno.land/x/abstruct@$VERSION/validators/object/properties.ts";
  * import { type Validator } from "https://deno.land/x/abstruct@$VERSION/types.ts";
  * declare const validator: Validator<string>;
- * const objectValidator = new ObjectValidator({ key: validator, [Symbol()]: validator });
+ * const propertiesValidator = new PropertiesValidator({ key: validator, [Symbol()]: validator });
  * ```
  */
-export class ObjectValidator<
+export class PropertiesValidator<
   const In extends Record<PropertyKey, unknown>,
   const RIn extends In = In,
 > extends BasicValidator<In, RIn> {

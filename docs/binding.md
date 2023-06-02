@@ -50,8 +50,8 @@ Objects implementing this interface also come with default messages.
 | [boolean](#instance)        |      Object      | TypeValidator               |     ✅      |
 | [symbol](#instance)         |      Object      | TypeValidator               |     ✅      |
 | [instance](#instance)       |     Closure      | InstanceValidator           |     ✅      |
-| [object](#object)           |     Closure      | ObjectValidator             |             |
-| [optional](#object)         |     Closure      | OptionalValidator           |             |
+| [object](#object)           |     Closure      | PropertiesValidator         |             |
+| [optional](#optional)       |     Closure      | OptionalValidator           |             |
 | [enumerator](#enumerator)   |     Closure      | EnumValidator               |     ✅      |
 | [nullish](#nullish)         |      Object      | NullishValidator            |     ✅      |
 | [key](#key)                 |     Closure      | KeyValidator                |             |

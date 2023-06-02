@@ -16,7 +16,7 @@ import { KeyValidator } from "./validators/key.ts";
 import { ValueValidator } from "./validators/value.ts";
 import { RangeValidator } from "./validators/range.ts";
 import { FixedArrayValidator } from "./validators/array/fixed_array.ts";
-import { ObjectValidator } from "./validators/object.ts";
+import { PropertiesValidator } from "./validators/object/properties.ts";
 import { OptionalValidator } from "./validators/object/optional.ts";
 import { NullishValidator } from "./validators/nullish.ts";
 import { FloatValidator } from "./validators/number/float.ts";
@@ -172,7 +172,7 @@ export function instance<T extends Constructor>(of: T) {
  * const User = object({ name: string, age: number });
  * ```
  */
-export const object = /* @__PURE__ */ createInst(ObjectValidator);
+export const object = /* @__PURE__ */ createInst(PropertiesValidator);
 
 /** Factory for optional properties validator.
  *

@@ -197,40 +197,40 @@ The following is a list of standard validators.
 In indicates the broadest type accepted. Most validators have generics and will
 do narrowing, but check the implementation.
 
-| Name                        | In                             |
-| --------------------------- | ------------------------------ |
-| EnumValidator               | `unknown`                      |
-| KeyValidator                | `{}`                           |
-| NullishValidator            | `unknown`                      |
-| ObjectValidator             | `Record<PropertyKey, unknown>` |
-| RangeValidator              | `unknown`                      |
-| ValueValidator              | `Record<string, unknown>`      |
-| PatternValidator            | `string`                       |
-| AndValidator                | `unknown`                      |
-| EqualityValidator           | `unknown`                      |
-| InequalityValidator         | `unknown`                      |
-| GreaterThanValidator        | `unknown`                      |
-| GreaterThanOrEqualValidator | `unknown`                      |
-| LessThanValidator           | `unknown`                      |
-| LessThanOrEqualValidator    | `unknown`                      |
-| InstanceValidator           | `unknown`                      |
-| NotValidatorValidator       | `unknown`                      |
-| OrValidatorValidator        | `unknown`                      |
-| TypeValidator               | `unknown`                      |
-| OptionalValidator           | `Record<PropertyKey, unknown>` |
-| NegativeNumberValidator     | `number` &#124; `bigint`       |
-| NonNegativeNumberValidator  | `number` &#124; `bigint`       |
-| NonPositiveNumberValidator  | `number` &#124; `bigint`       |
-| PositiveNumberValidator     | `number` &#124; `bigint`       |
-| FloatValidatorValidator     | `number`                       |
-| IntegerValidator            | `number`                       |
-| EmptyValidator              | `Iterable<unknown>`            |
-| NonEmptyValidator           | `Iterable<unknown>`            |
-| ItemValidator               | `Iterable<unknown>`            |
-| CountValidator              | `Iterable<unknown>`            |
-| MaxCountValidator           | `Iterable<unknown>`            |
-| MinCountValidator           | `Iterable<unknown>`            |
-| SingleValidator             | `Iterable<unknown>`            |
-| UniqueValidator             | `Iterable<unknown>`            |
-| ValidDateValidator          | `Date`                         |
-| FixedArrayValidator         | `unknown[]`                    |
+| Name                        | In                                      |
+| --------------------------- | --------------------------------------- |
+| EnumValidator               | `unknown`                               |
+| KeyValidator                | `{}`                                    |
+| NullishValidator            | `unknown`                               |
+| RangeValidator              | `unknown`                               |
+| ValueValidator              | `Record<string, unknown>`               |
+| PatternValidator            | `string`                                |
+| AndValidator                | `unknown`                               |
+| EqualityValidator           | `unknown`                               |
+| InequalityValidator         | `unknown`                               |
+| GreaterThanValidator        | `unknown`                               |
+| GreaterThanOrEqualValidator | `unknown`                               |
+| LessThanValidator           | `unknown`                               |
+| LessThanOrEqualValidator    | `unknown`                               |
+| InstanceValidator           | `unknown`                               |
+| NotValidatorValidator       | `unknown`                               |
+| OrValidatorValidator        | `unknown`                               |
+| TypeValidator               | `unknown`                               |
+| PropertiesValidator         | `Record<PropertyKey, unknown>`          |
+| OptionalValidator           | `Partial<Record<PropertyKey, unknown>>` |
+| NegativeNumberValidator     | `number` &#124; `bigint`                |
+| NonNegativeNumberValidator  | `number` &#124; `bigint`                |
+| NonPositiveNumberValidator  | `number` &#124; `bigint`                |
+| PositiveNumberValidator     | `number` &#124; `bigint`                |
+| FloatValidatorValidator     | `number`                                |
+| IntegerValidator            | `number`                                |
+| EmptyValidator              | `Iterable<unknown>`                     |
+| NonEmptyValidator           | `Iterable<unknown>`                     |
+| ItemValidator               | `Iterable<unknown>`                     |
+| CountValidator              | `Iterable<unknown>`                     |
+| MaxCountValidator           | `Iterable<unknown>`                     |
+| MinCountValidator           | `Iterable<unknown>`                     |
+| SingleValidator             | `Iterable<unknown>`                     |
+| UniqueValidator             | `Iterable<unknown>`                     |
+| ValidDateValidator          | `Date`                                  |
+| FixedArrayValidator         | `unknown[]`                             |
