@@ -1,3 +1,13 @@
+# [1.0.0-beta.11](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.10...1.0.0-beta.11) (2023-06-02)
+
+
+### Features
+
+* **bindings:** rename to props from object ([feb1f7b](https://github.com/TomokiMiyauci/abstruct/commit/feb1f7bd749e465d67e3ab05f469a295d7fbcdf9))
+* **optional:** change generics constraints ([440f304](https://github.com/TomokiMiyauci/abstruct/commit/440f3048078bd75e3b11d1ed01d31f7221fb2cde))
+* **properties:** change generics constraints ([dbe064f](https://github.com/TomokiMiyauci/abstruct/commit/dbe064f534e48eab8f30fd772bb57b8fa92ecead))
+* **types:** remove struct constructor ([bd40790](https://github.com/TomokiMiyauci/abstruct/commit/bd407901ded879352fb5a6b63f97ac13df11de60))
+
 # [1.0.0-beta.10](https://github.com/TomokiMiyauci/abstruct/compare/1.0.0-beta.9...1.0.0-beta.10) (2023-06-02)
 
 
