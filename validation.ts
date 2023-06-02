@@ -48,14 +48,14 @@ export interface AssertOptions {
   failSlow?: boolean;
 }
 
-/** Lazy assert options. */
+/** Single assert options. */
 export interface SingleAssertOptions extends AssertOptions {
   failSlow?: false;
 }
 
 /** Aggregation error configs. */
 
-/** Greedy assert options. */
+/** Multiple assert options. */
 export interface MultiAssertOptions extends AssertOptions, ValidateOptions {
   /** Aggregation error configs. */
   aggregation?: AggregationConfigs;
