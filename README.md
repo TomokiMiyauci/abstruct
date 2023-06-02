@@ -113,7 +113,7 @@ const ID = string.expect(({ input }) =>
 ## Philosophy
 
 1. Composable: All features are composable. Being composable brings the
-   following features as a side effect:
+   following features:
 
    - Single responsibility
    - DRY
