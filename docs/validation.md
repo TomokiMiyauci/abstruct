@@ -98,7 +98,7 @@ Assert that the input passes validator.
 import {
   assert,
   number,
-  object,
+  props,
   string,
   ValidationError,
 } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
@@ -107,7 +107,7 @@ import {
   assertIsError,
 } from "https://deno.land/std/testing/asserts.ts";
 
-const Profile = object({ name: string, age: number });
+const Profile = props({ name: string, age: number });
 
 try {
   assert(Profile, { name: null, age: null });
@@ -222,7 +222,7 @@ found.
 import {
   assert,
   number,
-  object,
+  props,
   string,
 } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
 import {
@@ -230,7 +230,7 @@ import {
   assertIsError,
 } from "https://deno.land/std/testing/asserts.ts";
 
-const Profile = object({ name: string, age: number });
+const Profile = props({ name: string, age: number });
 
 try {
   assert(Profile, { name: null, age: null }, { failSlow: true });

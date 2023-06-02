@@ -1,8 +1,8 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { assert, boolean, number, object, string } from "../mod.ts";
+import { assert, boolean, number, props, string } from "../mod.ts";
 
-const User = object({
+const User = props({
   id: string.expect(`should be valid`),
   name: string.expect(({ input }) => `${String(input)} is invalid`),
   age: number,

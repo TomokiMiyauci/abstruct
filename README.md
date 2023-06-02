@@ -23,15 +23,15 @@ import {
   and,
   assert,
   maxCount,
-  object,
   pattern,
+  props,
   string,
   validDate,
 } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
 import { assertThrows } from "https://deno.land/std/testing/asserts.ts";
 
 const Id = and(string, pattern(/^\d$/));
-const Book = object({
+const Book = props({
   id: Id,
   title: maxCount(256).expect(`length should be less than or equal to 256`),
   publishAt: validDate,

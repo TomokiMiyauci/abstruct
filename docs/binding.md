@@ -50,7 +50,7 @@ Objects implementing this interface also come with default messages.
 | [boolean](#instance)        |      Object      | TypeValidator               |     ✅      |
 | [symbol](#instance)         |      Object      | TypeValidator               |     ✅      |
 | [instance](#instance)       |     Closure      | InstanceValidator           |     ✅      |
-| [object](#object)           |     Closure      | PropertiesValidator         |             |
+| [props](#props)             |     Closure      | PropertiesValidator         |             |
 | [optional](#optional)       |     Closure      | OptionalValidator           |             |
 | [enumerator](#enumerator)   |     Closure      | EnumValidator               |     ✅      |
 | [nullish](#nullish)         |      Object      | NullishValidator            |     ✅      |
@@ -142,19 +142,19 @@ import { instance } from "https://deno.land/x/abstruct@$VERSION/bindings.ts";
 const validator = instance(Array);
 ```
 
-## object
+## props
 
-[![abstruct:object](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+object+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+object+%7D%5D#sharing)
+[![abstruct:props](https://deno.bundlejs.com/?q=https://deno.land/x/abstruct/mod.ts&treeshake=[{+props+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fabstruct%2Fmod.ts&treeshake=%5B%7B+props+%7D%5D#sharing)
 
-Factory for object validator.
+Factory for properties validator.
 
 ```ts
 import {
   number,
-  object,
+  props,
   string,
 } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
-const User = object({ name: string, age: number });
+const User = props({ name: string, age: number });
 ```
 
 ## optional

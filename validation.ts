@@ -70,7 +70,7 @@ export interface MultiAssertOptions extends AssertOptions, ValidateOptions {
  * import {
  *  assert,
  *  number,
- *  object,
+ *  props,
  *  string,
  *  ValidationError,
  * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
@@ -79,7 +79,7 @@ export interface MultiAssertOptions extends AssertOptions, ValidateOptions {
  *  assertIsError,
  * } from "https://deno.land/std/testing/asserts.ts";
  *
- * const Profile = object({ name: string, age: number });
+ * const Profile = props({ name: string, age: number });
  *
  * try {
  *  assert(Profile, { name: null, age: null });

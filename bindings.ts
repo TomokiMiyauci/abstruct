@@ -160,19 +160,19 @@ export function instance<T extends Constructor>(of: T) {
   );
 }
 
-/** Factory for object validator.
+/** Factory for properties validator.
  *
  * @example
  * ```ts
  * import {
  *  number,
- *  object,
+ *  props,
  *  string,
  * } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
- * const User = object({ name: string, age: number });
+ * const User = props({ name: string, age: number });
  * ```
  */
-export const object = /* @__PURE__ */ createInst(PropertiesValidator);
+export const props = /* @__PURE__ */ createInst(PropertiesValidator);
 
 /** Factory for optional properties validator.
  *
