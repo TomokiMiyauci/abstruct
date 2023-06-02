@@ -2,7 +2,7 @@
 
 import { AndValidator } from "./and.ts";
 import { TypeValidator } from "./typeof.ts";
-import { ValidationFailure, Validator } from "../../types.ts";
+import type { Validator } from "../../types.ts";
 import { PatternValidator } from "../string/pattern.ts";
 import {
   assert,
@@ -62,9 +62,12 @@ describe("AndValidator", () => {
         return true;
       },
     });
-    const failure = new ValidationFailure("test", { instancePath: ["a"] });
+    const failure = { message: "test", instancePath: [] };
 
-    assertEquals([...validator.validate("")], [failure]);
+    assertEquals([...validator.validate("")], [{
+      message: "test",
+      instancePath: [],
+    }]);
   });
 
   it("should not call when previous validation is fail", () => {
@@ -74,9 +77,10 @@ describe("AndValidator", () => {
     const validate = spy(() => []);
     const stored = stub(v2, "validate", validate);
 
-    assertEquals([...validator.validate(0)], [
-      new ValidationFailure("", { instancePath: [] }),
-    ]);
+    assertEquals([...validator.validate(0)], [{
+      message: "",
+      instancePath: [],
+    }]);
     assertSpyCalls(validate, 0);
     stored.restore();
   });

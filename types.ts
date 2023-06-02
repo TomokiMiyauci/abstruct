@@ -11,26 +11,12 @@ export interface Validator<In = unknown, RIn extends In = In> {
 }
 
 /** Validation failure. */
-export class ValidationFailure {
+export interface ValidationFailure {
   /** The validation failure message. */
   message: string;
 
   /** The path to a part of the instance. */
   instancePath: PropertyKey[];
-
-  constructor(
-    message?: string,
-    options?: Readonly<ValidationFailureOptions>,
-  ) {
-    this.message = message ?? "";
-    this.instancePath = [...options?.instancePath ?? []];
-  }
-}
-
-/** Validation failure options. */
-export interface ValidationFailureOptions {
-  /** The path to a part of the instance. */
-  instancePath?: readonly PropertyKey[];
 }
 
 /** Binding message API. */

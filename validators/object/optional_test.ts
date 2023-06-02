@@ -2,7 +2,6 @@
 
 import { OptionalValidator } from "./optional.ts";
 import { TypeValidator } from "../operators/typeof.ts";
-import { ValidationFailure } from "../../types.ts";
 import { assertEquals, describe, it } from "../../_dev_deps.ts";
 
 describe("OptionalValidator", () => {
@@ -11,7 +10,7 @@ describe("OptionalValidator", () => {
       [...new OptionalValidator({ a: new TypeValidator("string") }).validate({
         a: 0,
       })],
-      [new ValidationFailure("", { instancePath: ["a"] })],
+      [{ message: "", instancePath: ["a"] }],
     );
 
     assertEquals(

@@ -2,7 +2,6 @@
 
 import { NotValidator } from "./not.ts";
 import { EqualityValidator } from "./equality.ts";
-import { ValidationFailure } from "../../types.ts";
 import {
   assert,
   assertEquals,
@@ -20,7 +19,7 @@ describe("NotValidator", () => {
 
   it("validate should yield if validator is ok", () => {
     assertEquals([...new NotValidator(new EqualityValidator(0)).validate(0)], [
-      new ValidationFailure(""),
+      { message: "", instancePath: [] },
     ]);
   });
 

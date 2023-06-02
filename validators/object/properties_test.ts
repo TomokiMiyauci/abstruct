@@ -2,7 +2,6 @@
 
 import { PropertiesValidator } from "./properties.ts";
 import { TypeValidator } from "../operators/typeof.ts";
-import { ValidationFailure } from "../../types.ts";
 import { assertEquals, describe, it } from "../../_dev_deps.ts";
 
 describe("PropertiesValidator", () => {
@@ -11,7 +10,7 @@ describe("PropertiesValidator", () => {
       [...new PropertiesValidator({ a: new TypeValidator("string") }).validate({
         a: 0,
       })],
-      [new ValidationFailure("", { instancePath: ["a"] })],
+      [{ message: "", instancePath: ["a"] }],
     );
 
     assertEquals(
@@ -22,12 +21,10 @@ describe("PropertiesValidator", () => {
         a: 0,
         [Symbol.iterator]: "",
       })],
-      [
-        new ValidationFailure("", { instancePath: ["a"] }),
-        new ValidationFailure("", {
-          instancePath: [Symbol.iterator],
-        }),
-      ],
+      [{ message: "", instancePath: ["a"] }, {
+        message: "",
+        instancePath: [Symbol.iterator],
+      }],
     );
   });
 

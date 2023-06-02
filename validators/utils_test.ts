@@ -9,7 +9,7 @@ import {
   ScalarValidator,
 } from "./utils.ts";
 import { TypeValidator } from "./operators/typeof.ts";
-import { ValidationFailure } from "../types.ts";
+import type { ValidationFailure } from "../types.ts";
 import {
   assert,
   assertEquals,
@@ -25,7 +25,10 @@ describe("lazy", () => {
 
     assertFalse(validator === v);
     assert(validator.is(""));
-    assertEquals([...validator.validate(0)], [new ValidationFailure("")]);
+    assertEquals([...validator.validate(0)], [{
+      message: "",
+      instancePath: [],
+    }]);
     assertEquals(validator.toString(), "string");
   });
 });
@@ -34,7 +37,7 @@ describe("BasicValidator", () => {
   it("is should return false if validate yield", () => {
     class V extends BasicValidator {
       override *validate(): Iterable<ValidationFailure> {
-        yield new ValidationFailure();
+        yield { message: "", instancePath: [] };
       }
     }
 
@@ -59,7 +62,10 @@ describe("IsValidator", () => {
       }
     }
 
-    assertEquals([...new V().validate("")], [new ValidationFailure()]);
+    assertEquals([...new V().validate("")], [{
+      message: "",
+      instancePath: [],
+    }]);
   });
 
   it("validate should not yield if is function return true", () => {
@@ -92,7 +98,10 @@ describe("ScalarValidator", () => {
     }
 
     assertFalse(new V().is(""));
-    assertEquals([...new V().validate("")], [new ValidationFailure()]);
+    assertEquals([...new V().validate("")], [{
+      message: "",
+      instancePath: [],
+    }]);
   });
 
   it("validate should not yield if is function return true", () => {

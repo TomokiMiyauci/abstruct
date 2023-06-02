@@ -10,26 +10,28 @@ import {
   printProps,
 } from "./utils.ts";
 import { assertEquals, describe, it } from "./_dev_deps.ts";
-import { ValidationFailure } from "./mod.ts";
 
 describe("fromMessage", () => {
   it("should return new message failure", () => {
-    const failure = new ValidationFailure();
-    assertEquals(fromMessage(failure, "test"), new ValidationFailure("test"));
+    assertEquals(
+      fromMessage({ message: "", instancePath: [] }, "test"),
+      { message: "test", instancePath: [] },
+    );
   });
 
   it("should return old message", () => {
-    const failure = new ValidationFailure("test");
-    assertEquals(fromMessage(failure, ""), new ValidationFailure("test"));
+    assertEquals(
+      fromMessage({ message: "test", instancePath: [] }, ""),
+      { message: "test", instancePath: [] },
+    );
   });
 });
 
 describe("fromPath", () => {
   it("should return new instance path", () => {
-    const failure = new ValidationFailure("", { instancePath: [1, 2, 3] });
     assertEquals(
-      fromPath(failure, 0),
-      new ValidationFailure("", { instancePath: [0, 1, 2, 3] }),
+      fromPath({ message: "", instancePath: [1, 2, 3] }, 0),
+      { message: "", instancePath: [0, 1, 2, 3] },
     );
   });
 });
@@ -122,16 +124,16 @@ describe("Expectable", () => {
     const $V = Expectable(V);
 
     assertEquals([...new $V().expect(`test`).validate("")], [
-      new ValidationFailure("test", { instancePath: [] }),
+      { message: "test", instancePath: [] },
     ]);
     assertEquals([...new $V().expect(`test`).expect(`test2`).validate("")], [
-      new ValidationFailure("test2", { instancePath: [] }),
+      { message: "test2", instancePath: [] },
     ]);
 
     assertEquals([
       ...new $V().expect(`test`).expect(`test2`).expect(() => "test3")
         .validate(""),
-    ], [new ValidationFailure("test3", { instancePath: [] })]);
+    ], [{ message: "test3", instancePath: [] }]);
   });
 
   it("should return default message if not set", () => {
@@ -142,8 +144,9 @@ describe("Expectable", () => {
     }
     const $V = Expectable(V);
 
-    assertEquals([...new $V().validate("")], [
-      new ValidationFailure("test", { instancePath: [] }),
-    ]);
+    assertEquals([...new $V().validate("")], [{
+      message: "test",
+      instancePath: [],
+    }]);
   });
 });

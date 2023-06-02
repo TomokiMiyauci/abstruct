@@ -53,9 +53,9 @@ for why this is necessary.
 Validators are very simple and easy to define.
 
 ```ts
-import {
-  type ValidationFailure,
-  type Validator,
+import type {
+  ValidationFailure,
+  Validator,
 } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
 
 const StringValidator: Validator<unknown, string> = {
@@ -76,26 +76,6 @@ const StringValidator: Validator<unknown, string> = {
 Of course, helpers are available, but it is worthwhile to know how to define
 them in a pure way.
 
-It can be refactored as follows:
-
-```ts
-import {
-  ValidationFailure,
-  type Validator,
-} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
-
-const StringValidator: Validator<unknown, string> = {
-  *validate(input: unknown): Iterable<ValidationFailure> {
-    if (!this.is(input)) {
-      yield new ValidationFailure(`should be string, actual ${typeof input}`);
-    }
-  },
-  is(input: unknown): input is string {
-    return typeof input === "string";
-  },
-};
-```
-
 You will want to define only one of the two required methods.
 
 ### Validator from `validate`
@@ -106,11 +86,14 @@ validator from a `validate`.
 Class style:
 
 ```ts
-import { BasicValidator } from "https://deno.land/x/abstruct@$VERSION/mod.ts";
+import {
+  BasicValidator,
+  type ValidationFailure,
+} from "https://deno.land/x/abstruct@$VERSION/mod.ts";
 
 class StringItemValidator
   extends BasicValidator<Iterable<unknown>, Iterable<string>> {
-  *validate(input: Iterable<unknown>) {
+  *validate(input: Iterable<unknown>): Iterable<ValidationFailure> {
     let i = 0;
 
     for (const item of input) {

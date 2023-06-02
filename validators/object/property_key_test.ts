@@ -1,7 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
 import { PropertyKeyValidator } from "./property_key.ts";
-import { ValidationFailure } from "../../types.ts";
 import { PatternValidator } from "../string/pattern.ts";
 import { assertEquals, describe, it } from "../../_dev_deps.ts";
 
@@ -10,8 +9,8 @@ describe("PropertyKeyValidator", () => {
     const validator = new PropertyKeyValidator(new PatternValidator(/^a/));
 
     assertEquals([...validator.validate({ b: "", bb: "" })], [
-      new ValidationFailure("", { instancePath: ["b"] }),
-      new ValidationFailure("", { instancePath: ["bb"] }),
+      { message: "", instancePath: ["b"] },
+      { message: "", instancePath: ["bb"] },
     ]);
   });
 

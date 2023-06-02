@@ -14,12 +14,7 @@ export {
   ValidationError,
   type ValidationErrorOptions,
 } from "./validation.ts";
-export {
-  type Expectation,
-  ValidationFailure,
-  type ValidationFailureOptions,
-  type Validator,
-} from "./types.ts";
+export type { Expectation, ValidationFailure, Validator } from "./types.ts";
 export {
   and,
   between,

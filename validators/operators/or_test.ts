@@ -2,7 +2,6 @@
 
 import { OrValidator } from "./or.ts";
 import { TypeValidator } from "./typeof.ts";
-import { ValidationFailure } from "../../types.ts";
 import {
   assert,
   assertEquals,
@@ -56,7 +55,7 @@ describe("OrValidator", () => {
     });
 
     assertEquals([...validator.validate(true)], [
-      new ValidationFailure("", { instancePath: ["a", "b", "c"] }),
+      { message: "", instancePath: ["a", "b", "c"] },
     ]);
   });
 

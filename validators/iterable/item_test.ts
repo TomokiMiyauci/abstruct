@@ -2,7 +2,6 @@
 
 import { ItemValidator } from "./item.ts";
 import { TypeValidator } from "../operators/typeof.ts";
-import { ValidationFailure } from "../../types.ts";
 import { assertEquals, describe, it } from "../../_dev_deps.ts";
 
 describe("ItemValidator", () => {
@@ -10,9 +9,9 @@ describe("ItemValidator", () => {
     const validator = new ItemValidator(new TypeValidator("string"));
 
     assertEquals([...validator.validate([0, false, 1n])], [
-      new ValidationFailure("", { instancePath: [0] }),
-      new ValidationFailure("", { instancePath: [1] }),
-      new ValidationFailure("", { instancePath: [2] }),
+      { message: "", instancePath: [0] },
+      { message: "", instancePath: [1] },
+      { message: "", instancePath: [2] },
     ]);
   });
 

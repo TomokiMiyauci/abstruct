@@ -2,7 +2,7 @@
 
 import { FixedArrayValidator } from "./fixed_array.ts";
 import { TypeValidator } from "../operators/typeof.ts";
-import { ValidationFailure, Validator } from "../../types.ts";
+import { Validator } from "../../types.ts";
 import {
   assertEquals,
   assertType,
@@ -29,8 +29,8 @@ describe("FixedArrayValidator", () => {
     const result = validator.validate([0, ""]);
 
     assertEquals([...result], [
-      new ValidationFailure("", { instancePath: [0] }),
-      new ValidationFailure("", { instancePath: [1] }),
+      { message: "", instancePath: [0] },
+      { message: "", instancePath: [1] },
     ]);
   });
 

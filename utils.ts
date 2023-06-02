@@ -12,16 +12,17 @@ export function fromPath(
 ): ValidationFailure {
   const instancePath = [path, ...failure.instancePath];
 
-  return new ValidationFailure(failure.message, { instancePath });
+  return { message: failure.message, instancePath };
 }
 
 export function fromMessage(
   failure: Readonly<ValidationFailure>,
   message: string,
 ): ValidationFailure {
-  return new ValidationFailure(message || failure.message, {
+  return {
+    message: message || failure.message,
     instancePath: failure.instancePath,
-  });
+  };
 }
 export function shouldBe(this: void): string {
   return interpolate(Error.ShouldBe, [print(this)]);

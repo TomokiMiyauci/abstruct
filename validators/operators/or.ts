@@ -45,7 +45,7 @@ export class OrValidator<In = unknown, RIn extends In = In>
     const instancePath = maxBy(failures, instancePathLength)
       ?.instancePath ?? [];
 
-    yield new ValidationFailure("", { instancePath });
+    yield { message: "", instancePath };
   }
 
   override toString(): string {

@@ -9,7 +9,7 @@ export abstract class IsValidator<In = unknown, RIn extends In = In>
   abstract is(input: In): input is RIn;
 
   *validate(input: In): Iterable<ValidationFailure> {
-    if (!this.is(input)) yield new ValidationFailure();
+    if (!this.is(input)) yield { message: "", instancePath: [] };
   }
 }
 
@@ -70,9 +70,9 @@ export abstract class ScalarValidator<In = unknown, RIn extends In = In>
   }
 
   *validate(input: In): Iterable<ValidationFailure> {
-    const checked = this.check(input);
+    const message = this.check(input);
 
-    if (checked !== true) yield new ValidationFailure(checked);
+    if (message !== true) yield { message, instancePath: [] };
   }
 }
 
