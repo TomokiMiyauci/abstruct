@@ -1,4 +1,4 @@
-// Copyright 2023-latest the httpland authors. All rights reserved. MIT license.
+// Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
 import { Validator } from "./mod.ts";
 export { describe, it } from "https://deno.land/std@0.186.0/testing/bdd.ts";
