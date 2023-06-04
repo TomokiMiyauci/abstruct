@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { BasicValidator } from "../utils.ts";
-import { curryR } from "../../deps.ts";
+import { partialRight } from "../../deps.ts";
 import { map } from "../../iter_utils.ts";
 import { entriesAll, fromPath, printProps } from "../../utils.ts";
 import { ValidationFailure, type Validator } from "../../types.ts";
@@ -44,7 +44,7 @@ export class PropertiesValidator<
       const value = (input as Record<PropertyKey, unknown>)?.[key];
       const iterable = validator.validate(value);
 
-      yield* map(iterable, curryR(fromPath, key));
+      yield* map(iterable, partialRight(fromPath, key));
     }
   }
 

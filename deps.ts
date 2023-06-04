@@ -53,17 +53,17 @@ export function memoize<A extends readonly unknown[], R>(
   };
 }
 
-/** Create right curried function. */
-export function curryR<A0, A extends readonly unknown[], R>(
+/** Create right partial applied function. */
+export function partialRight<A0, A extends readonly unknown[], R>(
   fn: (...args: [...A, A0]) => R,
   arg0: A0,
 ): (...args: A) => R;
-export function curryR<A0, A1, A extends readonly unknown[], R>(
+export function partialRight<A0, A1, A extends readonly unknown[], R>(
   fn: (...args: [...A, A1, A0]) => R,
   arg0: A0,
   arg1: A1,
 ): (...args: A) => R;
-export function curryR<AX, R>(
+export function partialRight<AX, R>(
   fn: (...args: AX[]) => R,
   ...args: AX[]
 ): (...args: AX[]) => R {

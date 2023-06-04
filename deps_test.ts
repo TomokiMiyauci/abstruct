@@ -1,6 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { curryR, isInRange, memoize } from "./deps.ts";
+import { isInRange, memoize, partialRight } from "./deps.ts";
 import {
   assert,
   assertEquals,
@@ -44,11 +44,11 @@ describe("memoize", () => {
   });
 });
 
-describe("curryR", () => {
+describe("partialRight", () => {
   it("should return right curried function", () => {
     const fn = spy((a: string, b: string, c: string) => a + b + c);
 
-    assertEquals(curryR(fn, "a")("b", "c"), "bca");
-    assertEquals(curryR(fn, "a", "b")("c"), "cba");
+    assertEquals(partialRight(fn, "a")("b", "c"), "bca");
+    assertEquals(partialRight(fn, "a", "b")("c"), "cba");
   });
 });
