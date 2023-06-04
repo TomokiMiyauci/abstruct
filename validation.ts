@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { INSTANCE_PATH } from "./constants.ts";
-import { interpolate, isNotEmpty, isString } from "./deps.ts";
+import { format, isNotEmpty, isString } from "./deps.ts";
 import { joinDot } from "./utils.ts";
 import { type ValidationFailure, Validator } from "./types.ts";
 import { take } from "./iter_utils.ts";
@@ -158,7 +158,7 @@ export function assert<In = unknown, RIn extends In = In>(
     if (!pathInfo.private && isNotEmpty(instancePath)) {
       const pathRepr = joinDot(...instancePath);
 
-      message += "\n" + interpolate(INSTANCE_PATH, [pathRepr]);
+      message += "\n" + format(INSTANCE_PATH, [pathRepr]);
     }
 
     return new VError(message, { cause: validation.cause, instancePath });

@@ -97,5 +97,9 @@ export const makeOptions = (version: string): BuildOptions => ({
       version: "1.4.0",
       subPath: "numeric/is_non_positive_number.js",
     },
+    "https://deno.land/x/format@1.0.0/mod.ts": {
+      name: "@miyauci/format",
+      version: "1.0.0",
+    },
   },
 });

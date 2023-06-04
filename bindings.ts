@@ -1,7 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-import { type Constructor, interpolate } from "./deps.ts";
+import { type Constructor, format } from "./deps.ts";
 import { type Expectation, type Validator } from "./types.ts";
 import { count as getCount } from "./iter_utils.ts";
 import {
@@ -105,7 +105,7 @@ export function type<T extends TypeStr>(of: T) {
   const validator = new $TypeValidator(of);
 
   return validator.expect(({ input }) =>
-    interpolate(Error.ShouldBeBut, [print(validator), typeof input])
+    format(Error.ShouldBeBut, [print(validator), typeof input])
   );
 }
 
@@ -153,7 +153,7 @@ export function instance<T extends Constructor>(of: T) {
   const validator = new $InstanceValidator(of);
 
   return validator.expect(({ input }) =>
-    interpolate(Error.ShouldBeBut, [
+    format(Error.ShouldBeBut, [
       print(validator),
       input?.constructor.name ?? input,
     ])
@@ -530,7 +530,7 @@ export function count(of: number) {
   const validator = new $CountValidator(of);
 
   return validator.expect(({ input }) =>
-    interpolate(Error.ShouldBeBut, [print(validator), getCount(input)])
+    format(Error.ShouldBeBut, [print(validator), getCount(input)])
   );
 }
 
@@ -566,7 +566,7 @@ export const item = /* @__PURE__ */ createInst(ItemValidator);
  */
 export function maxCount(limit: number) {
   return new $MaxCountValidator(limit).expect(({ input }) =>
-    interpolate(Error.MaxCount, [limit, getCount(input)])
+    format(Error.MaxCount, [limit, getCount(input)])
   );
 }
 
@@ -581,7 +581,7 @@ export function maxCount(limit: number) {
  */
 export function minCount(limit: number) {
   return new $MinCountValidator(limit).expect(({ input }) =>
-    interpolate(Error.MinCount, [limit, getCount(input)])
+    format(Error.MinCount, [limit, getCount(input)])
   );
 }
 
@@ -672,6 +672,6 @@ export function pattern(
   const validator = new $PatternValidator(pattern);
 
   return validator.expect(({ input }) =>
-    interpolate(Error.ShouldBeBut, [`match ${validator}`, print(input)])
+    format(Error.ShouldBeBut, [`match ${validator}`, print(input)])
   );
 }

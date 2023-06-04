@@ -4,7 +4,7 @@
 
 import { Error } from "./constants.ts";
 import { type Expectation, ValidationFailure } from "./types.ts";
-import { interpolate, isBigint, isString } from "./deps.ts";
+import { format, isBigint, isString } from "./deps.ts";
 
 export function fromPath(
   failure: Readonly<ValidationFailure>,
@@ -25,14 +25,14 @@ export function fromMessage(
   };
 }
 export function shouldBe(this: void): string {
-  return interpolate(Error.ShouldBe, [print(this)]);
+  return format(Error.ShouldBe, [print(this)]);
 }
 
 export function shouldBeBut(
   this: void,
   { input }: Readonly<{ input: unknown }>,
 ): string {
-  return interpolate(Error.ShouldBeBut, [print(this), print(input)]);
+  return format(Error.ShouldBeBut, [print(this), print(input)]);
 }
 
 /** Create instance */

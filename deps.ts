@@ -16,7 +16,7 @@ export { isNonPositiveNumber } from "https://deno.land/x/isx@1.4.0/numeric/is_no
 export { isValidDate } from "https://deno.land/x/isx@1.4.0/date/is_valid_date.ts";
 export { filterKeys } from "https://deno.land/std@0.187.0/collections/filter_keys.ts";
 export { maxBy } from "https://deno.land/std@0.187.0/collections/max_by.ts";
-import { escapeStringRegexp } from "https://deno.land/x/escape_string_regexp@v0.0.1/mod.ts";
+export { format } from "https://deno.land/x/format@1.0.0/mod.ts";
 
 /** Whether the input is in range. It is inclusive.
  * @throws {RangeError} If max less than to min.
@@ -33,43 +33,6 @@ export function isInRange<T>(
 
   return min <= input && input <= max;
 }
-
-/** Interpolate JavaScript value to template. */
-export function interpolate<
-  T extends string,
-  const U extends Delimiters = { prefix: "{"; suffix: "}" },
->(
-  template: T,
-  placeholders: { readonly [k in ParsePlaceholder<T, U>]: unknown },
-  options?: Readonly<U>,
-): string {
-  const { prefix = "{", suffix = "}" } = options ?? {};
-
-  return Object
-    .entries(placeholders)
-    .reduce(reducer, template);
-
-  function reducer(prev: string, [key, value]: [string, unknown]): string {
-    const escaped = escapeStringRegexp(`${prefix}${key}${suffix}`);
-    const pattern = new RegExp(escaped, "g");
-
-    return prev.replace(pattern, String(value));
-  }
-}
-
-export interface Delimiters {
-  prefix: Primitive;
-  suffix: Primitive;
-}
-
-type Primitive = string | number | bigint | boolean | null | undefined;
-
-export type ParsePlaceholder<
-  T,
-  U extends Partial<Delimiters>,
-> = T extends `${string}${U["prefix"]}${infer P}${U["suffix"]}${infer R}`
-  ? P | ParsePlaceholder<R, U>
-  : never;
 
 /** Return memoed function. */
 export function memoize<A extends readonly unknown[], R>(
