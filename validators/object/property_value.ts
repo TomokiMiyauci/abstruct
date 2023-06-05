@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { BasicValidator } from "../utils.ts";
-import { partialRight } from "../../deps.ts";
+import { papplyRest } from "../../deps.ts";
 import { fromPath, print } from "../../utils.ts";
 import { map } from "../../iter_utils.ts";
 import { type ValidationFailure, type Validator } from "../../types.ts";
@@ -28,7 +28,7 @@ export class PropertyValueValidator<T, U extends T = T>
 
   *validate(input: Readonly<Record<string, T>>): Iterable<ValidationFailure> {
     for (const [key, value] of Object.entries(input)) {
-      const createError = partialRight(fromPath, key);
+      const createError = papplyRest(fromPath, key);
 
       yield* map(this.validator.validate(value), createError);
     }

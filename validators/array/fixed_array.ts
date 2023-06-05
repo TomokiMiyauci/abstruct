@@ -3,7 +3,7 @@
 
 import { BasicValidator } from "../utils.ts";
 import { map } from "../../iter_utils.ts";
-import { partialRight } from "../../deps.ts";
+import { papplyRest } from "../../deps.ts";
 import { type ValidationFailure, type Validator } from "../../types.ts";
 import { fromPath } from "../../utils.ts";
 
@@ -36,7 +36,7 @@ export class FixedArrayValidator<
   *validate(input: Readonly<In>): Iterable<ValidationFailure> {
     for (const [i, validator] of this.validators.entries()) {
       const value = input[i];
-      const createError = partialRight(fromPath, i);
+      const createError = papplyRest(fromPath, i);
       const iterable = validator.validate(value);
 
       yield* map(iterable, createError);

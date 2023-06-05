@@ -3,7 +3,7 @@
 // This module is browser compatible.
 
 import { BasicValidator } from "../utils.ts";
-import { partialRight } from "../../deps.ts";
+import { papplyRest } from "../../deps.ts";
 import { fromPath, print } from "../../utils.ts";
 import { map } from "../../iter_utils.ts";
 import { type ValidationFailure, type Validator } from "../../types.ts";
@@ -29,7 +29,7 @@ export class PropertyKeyValidator<T extends string = string>
 
   *validate(input: object): Iterable<ValidationFailure> {
     for (const key in input) {
-      const createError = partialRight(fromPath, key);
+      const createError = papplyRest(fromPath, key);
 
       yield* map(this.validator.validate(key), createError);
     }

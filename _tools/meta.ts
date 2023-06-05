@@ -101,5 +101,9 @@ export const makeOptions = (version: string): BuildOptions => ({
       name: "@miyauci/format",
       version: "1.0.0",
     },
+    "https://deno.land/x/curry@1.1.0/mod.ts": {
+      name: "@miyauci/curry",
+      version: "1.1.0",
+    },
   },
 });

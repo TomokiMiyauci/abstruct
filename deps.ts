@@ -17,6 +17,7 @@ export { isValidDate } from "https://deno.land/x/isx@1.4.0/date/is_valid_date.ts
 export { filterKeys } from "https://deno.land/std@0.187.0/collections/filter_keys.ts";
 export { maxBy } from "https://deno.land/std@0.187.0/collections/max_by.ts";
 export { format } from "https://deno.land/x/format@1.0.0/mod.ts";
+export { papplyRest } from "https://deno.land/x/curry@1.1.0/mod.ts";
 
 /** Whether the input is in range. It is inclusive.
  * @throws {RangeError} If max less than to min.
@@ -50,25 +51,6 @@ export function memoize<A extends readonly unknown[], R>(
     cache.set(key, value);
 
     return value;
-  };
-}
-
-/** Create right partial applied function. */
-export function partialRight<A0, A extends readonly unknown[], R>(
-  fn: (...args: [...A, A0]) => R,
-  arg0: A0,
-): (...args: A) => R;
-export function partialRight<A0, A1, A extends readonly unknown[], R>(
-  fn: (...args: [...A, A1, A0]) => R,
-  arg0: A0,
-  arg1: A1,
-): (...args: A) => R;
-export function partialRight<AX, R>(
-  fn: (...args: AX[]) => R,
-  ...args: AX[]
-): (...args: AX[]) => R {
-  return function (...rest) {
-    return fn(...rest, ...args.reverse());
   };
 }
 

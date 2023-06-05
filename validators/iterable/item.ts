@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { BasicValidator } from "../utils.ts";
-import { partialRight } from "../../deps.ts";
+import { papplyRest } from "../../deps.ts";
 import { fromPath, print } from "../../utils.ts";
 import { enumerate, map } from "../../iter_utils.ts";
 import { type ValidationFailure, Validator } from "../../types.ts";
@@ -28,7 +28,7 @@ export class ItemValidator<T = unknown, U extends T = T>
   *validate(input: Readonly<Iterable<T>>): Iterable<ValidationFailure> {
     for (const [i, el] of enumerate(input)) {
       const iterable = this.validator.validate(el);
-      const createError = partialRight(fromPath, i);
+      const createError = papplyRest(fromPath, i);
 
       yield* map(iterable, createError);
     }
