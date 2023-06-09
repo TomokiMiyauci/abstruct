@@ -18,6 +18,7 @@ export { filterKeys } from "https://deno.land/std@0.187.0/collections/filter_key
 export { maxBy } from "https://deno.land/std@0.187.0/collections/max_by.ts";
 export { format } from "https://deno.land/x/format@1.0.0/mod.ts";
 export { papplyRest } from "https://deno.land/x/curry@1.1.0/mod.ts";
+export { memo } from "https://deno.land/x/memoization@1.0.0/mod.ts";
 
 /** Whether the input is in range. It is inclusive.
  * @throws {RangeError} If max less than to min.
@@ -33,25 +34,6 @@ export function isInRange<T>(
   }
 
   return min <= input && input <= max;
-}
-
-/** Return memoed function. */
-export function memoize<A extends readonly unknown[], R>(
-  fn: (...args: A) => R,
-): (...args: A) => R {
-  const cache = new Map<string, R>();
-
-  return function (...args: A): R {
-    const key = JSON.stringify(args);
-
-    if (cache.has(key)) return cache.get(key)!;
-
-    const value = fn(...args);
-
-    cache.set(key, value);
-
-    return value;
-  };
 }
 
 /** Constructor type. */

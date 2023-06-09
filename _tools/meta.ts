@@ -105,5 +105,9 @@ export const makeOptions = (version: string): BuildOptions => ({
       name: "@miyauci/curry",
       version: "1.1.0",
     },
+    "https://deno.land/x/memoization/mod.ts": {
+      name: "@miyauci/memo",
+      version: "1.0.0",
+    },
   },
 });

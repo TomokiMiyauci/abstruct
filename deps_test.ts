@@ -1,15 +1,7 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { isInRange, memoize } from "./deps.ts";
-import {
-  assert,
-  assertEquals,
-  assertSpyCalls,
-  assertThrows,
-  describe,
-  it,
-  spy,
-} from "./_dev_deps.ts";
+import { isInRange } from "./deps.ts";
+import { assert, assertThrows, describe, it } from "./_dev_deps.ts";
 
 describe("isInRange", () => {
   it("should return true if number", () => {
@@ -27,19 +19,5 @@ describe("isInRange", () => {
 
   it("should throw error if range is invalid", () => {
     assertThrows(() => isInRange(0, [0, -1]));
-  });
-});
-
-describe("memoize", () => {
-  it("should return cached function", () => {
-    const obj = {};
-    const fn = spy(() => obj);
-    const memo = memoize(fn);
-
-    assertEquals(memo(), obj);
-    assertEquals(memo(), obj);
-    assertEquals(memo(), obj);
-
-    assertSpyCalls(fn, 1);
   });
 });

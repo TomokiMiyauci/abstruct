@@ -2,7 +2,7 @@
 // This module is browser compatible.
 
 import { ValidationFailure, type Validator } from "../types.ts";
-import { isEmpty, memoize } from "../deps.ts";
+import { isEmpty, memo } from "../deps.ts";
 
 export abstract class IsValidator<In = unknown, RIn extends In = In>
   implements Validator<In, RIn> {
@@ -137,7 +137,7 @@ export function defineScalarValidator<In = unknown, RIn extends In = In>(
 export function lazy<In, RIn extends In = In>(
   fn: () => Validator<In, RIn>,
 ): Validator<In, RIn> {
-  const $fn = memoize(fn);
+  const $fn = memo(fn);
   const validator = {
     is: (input: In): input is RIn => {
       return $fn().is(input);

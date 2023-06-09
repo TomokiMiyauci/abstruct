@@ -11,6 +11,7 @@
     "https://deno.land/std@0.186.0/testing/types.ts": "6832887bea73ee3549dda953a8df41f8bfa8790219ab56a3b94b984a71a3b3e9",
     "https://deno.land/std@0.187.0/collections/filter_keys.ts": "3b99bd98d347f23b8fe8183b108077ae6e467707e80798e768c11eb86fff49c9",
     "https://deno.land/std@0.187.0/collections/max_by.ts": "2adb39effb8df0e1c99c7c7745a994c3bac0f3405474766cd262d7eba8b0ec6f",
+    "https://deno.land/std@0.190.0/collections/partition.ts": "cf57f32e4022d092b209c341a3c04338e8386ab19947a48416e131596d925f08",
     "https://deno.land/x/curry@1.1.0/curry.ts": "7ebc2bcb5530b3a0f33d32936dacbc66c3325ce9cd5841933ffa142ab5e800da",
     "https://deno.land/x/curry@1.1.0/mod.ts": "cbb00d5653fdbee999f1a3cce9d2def23313a018339081546b420d97cded3822",
     "https://deno.land/x/curry@1.1.0/partial.ts": "f2bfaa567267c612498c4c2064dbe73d56effc34425ec9263785f0a8494b60de",
@@ -30,6 +31,11 @@
     "https://deno.land/x/isx@1.4.0/numeric/is_negative_number.ts": "e4fabe353789b27ebbd1b1292728cb4ba05ce9a19be46d769fd5f97021964a8b",
     "https://deno.land/x/isx@1.4.0/numeric/is_non_negative_number.ts": "7a4575105225d4337fafa6686db52dec98adab019c6fc08634a24d9ebd88acf6",
     "https://deno.land/x/isx@1.4.0/numeric/is_non_positive_number.ts": "e2aa5b8605de2cd2d98906a29231db5671e522252bdf0327a10e20a663b13c33",
-    "https://deno.land/x/isx@1.4.0/numeric/is_positive_number.ts": "73d37328a385b3c24b7acebb0d4b444ebbc799c24f91fe6c0d845dfe4c9d47ae"
+    "https://deno.land/x/isx@1.4.0/numeric/is_positive_number.ts": "73d37328a385b3c24b7acebb0d4b444ebbc799c24f91fe6c0d845dfe4c9d47ae",
+    "https://deno.land/x/memoization@1.0.0/composite_key.ts": "59b16e2f06495bc27b71e78bd6e8d3e5a7f7163c6e11256bfebb7bf287175053",
+    "https://deno.land/x/memoization@1.0.0/deps.ts": "b94447c2c4fdc160299314a425c1ae7eb2396068068b7a0bd1745a116757056e",
+    "https://deno.land/x/memoization@1.0.0/memo.ts": "db51e88982d0bcb2803b5e9bbf83ca4c1818e5145627bf306179197159463dbd",
+    "https://deno.land/x/memoization@1.0.0/mod.ts": "94b12c6745123c49e67922fdca50b3943d1dbb772c3d8914f272c8263fbd12c8",
+    "https://deno.land/x/memoization@1.0.0/utils.ts": "e4f1dbdcebd9f19ffad2a54421e33561eccca62240e3b1f652c780efae1ecfcb"
   }
 }
